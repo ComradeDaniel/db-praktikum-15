@@ -1,0 +1,4 @@
+rootProject.name = 'db-praktikum-15'
+include 'Aufgabe1'
+include 'Aufgabe2'
+include 'Aufgabe3'

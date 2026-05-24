@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Aufgabe 1",
+            "request": "launch",
+            "mainClass": "Aufgabe1.Main",
+            "projectName": "db-praktikum-15.Aufgabe1.main"
+        },
+        {
+            "type": "java",
+            "name": "Aufgabe 2",
+            "request": "launch",
+            "mainClass": "Aufgabe2.Main",
+            "projectName": "db-praktikum-15.Aufgabe2.main"
+        },
+        {
+            "type": "java",
+            "name": "Aufgabe 3",
+            "request": "launch",
+            "mainClass": "Aufgabe3.Main",
+            "projectName": "db-praktikum-15.Aufgabe3.main"
+        }
+    ]
+}

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Type Definitions -->
+  
+  <xs:complexType name="PriceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="state" type="xs:string" use="optional"/>
+        <xs:attribute name="mult" type="xs:decimal" use="optional"/>
+        <xs:attribute name="currency" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="DetailsType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="img" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ListmaniaType">
+    <xs:sequence>
+      <xs:element name="list" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ActorsType">
+    <xs:sequence>
+      <xs:element name="actor" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ArtistsType">
+    <xs:sequence>
+      <xs:element name="artist" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AuthorsType">
+    <xs:sequence>
+      <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CreatorsType">
+    <xs:sequence>
+      <xs:element name="creator" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DirectorsType">
+    <xs:sequence>
+      <xs:element name="director" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LabelsType">
+    <xs:sequence>
+      <xs:element name="label" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PublishersType">
+    <xs:sequence>
+      <xs:element name="publisher" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="StudiosType">
+    <xs:sequence>
+      <xs:element name="studio" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SimilarItemType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="asin" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="SimilarsType">
+    <xs:sequence>
+      <xs:element name="item" type="SimilarItemType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TracksType">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LanguageType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="type" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="AudiotextType">
+    <xs:sequence>
+      <xs:element name="language" type="LanguageType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="audioformat" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ValAttributeType">
+    <xs:attribute name="val" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="PackageType">
+    <xs:attribute name="weight" type="xs:string" use="optional"/>
+    <xs:attribute name="height" type="xs:string" use="optional"/>
+    <xs:attribute name="length" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="PublicationType">
+    <xs:attribute name="date" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="BookspecType">
+    <xs:sequence>
+      <xs:element name="binding" type="xs:string" minOccurs="0"/>
+      <xs:element name="edition" type="ValAttributeType" minOccurs="0"/>
+      <xs:element name="isbn" type="ValAttributeType" minOccurs="0"/>
+      <xs:element name="package" type="PackageType" minOccurs="0"/>
+      <xs:element name="pages" type="xs:string" minOccurs="0"/>
+      <xs:element name="publication" type="PublicationType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DvdspecType">
+    <xs:sequence>
+      <xs:element name="aspectratio" type="xs:string" minOccurs="0"/>
+      <xs:element name="format" type="xs:string" minOccurs="0"/>
+      <xs:element name="regioncode" type="xs:string" minOccurs="0"/>
+      <xs:element name="releasedate" type="xs:string" minOccurs="0"/>
+      <xs:element name="runningtime" type="xs:string" minOccurs="0"/>
+      <xs:element name="theatr_release" type="xs:string" minOccurs="0"/>
+      <xs:element name="upc" type="ValAttributeType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MusicspecType">
+    <xs:sequence>
+      <xs:element name="binding" type="xs:string" minOccurs="0"/>
+      <xs:element name="format" type="xs:string" minOccurs="0"/>
+      <xs:element name="num_discs" type="xs:string" minOccurs="0"/>
+      <xs:element name="releasedate" type="xs:string" minOccurs="0"/>
+      <xs:element name="upc" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ItemType">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string"/>
+      <xs:element name="price" type="PriceType"/>
+      <xs:element name="ean" type="xs:string" minOccurs="0"/>
+      <xs:element name="details" type="DetailsType"/>
+      <xs:element name="listmania" type="ListmaniaType"/>
+      <xs:element name="actors" type="ActorsType"/>
+      <xs:element name="artists" type="ArtistsType"/>
+      <xs:element name="authors" type="AuthorsType"/>
+      <xs:element name="creators" type="CreatorsType"/>
+      <xs:element name="directors" type="DirectorsType"/>
+      <xs:element name="labels" type="LabelsType"/>
+      <xs:element name="publishers" type="PublishersType"/>
+      <xs:element name="studios" type="StudiosType"/>
+      <xs:element name="similars" type="SimilarsType"/>
+      <xs:element name="tracks" type="TracksType"/>
+      <xs:element name="audiotext" type="AudiotextType"/>
+      <xs:element name="bookspec" type="BookspecType"/>
+      <xs:element name="dvdspec" type="DvdspecType"/>
+      <xs:element name="musicspec" type="MusicspecType"/>
+    </xs:sequence>
+    <xs:attribute name="pgroup" type="xs:string" use="required"/>
+    <xs:attribute name="asin" type="xs:string" use="required"/>
+    <xs:attribute name="salesrank" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="ShopType">
+    <xs:sequence>
+      <xs:element name="item" type="ItemType" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="street" type="xs:string" use="optional"/>
+    <xs:attribute name="zip" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <!-- Root Element -->
+  <xs:element name="shop" type="ShopType"/>
+
+</xs:schema>

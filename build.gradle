@@ -12,3 +12,69 @@ subprojects {
         }
     }
 }
+
+configurations {
+    jaxb
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    jaxb 'org.glassfish.jaxb:jaxb-xjc:4.0.5'
+    jaxb 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+    jaxb 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+    jaxb 'jakarta.activation:jakarta.activation-api:2.1.3'
+}
+
+task generateJaxb {
+    description = 'Generates JAXB classes from XSD schemas'
+    
+    def outputDir = file("${projectDir}/xml-models/src/main/java")
+    def xsdFiles = [
+        file('data/data/dresden.xsd'),
+        file('data/data/leipzig_transformed.xsd'),
+        file('data/data/categories.xsd')
+    ]
+    
+    inputs.files(xsdFiles)
+    outputs.dir(outputDir)
+    
+    doLast {
+        outputDir.mkdirs()
+        ant.taskdef(
+            name: 'xjc',
+            classname: 'com.sun.tools.xjc.XJCTask',
+            classpath: configurations.jaxb.asPath
+        )
+        ant.xjc(destdir: outputDir, package: 'dresden', extension: true) {
+            arg(value: "-npa")
+            schema(dir: 'data/data', includes: 'dresden.xsd')
+        }
+        ant.xjc(destdir: outputDir, package: 'leipzig', extension: true) {
+            arg(value: "-npa")
+            schema(dir: 'data/data', includes: 'leipzig_transformed.xsd')
+        }
+        ant.xjc(destdir: outputDir, package: 'categories', extension: true) {
+            arg(value: "-npa")
+            schema(dir: 'data/data', includes: 'categories.xsd')
+        }
+    }
+}
+
+project(':xml-models') {
+    // Disable application plugin effects as this is just a library
+    application {
+        mainClass = ""
+    }
+    
+    dependencies {
+        implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+        implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+    }
+
+    tasks.named('compileJava') {
+        dependsOn ':generateJaxb'
+    }
+}

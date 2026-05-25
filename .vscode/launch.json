@@ -6,21 +6,24 @@
             "name": "Aufgabe 1",
             "request": "launch",
             "mainClass": "Aufgabe1.Main",
-            "projectName": "db-praktikum-15.Aufgabe1.main"
+            "projectName": "db-praktikum-15.Aufgabe1.main",
+            "cwd": "${workspaceFolder}"
         },
         {
             "type": "java",
             "name": "Aufgabe 2",
             "request": "launch",
             "mainClass": "Aufgabe2.Main",
-            "projectName": "db-praktikum-15.Aufgabe2.main"
+            "projectName": "db-praktikum-15.Aufgabe2.main",
+            "cwd": "${workspaceFolder}"
         },
         {
             "type": "java",
             "name": "Aufgabe 3",
             "request": "launch",
             "mainClass": "Aufgabe3.Main",
-            "projectName": "db-praktikum-15.Aufgabe3.main"
+            "projectName": "db-praktikum-15.Aufgabe3.main",
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

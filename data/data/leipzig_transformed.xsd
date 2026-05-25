@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="shop">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="item" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="price">
+                <xs:complexType>
+                  <xs:attribute name="mult" type="xs:string"/>
+                  <xs:attribute name="state" type="xs:string"/>
+                  <xs:attribute name="currency" type="xs:string"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="title" type="xs:string"/>
+              
+              <xs:element name="bookspec" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="binding" type="xs:string" minOccurs="0"/>
+                    <xs:element name="edition" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="val" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="isbn" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="val" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="package" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="weight" type="xs:string"/>
+                        <xs:attribute name="height" type="xs:string"/>
+                        <xs:attribute name="length" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="pages" type="xs:string" minOccurs="0"/>
+                    <xs:element name="publication" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="date" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="dvdspec" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="format" type="xs:string" minOccurs="0"/>
+                    <xs:element name="upc" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="value" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="audio" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="aspectratio" type="xs:string" minOccurs="0"/>
+                    <xs:element name="regioncode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="releasedate" type="xs:string" minOccurs="0"/>
+                    <xs:element name="runningtime" type="xs:string" minOccurs="0"/>
+                    <xs:element name="theatr_release" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="musicspec" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="binding" type="xs:string" minOccurs="0"/>
+                    <xs:element name="format" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="value" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="num_discs" type="xs:string" minOccurs="0"/>
+                    <xs:element name="releasedate" type="xs:string" minOccurs="0"/>
+                    <xs:element name="upc" type="xs:string" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="labels" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="label" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="publishers" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="publisher" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="studios" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="studio" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="similars" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="sim_product" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="asin" type="xs:string" minOccurs="0"/>
+                          <xs:element name="title" type="xs:string" minOccurs="0"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="tracks" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="audiotext" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="listmania" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="list" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="actors" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="actor" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="artists" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="artist" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="authors" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="author" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="creators" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="creator" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="directors" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="director" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+            </xs:sequence>
+            <xs:attribute name="pgroup" type="xs:string"/>
+            <xs:attribute name="asin" type="xs:string"/>
+            <xs:attribute name="salesrank" type="xs:string"/>
+            <xs:attribute name="picture" type="xs:string"/>
+            <xs:attribute name="detailpage" type="xs:string"/>
+            <xs:attribute name="ean" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string"/>
+      <xs:attribute name="street" type="xs:string"/>
+      <xs:attribute name="zip" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

@@ -16,7 +16,7 @@ public class Main {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             // throwen wenn das Schema nicht passt
             unmarshaller.setEventHandler(new DefaultValidationEventHandler());
-            Shop shop = (Shop) unmarshaller.unmarshal(new File("../data/data/leipzig_transformed.xml"));
+            Shop shop = (Shop) unmarshaller.unmarshal(new File("data/data/leipzig_transformed.xml"));
 
             System.out.printf("number of items: %d\n", shop.getItem().size());
             System.out.print("success - no errors");

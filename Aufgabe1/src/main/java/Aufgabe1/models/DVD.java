@@ -4,17 +4,17 @@ import java.util.Date;
 import java.util.List;
 
 public class DVD extends Product {
-    public String format;
-    public int runtime;
-    public int regionCode;
-    public Date releaseDate;
-    public String theatricalRelease;
-    public String aspectRation;
-    public String audioFormat;
-    public String upc;
-    public List<DVDPerson> persons;
-    public List<Studio> studios;
-    public List<DVDLanguage> languages;
+    private String format;
+    private int runtime;
+    private int regionCode;
+    private Date releaseDate;
+    private String theatricalRelease;
+    private String aspectRation;
+    private String audioFormat;
+    private String upc;
+    private List<DVDPerson> persons;
+    private List<Studio> studios;
+    private List<DVDLanguage> languages;
 
     public DVD(
             String title,
@@ -24,6 +24,7 @@ public class DVD extends Product {
             String detailURL,
             float avgRating,
             int numReviews,
+            List<Product> similarpProducts,
             String format,
             int runtime,
             int regionCode,
@@ -36,7 +37,7 @@ public class DVD extends Product {
             List<Studio> studios,
             List<DVDLanguage> languages
     ) {
-        super(title, salesRank, imageURL, ean, detailURL, avgRating, numReviews);
+        super(title, salesRank, imageURL, ean, detailURL, avgRating, numReviews, similarpProducts);
         this.format = format;
         this.runtime = runtime;
         this.regionCode = regionCode;
@@ -51,7 +52,7 @@ public class DVD extends Product {
     }
 
     public static class DVDPerson extends Person {
-        public String role;
+        private String role;
 
         public DVDPerson(String name, String role) {
             super(name);
@@ -60,8 +61,8 @@ public class DVD extends Product {
     }
 
     public static class DVDLanguage {
-        public String language;
-        public String languageType;
+        private String language;
+        private String languageType;
 
         public DVDLanguage(String language, String languageType) {
             this.language = language;

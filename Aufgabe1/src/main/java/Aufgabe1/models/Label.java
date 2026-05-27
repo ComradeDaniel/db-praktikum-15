@@ -1,8 +1,8 @@
 package Aufgabe1.models;
 
 public class Label {
-    public int id;
-    public String name;
+    private int id;
+    private String name;
 
     public Label(String name) {
         this.name = name;

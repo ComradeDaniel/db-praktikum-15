@@ -2,6 +2,10 @@ application {
     mainClass = 'Aufgabe1.Main'
 }
 
+run {
+    workingDir = rootProject.projectDir
+}
+
 dependencies {
     implementation project(':xml-models')
     implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'

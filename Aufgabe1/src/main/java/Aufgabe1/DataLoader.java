@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +37,7 @@ public class DataLoader {
         public int musicCds;
         public int tracks;
         public int bookAuthors;
+        public int bookPublishers;
         public int cdArtists;
         public int dvdPersons;
         public int dvdStudios;
@@ -52,7 +52,7 @@ public class DataLoader {
         public int total() {
             return stores + persons + publishers + labels + studios + listmaniaLists
                     + customers + categories + products + books + dvds + musicCds + tracks
-                    + bookAuthors + cdArtists + dvdPersons + dvdStudios + cdLabels + dvdLanguages
+                    + bookAuthors + bookPublishers + cdArtists + dvdPersons + dvdStudios + cdLabels + dvdLanguages
                     + productListmania + productCategories + similarProducts + offers + reviews;
         }
 
@@ -74,6 +74,7 @@ public class DataLoader {
                             + "  MusicCD: %d%n"
                             + "  Track: %d%n"
                             + "  BookAuthor: %d%n"
+                            + "  BookPublisher: %d%n"
                             + "  CDArtist: %d%n"
                             + "  DVDPerson: %d%n"
                             + "  DVDStudio: %d%n"
@@ -87,7 +88,7 @@ public class DataLoader {
                             + "  Total: %d",
                     stores, persons, publishers, labels, studios, listmaniaLists,
                     customers, categories, products, books, dvds, musicCds, tracks,
-                    bookAuthors, cdArtists, dvdPersons, dvdStudios, cdLabels, dvdLanguages,
+                    bookAuthors, bookPublishers, cdArtists, dvdPersons, dvdStudios, cdLabels, dvdLanguages,
                     productListmania, productCategories, similarProducts, offers, reviews,
                     total());
         }
@@ -96,7 +97,7 @@ public class DataLoader {
     // Reihenfolge fuer TRUNCATE: umgekehrt zur Abhaengigkeit (Kinder vor Eltern); Store separat
     private static final String[] MANAGED_TABLES = {
             "Review", "Offer", "SimilarProduct", "ProductCategory", "ProductListmania", "DVDLanguage",
-            "DVDStudio", "CDLabel", "CDArtist", "DVDPerson", "BookAuthor", "Track",
+            "DVDStudio", "CDLabel", "CDArtist", "DVDPerson", "BookPublisher", "BookAuthor", "Track",
             "MusicCD", "DVD", "Book", "Product", "Category", "ListmaniaList",
             "Customer", "Studio", "Label", "Publisher", "Person"
     };
@@ -168,8 +169,7 @@ public class DataLoader {
             stats.customers = insertCustomers(conn, customers);
             stats.categories = insertCategories(conn, categories);
 
-            Map<String, String> asinToPublisher = buildAsinToPublisher(publisherProductIndex);
-            ProductInsertCounts productCounts = insertProducts(conn, products, asinToPublisher);
+            ProductInsertCounts productCounts = insertProducts(conn, products);
             stats.products = productCounts.products;
             stats.books = productCounts.books;
             stats.dvds = productCounts.dvds;
@@ -180,6 +180,7 @@ public class DataLoader {
             stats.bookAuthors = linkCounts.bookAuthors;
             stats.cdArtists = linkCounts.cdArtists;
             stats.dvdPersons = linkCounts.dvdPersons;
+            stats.bookPublishers = insertBookPublisher(conn, publisherProductIndex, products);
             stats.dvdStudios = insertDvdStudio(conn, studioProductIndex, products);
             stats.cdLabels = insertCdLabel(conn, labelProductIndex, products);
             stats.dvdLanguages = insertDvdLanguage(conn, dvdLanguageProductIndex, products);
@@ -285,20 +286,29 @@ public class DataLoader {
     }
 
     // Schema erlaubt nur einen Verlag je Buch; bei mehreren deterministisch den alphabetisch ersten
-    private static Map<String, String> buildAsinToPublisher(Map<Publisher, HashSet<String>> publisherProductIndex) {
-        Map<String, String> asinToPublisher = new HashMap<>();
-        publisherProductIndex.entrySet().stream()
-                .sorted((a, b) -> a.getKey().getName().compareTo(b.getKey().getName()))
-                .forEach(e -> {
-                    for (String asin : e.getValue()) {
-                        asinToPublisher.putIfAbsent(asin, e.getKey().getName());
+    private static int insertBookPublisher(Connection conn, Map<Publisher, HashSet<String>> publisherProductIndex,
+                                           Map<String, Product> products) throws SQLException {
+        String sql = "INSERT INTO BookPublisher (product_id, publisher) VALUES (?, ?)";
+        int count = 0;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (Map.Entry<Publisher, HashSet<String>> e : publisherProductIndex.entrySet()) {
+                for (String asin : e.getValue()) {
+                    if (products.get(asin) instanceof Book) {
+                        ps.setString(1, asin);
+                        ps.setString(2, e.getKey().getName());
+                        ps.addBatch();
+                        count++;
                     }
-                });
-        return asinToPublisher;
+                }
+            }
+            if (count > 0) {
+                ps.executeBatch();
+            }
+        }
+        return count;
     }
 
-    private static ProductInsertCounts insertProducts(Connection conn, Map<String, Product> products,
-                                                      Map<String, String> asinToPublisher) throws SQLException {
+    private static ProductInsertCounts insertProducts(Connection conn, Map<String, Product> products) throws SQLException {
         ProductInsertCounts counts = new ProductInsertCounts();
         String productSql = "INSERT INTO Product " +
                 "(product_id, title, sales_rank, image_url, ean, detail_url, avg_rating, num_reviews, product_type) " +
@@ -322,19 +332,18 @@ public class DataLoader {
             }
         }
 
-        counts.books = insertBooks(conn, products, asinToPublisher);
+        counts.books = insertBooks(conn, products);
         counts.dvds = insertDvds(conn, products);
         counts.musicCds = insertMusicCds(conn, products);
         counts.tracks = insertTracks(conn, products);
         return counts;
     }
 
-    private static int insertBooks(Connection conn, Map<String, Product> products,
-                                   Map<String, String> asinToPublisher) throws SQLException {
+    private static int insertBooks(Connection conn, Map<String, Product> products) throws SQLException {
         String sql = "INSERT INTO Book " +
                 "(product_id, isbn, page_count, release_date, binding, edition, " +
-                " package_weight, package_height, package_length, publisher) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " package_weight, package_height, package_length) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int count = 0;
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             for (Product p : products.values()) {
@@ -348,7 +357,6 @@ public class DataLoader {
                 setNullableInt(ps, 7, b.getPackageWeight());
                 setNullableInt(ps, 8, b.getPackageHeight());
                 setNullableInt(ps, 9, b.getPackageLength());
-                ps.setString(10, asinToPublisher.get(b.getAsin()));
                 ps.addBatch();
                 count++;
             }

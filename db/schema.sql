@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS DVDStudio        CASCADE;
 DROP TABLE IF EXISTS CDLabel          CASCADE;
 DROP TABLE IF EXISTS CDArtist         CASCADE;
 DROP TABLE IF EXISTS DVDPerson        CASCADE;
+DROP TABLE IF EXISTS BookPublisher    CASCADE;
 DROP TABLE IF EXISTS BookAuthor       CASCADE;
 DROP TABLE IF EXISTS Track            CASCADE;
 DROP TABLE IF EXISTS MusicCD          CASCADE;
@@ -120,7 +121,6 @@ CREATE TABLE Book (
     package_weight INT,
     package_height INT,
     package_length INT,
-    publisher      TEXT     REFERENCES Publisher(name),
     CONSTRAINT chk_book_pages         CHECK (page_count     IS NULL OR page_count     > 0),
     CONSTRAINT chk_book_release_date  CHECK (release_date   IS NULL OR release_date  <= CURRENT_DATE),
     CONSTRAINT chk_book_pkg_weight    CHECK (package_weight IS NULL OR package_weight >= 0),
@@ -176,6 +176,12 @@ CREATE TABLE BookAuthor (
     product_id  TEXT        NOT NULL REFERENCES Book(product_id)  ON DELETE CASCADE,
     person      TEXT        NOT NULL REFERENCES Person(name)      ON DELETE CASCADE,
     PRIMARY KEY (product_id, person)
+);
+
+CREATE TABLE BookPublisher (
+    product_id  TEXT        NOT NULL REFERENCES Book(product_id) ON DELETE CASCADE,
+    publisher   TEXT        NOT NULL REFERENCES Publisher(name)  ON DELETE CASCADE,
+    PRIMARY KEY (product_id, publisher)
 );
 
 CREATE TABLE DVDPerson (

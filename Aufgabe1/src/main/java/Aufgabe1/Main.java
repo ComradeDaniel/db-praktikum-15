@@ -38,11 +38,8 @@ import leipzig.Shop;
 public class Main {
     public static void main(String[] args) {
         try {
-            /*
-             * ===================================================
-             * Unmarhalling XML and CSV
-             * ===================================================
-            */
+            
+            // Unmarhalling XML and CSV
 
             JAXBContext contextLeipzig = JAXBContext.newInstance(leipzig.ObjectFactory.class);
             Unmarshaller unmarshallerLeipzig = contextLeipzig.createUnmarshaller();
@@ -61,11 +58,9 @@ public class Main {
             unmarshallerCategories.setEventHandler(new DefaultValidationEventHandler());
             Categories categories = (Categories) unmarshallerCategories.unmarshal(new File("data/data/categories.xml"));
 
-            /*
-             * ===================================================
-             * Hydration to model entities
-             * ===================================================
-            */
+            
+            //Hydration to model entities
+             
 
             Store[] stores = {
                 new Store("Leipzig", shopLeipzig.getStreet(), shopLeipzig.getZip()),
@@ -161,11 +156,8 @@ public class Main {
 
             hydrationErrors.prettyPrintToFile("fehler.txt");
 
-            /*
-             * ===================================================
-             * Inserting into DB
-             * ===================================================
-            */
+            
+            //Inserting into DB
 
             DataLoader.LoadStats stats = DataLoader.load(
                     conn,

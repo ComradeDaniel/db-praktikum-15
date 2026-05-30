@@ -1,0 +1,115 @@
+# Relationenmodell Media Store (Aufgabe 1a)
+# Je Relation: Attribute, darunter PK und FK
+
+# Dimensionen
+Store(store_id, name, street, zip)
+  PK: store_id
+
+Person(name)
+  PK: name
+
+Publisher(name)
+  PK: name
+
+Label(name)
+  PK: name
+
+Studio(name)
+  PK: name
+
+Customer(username, delivery_address, account_number)
+  PK: username
+
+ListmaniaList(name)
+  PK: name
+
+# Kategorie (rekursiv)
+Category(category_id, name, parent_id)
+  PK: category_id
+  FK: parent_id -> Category(category_id)
+
+# Produkt + Subtypen
+Product(product_id, title, sales_rank, ean, image_url, detail_url, avg_rating, num_reviews, product_type)
+  PK: product_id
+
+Book(product_id, isbn, page_count, release_date, binding, edition, package_weight, package_height, package_length, publisher)
+  PK: product_id
+  FK: product_id -> Product(product_id), publisher -> Publisher(name)
+
+DVD(product_id, format, runtime, region_code, release_date, theatrical_release, aspect_ratio, audio_format, upc)
+  PK: product_id
+  FK: product_id -> Product(product_id)
+
+MusicCD(product_id, release_date, binding, format, num_discs, upc)
+  PK: product_id
+  FK: product_id -> Product(product_id)
+
+# Track (schwache Entitaet)
+Track(product_id, track_no, name)
+  PK: (product_id, track_no)
+  FK: product_id -> MusicCD(product_id)
+
+# m:n-Beziehungen
+BookAuthor(product_id, person)
+  PK: (product_id, person)
+  FK: product_id -> Book(product_id), person -> Person(name)
+
+DVDPerson(product_id, person, role)
+  PK: (product_id, person, role)
+  FK: product_id -> DVD(product_id), person -> Person(name)
+
+CDArtist(product_id, person)
+  PK: (product_id, person)
+  FK: product_id -> MusicCD(product_id), person -> Person(name)
+
+CDLabel(product_id, label)
+  PK: (product_id, label)
+  FK: product_id -> MusicCD(product_id), label -> Label(name)
+
+DVDStudio(product_id, studio)
+  PK: (product_id, studio)
+  FK: product_id -> DVD(product_id), studio -> Studio(name)
+
+DVDLanguage(product_id, language, language_type)
+  PK: (product_id, language, language_type)
+  FK: product_id -> DVD(product_id)
+
+ProductListmania(product_id, list)
+  PK: (product_id, list)
+  FK: product_id -> Product(product_id), list -> ListmaniaList(name)
+
+ProductCategory(product_id, category_id)
+  PK: (product_id, category_id)
+  FK: product_id -> Product(product_id), category_id -> Category(category_id)
+
+SimilarProduct(product_id, similar_product_id)
+  PK: (product_id, similar_product_id)
+  FK: product_id -> Product(product_id), similar_product_id -> Product(product_id)
+
+# Geschaeftsprozesse
+Offer(offer_id, store_id, product_id, price_cents, currency, condition)
+  PK: offer_id
+  FK: store_id -> Store(store_id), product_id -> Product(product_id)
+
+Review(review_id, product_id, username, score, helpful, review_date, summary, content)
+  PK: review_id
+  FK: product_id -> Product(product_id), username -> Customer(username)
+
+Basket(basket_id, username, purchase_time)
+  PK: basket_id
+  FK: username -> Customer(username)
+
+BasketItem(basket_id, product_id)
+  PK: (basket_id, product_id)
+  FK: basket_id -> Basket(basket_id), product_id -> Product(product_id)
+
+# Loader-Hilfsrelation
+LoadError(error_id, ts, entity, attribute, value, reason, source_file, source_line)
+  PK: error_id
+
+# Zusaetzliche Integritaetsbedingungen (Auszug)
+# - Wertebereiche: rating/score 1..5, region_code 0..8, Preise/Mengen >= 0, page_count/runtime/num_discs/track_no > 0
+# - product_type in (Book, DVD, MusicCD); DVDPerson.role in (Actor, Creator, Director)
+# - release_date/review_date <= heute (keine Zukunftsdaten)
+# - parent_id != category_id; product_id != similar_product_id; Book.isbn UNIQUE
+# - ON DELETE CASCADE fuer Subtypen/Track/Zuordnungstabellen; Review.username ON DELETE SET NULL

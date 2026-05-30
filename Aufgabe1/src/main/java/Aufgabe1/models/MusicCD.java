@@ -1,51 +1,68 @@
 package Aufgabe1.models;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class MusicCD extends Product {
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private String binding;
     private String format;
-    private int numDiscs;
+    private Integer numDiscs;
     private String upc;
-    private Label label;
     private List<Track> tracks;
-    private List<Person> artists;
+
+    public MusicCD() {
+        super();
+    }
 
     public MusicCD(
+            String asin,
             String title,
-            int salesRank,
+            Integer salesRank,
             String imageURL,
             String ean,
             String detailURL,
-            float avgRating,
-            int numReviews,
-            List<Product> similarProducts,
-            Date releaseDate,
+            Float avgRating,
+            Integer numReviews,
+            LocalDate releaseDate,
             String binding,
             String format,
-            int numDiscs,
+            Integer numDiscs,
             String upc,
-            Label label,
-            List<Track> tracks,
-            List<Person> artists
+            List<Track> tracks
     ) {
-        super(title, salesRank, imageURL, ean, detailURL, avgRating, numReviews, similarProducts);
+        super(asin, title, salesRank, imageURL, ean, detailURL, avgRating, numReviews);
         this.releaseDate = releaseDate;
         this.binding = binding;
         this.format = format;
         this.numDiscs = numDiscs;
         this.upc = upc;
-        this.label = label;
         this.tracks = tracks;
-        this.artists = artists;
     }
 
-    public Date getReleaseDate() {
+    public MusicCD(
+            Product product,
+            LocalDate releaseDate,
+            String binding,
+            String format,
+            Integer numDiscs,
+            String upc,
+            List<Track> tracks
+    ) {
+        super(product);
+        this.releaseDate = releaseDate;
+        this.binding = binding;
+        this.format = format;
+        this.numDiscs = numDiscs;
+        this.upc = upc;
+        this.tracks = tracks;
+    }
+
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -65,11 +82,11 @@ public class MusicCD extends Product {
         this.format = format;
     }
 
-    public int getNumDiscs() {
+    public Integer getNumDiscs() {
         return numDiscs;
     }
 
-    public void setNumDiscs(int numDiscs) {
+    public void setNumDiscs(Integer numDiscs) {
         this.numDiscs = numDiscs;
     }
 
@@ -81,14 +98,6 @@ public class MusicCD extends Product {
         this.upc = upc;
     }
 
-    public Label getLabel() {
-        return label;
-    }
-
-    public void setLabel(Label label) {
-        this.label = label;
-    }
-
     public List<Track> getTracks() {
         return tracks;
     }
@@ -97,37 +106,16 @@ public class MusicCD extends Product {
         this.tracks = tracks;
     }
 
-    public List<Person> getArtists() {
-        return artists;
-    }
-
-    public void setArtists(List<Person> artists) {
-        this.artists = artists;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof MusicCD musicCD)) return false;
         if (!super.equals(o)) return false;
-        return numDiscs == musicCD.numDiscs &&
-                Objects.equals(releaseDate, musicCD.releaseDate) &&
-                Objects.equals(binding, musicCD.binding) &&
-                Objects.equals(format, musicCD.format) &&
-                Objects.equals(upc, musicCD.upc) &&
-                Objects.equals(label, musicCD.label) &&
-                Objects.equals(tracks, musicCD.tracks) &&
-                Objects.equals(artists, musicCD.artists);
+        return Objects.equals(releaseDate, musicCD.releaseDate) && Objects.equals(binding, musicCD.binding) && Objects.equals(format, musicCD.format) && Objects.equals(numDiscs, musicCD.numDiscs) && Objects.equals(upc, musicCD.upc) && Objects.equals(tracks, musicCD.tracks);
     }
 
     @Override
     public int hashCode() {
-        List<Track> sortedTracks = new ArrayList<>(this.getTracks());
-        sortedTracks.sort(Comparator.comparing(Track::getTrackName));
-
-        List<Person> sortedArtists = new ArrayList<>(this.getArtists());
-        sortedArtists.sort(Comparator.comparing(Person::getName));
-
-        return Objects.hash(super.hashCode(), releaseDate, binding, format, numDiscs, upc, label, tracks, artists);
+        return Objects.hash(super.hashCode(), releaseDate, binding, format, numDiscs, upc, tracks);
     }
 
     public static class Track {

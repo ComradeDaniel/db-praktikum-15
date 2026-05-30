@@ -10,12 +10,12 @@ package leipzig;
 import java.util.ArrayList;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-import org.w3c.dom.Element;
+import jakarta.xml.bind.annotation.XmlValue;
 
 
 /**
@@ -35,13 +35,13 @@ import org.w3c.dom.Element;
  *                 <sequence>
  *                   <element name="price">
  *                     <complexType>
- *                       <complexContent>
- *                         <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                       <simpleContent>
+ *                         <extension base="<http://www.w3.org/2001/XMLSchema>string">
  *                           <attribute name="mult" type="{http://www.w3.org/2001/XMLSchema}string" />
  *                           <attribute name="state" type="{http://www.w3.org/2001/XMLSchema}string" />
  *                           <attribute name="currency" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                         </restriction>
- *                       </complexContent>
+ *                         </extension>
+ *                       </simpleContent>
  *                     </complexType>
  *                   </element>
  *                   <element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -105,7 +105,7 @@ import org.w3c.dom.Element;
  *                               <complexType>
  *                                 <complexContent>
  *                                   <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                     <attribute name="value" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *                                     <attribute name="val" type="{http://www.w3.org/2001/XMLSchema}string" />
  *                                   </restriction>
  *                                 </complexContent>
  *                               </complexType>
@@ -238,8 +238,17 @@ import org.w3c.dom.Element;
  *                     <complexType>
  *                       <complexContent>
  *                         <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           <sequence minOccurs="0">
- *                             <any processContents='skip' maxOccurs="unbounded" minOccurs="0"/>
+ *                           <sequence maxOccurs="unbounded" minOccurs="0">
+ *                             <element name="language">
+ *                               <complexType>
+ *                                 <simpleContent>
+ *                                   <extension base="<http://www.w3.org/2001/XMLSchema>string">
+ *                                     <attribute name="type" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *                                   </extension>
+ *                                 </simpleContent>
+ *                               </complexType>
+ *                             </element>
+ *                             <element name="audioformat" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                           </sequence>
  *                         </restriction>
  *                       </complexContent>
@@ -514,13 +523,13 @@ public class Shop {
      *       <sequence>
      *         <element name="price">
      *           <complexType>
-     *             <complexContent>
-     *               <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *             <simpleContent>
+     *               <extension base="<http://www.w3.org/2001/XMLSchema>string">
      *                 <attribute name="mult" type="{http://www.w3.org/2001/XMLSchema}string" />
      *                 <attribute name="state" type="{http://www.w3.org/2001/XMLSchema}string" />
      *                 <attribute name="currency" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *               </restriction>
-     *             </complexContent>
+     *               </extension>
+     *             </simpleContent>
      *           </complexType>
      *         </element>
      *         <element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -584,7 +593,7 @@ public class Shop {
      *                     <complexType>
      *                       <complexContent>
      *                         <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                           <attribute name="value" type="{http://www.w3.org/2001/XMLSchema}string" />
+     *                           <attribute name="val" type="{http://www.w3.org/2001/XMLSchema}string" />
      *                         </restriction>
      *                       </complexContent>
      *                     </complexType>
@@ -717,8 +726,17 @@ public class Shop {
      *           <complexType>
      *             <complexContent>
      *               <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 <sequence minOccurs="0">
-     *                   <any processContents='skip' maxOccurs="unbounded" minOccurs="0"/>
+     *                 <sequence maxOccurs="unbounded" minOccurs="0">
+     *                   <element name="language">
+     *                     <complexType>
+     *                       <simpleContent>
+     *                         <extension base="<http://www.w3.org/2001/XMLSchema>string">
+     *                           <attribute name="type" type="{http://www.w3.org/2001/XMLSchema}string" />
+     *                         </extension>
+     *                       </simpleContent>
+     *                     </complexType>
+     *                   </element>
+     *                   <element name="audioformat" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *                 </sequence>
      *               </restriction>
      *             </complexContent>
@@ -1710,8 +1728,17 @@ public class Shop {
          * <complexType>
          *   <complexContent>
          *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       <sequence minOccurs="0">
-         *         <any processContents='skip' maxOccurs="unbounded" minOccurs="0"/>
+         *       <sequence maxOccurs="unbounded" minOccurs="0">
+         *         <element name="language">
+         *           <complexType>
+         *             <simpleContent>
+         *               <extension base="<http://www.w3.org/2001/XMLSchema>string">
+         *                 <attribute name="type" type="{http://www.w3.org/2001/XMLSchema}string" />
+         *               </extension>
+         *             </simpleContent>
+         *           </complexType>
+         *         </element>
+         *         <element name="audioformat" type="{http://www.w3.org/2001/XMLSchema}string"/>
          *       </sequence>
          *     </restriction>
          *   </complexContent>
@@ -1722,43 +1749,126 @@ public class Shop {
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "any"
+            "languageAndAudioformat"
         })
         public static class Audiotext {
 
-            @XmlAnyElement
-            protected java.util.List<Element> any;
+            @XmlElements({
+                @XmlElement(name = "language", type = Shop.Item.Audiotext.Language.class),
+                @XmlElement(name = "audioformat", type = String.class)
+            })
+            protected java.util.List<Object> languageAndAudioformat;
 
             /**
-             * Gets the value of the any property.
+             * Gets the value of the languageAndAudioformat property.
              * 
              * <p>This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the any property.</p>
+             * This is why there is not a <CODE>set</CODE> method for the languageAndAudioformat property.</p>
              * 
              * <p>
              * For example, to add a new item, do as follows:
              * </p>
              * <pre>
-             * getAny().add(newItem);
+             * getLanguageAndAudioformat().add(newItem);
              * </pre>
              * 
              * 
              * <p>
              * Objects of the following type(s) are allowed in the list
-             * {@link Element }
+             * {@link String }
+             * {@link Shop.Item.Audiotext.Language }
              * </p>
              * 
              * 
              * @return
-             *     The value of the any property.
+             *     The value of the languageAndAudioformat property.
              */
-            public java.util.List<Element> getAny() {
-                if (any == null) {
-                    any = new ArrayList<>();
+            public java.util.List<Object> getLanguageAndAudioformat() {
+                if (languageAndAudioformat == null) {
+                    languageAndAudioformat = new ArrayList<>();
                 }
-                return this.any;
+                return this.languageAndAudioformat;
+            }
+
+
+            /**
+             * <p>Java-Klasse für anonymous complex type.</p>
+             * 
+             * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.</p>
+             * 
+             * <pre>{@code
+             * <complexType>
+             *   <simpleContent>
+             *     <extension base="<http://www.w3.org/2001/XMLSchema>string">
+             *       <attribute name="type" type="{http://www.w3.org/2001/XMLSchema}string" />
+             *     </extension>
+             *   </simpleContent>
+             * </complexType>
+             * }</pre>
+             * 
+             * 
+             */
+            @XmlAccessorType(XmlAccessType.FIELD)
+            @XmlType(name = "", propOrder = {
+                "value"
+            })
+            public static class Language {
+
+                @XmlValue
+                protected String value;
+                @XmlAttribute(name = "type")
+                protected String type;
+
+                /**
+                 * Ruft den Wert der value-Eigenschaft ab.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getValue() {
+                    return value;
+                }
+
+                /**
+                 * Legt den Wert der value-Eigenschaft fest.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setValue(String value) {
+                    this.value = value;
+                }
+
+                /**
+                 * Ruft den Wert der type-Eigenschaft ab.
+                 * 
+                 * @return
+                 *     possible object is
+                 *     {@link String }
+                 *     
+                 */
+                public String getType() {
+                    return type;
+                }
+
+                /**
+                 * Legt den Wert der type-Eigenschaft fest.
+                 * 
+                 * @param value
+                 *     allowed object is
+                 *     {@link String }
+                 *     
+                 */
+                public void setType(String value) {
+                    this.type = value;
+                }
+
             }
 
         }
@@ -2624,7 +2734,7 @@ public class Shop {
          *           <complexType>
          *             <complexContent>
          *               <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *                 <attribute name="value" type="{http://www.w3.org/2001/XMLSchema}string" />
+         *                 <attribute name="val" type="{http://www.w3.org/2001/XMLSchema}string" />
          *               </restriction>
          *             </complexContent>
          *           </complexType>
@@ -2876,7 +2986,7 @@ public class Shop {
              * <complexType>
              *   <complexContent>
              *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-             *       <attribute name="value" type="{http://www.w3.org/2001/XMLSchema}string" />
+             *       <attribute name="val" type="{http://www.w3.org/2001/XMLSchema}string" />
              *     </restriction>
              *   </complexContent>
              * </complexType>
@@ -2888,31 +2998,31 @@ public class Shop {
             @XmlType(name = "")
             public static class Upc {
 
-                @XmlAttribute(name = "value")
-                protected String value;
+                @XmlAttribute(name = "val")
+                protected String val;
 
                 /**
-                 * Ruft den Wert der value-Eigenschaft ab.
+                 * Ruft den Wert der val-Eigenschaft ab.
                  * 
                  * @return
                  *     possible object is
                  *     {@link String }
                  *     
                  */
-                public String getValue() {
-                    return value;
+                public String getVal() {
+                    return val;
                 }
 
                 /**
-                 * Legt den Wert der value-Eigenschaft fest.
+                 * Legt den Wert der val-Eigenschaft fest.
                  * 
                  * @param value
                  *     allowed object is
                  *     {@link String }
                  *     
                  */
-                public void setValue(String value) {
-                    this.value = value;
+                public void setVal(String value) {
+                    this.val = value;
                 }
 
             }
@@ -3391,28 +3501,56 @@ public class Shop {
          * 
          * <pre>{@code
          * <complexType>
-         *   <complexContent>
-         *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+         *   <simpleContent>
+         *     <extension base="<http://www.w3.org/2001/XMLSchema>string">
          *       <attribute name="mult" type="{http://www.w3.org/2001/XMLSchema}string" />
          *       <attribute name="state" type="{http://www.w3.org/2001/XMLSchema}string" />
          *       <attribute name="currency" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *     </restriction>
-         *   </complexContent>
+         *     </extension>
+         *   </simpleContent>
          * </complexType>
          * }</pre>
          * 
          * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "")
+        @XmlType(name = "", propOrder = {
+            "value"
+        })
         public static class Price {
 
+            @XmlValue
+            protected String value;
             @XmlAttribute(name = "mult")
             protected String mult;
             @XmlAttribute(name = "state")
             protected String state;
             @XmlAttribute(name = "currency")
             protected String currency;
+
+            /**
+             * Ruft den Wert der value-Eigenschaft ab.
+             * 
+             * @return
+             *     possible object is
+             *     {@link String }
+             *     
+             */
+            public String getValue() {
+                return value;
+            }
+
+            /**
+             * Legt den Wert der value-Eigenschaft fest.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link String }
+             *     
+             */
+            public void setValue(String value) {
+                this.value = value;
+            }
 
             /**
              * Ruft den Wert der mult-Eigenschaft ab.

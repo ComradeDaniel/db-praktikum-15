@@ -4,14 +4,14 @@ public class Offer {
     private int id;
     private String productId;   // ASIN = FK auf Product
     private Store store;        // FK auf Store (store_id wird nach Insert gesetzt)
-    private int priceCents;
+    private Integer priceCents;
     private String currency;
     private String condition;   // z.B. "new", "used"
 
     public Offer(
             String productId,
             Store store,
-            int priceCents,
+            Integer priceCents,
             String currency,
             String condition
     ) {
@@ -46,11 +46,11 @@ public class Offer {
         this.store = store;
     }
 
-    public int getPriceCents() {
+    public Integer getPriceCents() {
         return priceCents;
     }
 
-    public void setPriceCents(int priceCents) {
+    public void setPriceCents(Integer priceCents) {
         this.priceCents = priceCents;
     }
 

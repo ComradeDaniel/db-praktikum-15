@@ -1,21 +1,20 @@
 package Aufgabe1.models;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Objects;
 
 public class Book extends Product {
     private String isbn;
-    private int pageCount;
-    private Date releaseDate;
+    private Integer pageCount;
+    private LocalDate releaseDate;
     private String binding;
     private String edition;
-    private int packageWeight;
-    private int packageHeight;
-    private int packageLength;
-    private int publisherID;
-    private List<Person> authors;
+    private Integer packageWeight;
+    private Integer packageHeight;
+    private Integer packageLength;
 
     public Book(
+            String asin,
             String title,
             int salesRank,
             String imageURL,
@@ -23,19 +22,16 @@ public class Book extends Product {
             String detailURL,
             float avgRating,
             int numReviews,
-            List<Product> similarProducts,
             String isbn,
-            int pageCount,
-            Date releaseDate,
+            Integer pageCount,
+            LocalDate releaseDate,
             String binding,
             String edition,
-            int packageWeight,
-            int packageHeight,
-            int packageLength,
-            int publisherID,
-            List<Person> authors
+            Integer packageWeight,
+            Integer packageHeight,
+            Integer packageLength
     ) {
-        super(title, salesRank, imageURL, ean, detailURL, avgRating, numReviews, similarProducts);
+        super(asin, title, salesRank, imageURL, ean, detailURL, avgRating, numReviews);
         this.isbn = isbn;
         this.pageCount = pageCount;
         this.releaseDate = releaseDate;
@@ -44,7 +40,43 @@ public class Book extends Product {
         this.packageWeight = packageWeight;
         this.packageHeight = packageHeight;
         this.packageLength = packageLength;
-        this.publisherID = publisherID;
-        this.authors = authors;
+    }
+
+    public Book(
+            Product product,
+            String isbn,
+            Integer pageCount,
+            LocalDate releaseDate,
+            String binding,
+            String edition,
+            Integer packageWeight,
+            Integer packageHeight,
+            Integer packageLength
+    ) {
+        super(product);
+        this.isbn = isbn;
+        this.pageCount = pageCount;
+        this.releaseDate = releaseDate;
+        this.binding = binding;
+        this.edition = edition;
+        this.packageWeight = packageWeight;
+        this.packageHeight = packageHeight;
+        this.packageLength = packageLength;
+    }
+
+    public Book() {
+        super();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Book book)) return false;
+        if (!super.equals(o)) return false;
+        return Objects.equals(isbn, book.isbn) && Objects.equals(pageCount, book.pageCount) && Objects.equals(releaseDate, book.releaseDate) && Objects.equals(binding, book.binding) && Objects.equals(edition, book.edition) && Objects.equals(packageWeight, book.packageWeight) && Objects.equals(packageHeight, book.packageHeight) && Objects.equals(packageLength, book.packageLength);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), isbn, pageCount, releaseDate, binding, edition, packageWeight, packageHeight, packageLength);
     }
 }

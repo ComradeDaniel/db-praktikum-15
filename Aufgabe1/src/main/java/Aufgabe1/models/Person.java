@@ -3,8 +3,8 @@ package Aufgabe1.models;
 import java.util.Objects;
 
 public class Person {
-    protected int id = 0;
-    protected String name = "";
+    protected int id;
+    protected String name;
 
     public Person(String name) {
         this.name = name;

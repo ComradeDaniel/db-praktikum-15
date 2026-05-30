@@ -116,6 +116,16 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Shop.Item.Audiotext }
+     * 
+     * @return
+     *     the new instance of {@link Shop.Item.Audiotext }
+     */
+    public Shop.Item.Audiotext createShopItemAudiotext() {
+        return new Shop.Item.Audiotext();
+    }
+
+    /**
      * Create an instance of {@link Shop.Item.Similars }
      * 
      * @return
@@ -206,16 +216,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Shop.Item.Audiotext }
-     * 
-     * @return
-     *     the new instance of {@link Shop.Item.Audiotext }
-     */
-    public Shop.Item.Audiotext createShopItemAudiotext() {
-        return new Shop.Item.Audiotext();
-    }
-
-    /**
      * Create an instance of {@link Shop.Item.Directors.Director }
      * 
      * @return
@@ -273,6 +273,16 @@ public class ObjectFactory {
      */
     public Shop.Item.Listmania.List createShopItemListmaniaList() {
         return new Shop.Item.Listmania.List();
+    }
+
+    /**
+     * Create an instance of {@link Shop.Item.Audiotext.Language }
+     * 
+     * @return
+     *     the new instance of {@link Shop.Item.Audiotext.Language }
+     */
+    public Shop.Item.Audiotext.Language createShopItemAudiotextLanguage() {
+        return new Shop.Item.Audiotext.Language();
     }
 
     /**

@@ -7,14 +7,11 @@ public class Store {
     private String name;
     private String street;
     private String zip;
-    private List<Product> items;
-
 
     public Store(String name, String street, String zip, List<Product> items) {
         this.name = name;
         this.street = street;
         this.zip = zip;
-        this.items = items;
     }
 
     public int getId() {
@@ -47,17 +44,5 @@ public class Store {
 
     public void setZip(String zip) {
         this.zip = zip;
-    }
-
-    public List<Product> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Product> items) {
-        this.items = items;
-    }
-
-    public void addItem(Product item) {
-        this.items.add(item);
     }
 }

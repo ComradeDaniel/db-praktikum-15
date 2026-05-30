@@ -72,8 +72,7 @@ CREATE TABLE Studio (
 );
 
 CREATE TABLE Customer (
-    customer_id      SERIAL PRIMARY KEY,
-    username         TEXT   NOT NULL UNIQUE,
+    username         TEXT   PRIMARY KEY,
     delivery_address TEXT,
     account_number   TEXT
 );
@@ -198,6 +197,12 @@ CREATE TABLE CDArtist (
     PRIMARY KEY (product_id, person_id)
 );
 
+CREATE TABLE CDLabel (
+    product_id  TEXT        NOT NULL REFERENCES MusicCD(product_id) ON DELETE CASCADE,
+    label_id    TEXT        NOT NULL REFERENCES Label(label_id) ON DELETE CASCADE,
+    PRIMARY KEY (product_id, label_id)
+);
+
 CREATE TABLE DVDStudio (
     product_id  TEXT        NOT NULL REFERENCES DVD(product_id)   ON DELETE CASCADE,
     studio_id   INT         NOT NULL REFERENCES Studio(studio_id) ON DELETE CASCADE,
@@ -248,7 +253,7 @@ CREATE TABLE Offer (
 CREATE TABLE Review (
     review_id   SERIAL      PRIMARY KEY,
     product_id  TEXT        NOT NULL REFERENCES Product(product_id) ON DELETE CASCADE,
-    customer_id INT         REFERENCES Customer(customer_id) ON DELETE SET NULL,
+    username    TEXT        REFERENCES Customer(username) ON DELETE SET NULL,
     score       SMALLINT    NOT NULL,
     helpful     INT,
     review_date DATE,
@@ -262,7 +267,7 @@ CREATE TABLE Review (
 -- Basket / BasketItem: Schema-only — keine Daten im aktuellen Dump.
 CREATE TABLE Basket (
     basket_id     SERIAL    PRIMARY KEY,
-    customer_id   INT       NOT NULL REFERENCES Customer(customer_id),
+    username      TEXT      NOT NULL REFERENCES Customer(username),
     purchase_time TIMESTAMP NOT NULL
 );
 
@@ -299,7 +304,7 @@ CREATE INDEX idx_offer_product            ON Offer (product_id);
 CREATE INDEX idx_offer_product_price      ON Offer (price_cents ASC);
 
 CREATE INDEX idx_review_product           ON Review (product_id);
-CREATE INDEX idx_review_customer          ON Review (customer_id);
+CREATE INDEX idx_review_customer          ON Review (username);
 
 CREATE INDEX idx_productcategory_category ON ProductCategory (category_id);
 

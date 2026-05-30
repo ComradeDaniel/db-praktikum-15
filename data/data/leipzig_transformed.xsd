@@ -9,9 +9,13 @@
             <xs:sequence>
               <xs:element name="price">
                 <xs:complexType>
-                  <xs:attribute name="mult" type="xs:string"/>
-                  <xs:attribute name="state" type="xs:string"/>
-                  <xs:attribute name="currency" type="xs:string"/>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="mult" type="xs:string"/>
+                      <xs:attribute name="state" type="xs:string"/>
+                      <xs:attribute name="currency" type="xs:string"/>
+                    </xs:extension>
+                  </xs:simpleContent>
                 </xs:complexType>
               </xs:element>
               <xs:element name="title" type="xs:string"/>
@@ -53,7 +57,7 @@
                     <xs:element name="format" type="xs:string" minOccurs="0"/>
                     <xs:element name="upc" minOccurs="0">
                       <xs:complexType>
-                        <xs:attribute name="value" type="xs:string"/>
+                        <xs:attribute name="val" type="xs:string"/>
                       </xs:complexType>
                     </xs:element>
                     <xs:element name="audio" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -143,8 +147,17 @@
               
               <xs:element name="audiotext" minOccurs="0">
                 <xs:complexType>
-                  <xs:sequence minOccurs="0">
-                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="skip"/>
+                  <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="language">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="type" type="xs:string"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="audioformat" type="xs:string"/>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>

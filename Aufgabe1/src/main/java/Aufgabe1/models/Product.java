@@ -1,29 +1,41 @@
 package Aufgabe1.models;
 
-import java.util.List;
 import java.util.Objects;
 
 public abstract class Product {
-    protected int id;
+    protected String asin;
     protected String title;
-    protected int salesRank;
+    protected Integer salesRank;
     protected String imageURL;
     protected String ean;
     protected String detailURL;
-    protected float avgRating;
-    protected int numReviews;
-    protected List<Product> similarProducts;
+    protected Float avgRating;
+    protected Integer numReviews;
+
+    public Product() {}
+
+    public Product(Product product) {
+        this.asin = product.asin;
+        this.title = product.title;
+        this.salesRank = product.salesRank;
+        this.imageURL = product.imageURL;
+        this.ean = product.ean;
+        this.detailURL = product.detailURL;
+        this.avgRating = product.avgRating;
+        this.numReviews = product.numReviews;
+    }
 
     public Product(
+            String asin,
             String title,
-            int salesRank,
+            Integer salesRank,
             String imageURL,
             String ean,
             String detailURL,
-            float avgRating,
-            int numReviews,
-            List<Product> similarProducts
+            Float avgRating,
+            Integer numReviews
     ) {
+        this.asin = asin;
         this.title = title;
         this.salesRank = salesRank;
         this.imageURL = imageURL;
@@ -31,15 +43,6 @@ public abstract class Product {
         this.detailURL = detailURL;
         this.avgRating = avgRating;
         this.numReviews = numReviews;
-        this.similarProducts = similarProducts;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -50,11 +53,11 @@ public abstract class Product {
         this.title = title;
     }
 
-    public int getSalesRank() {
+    public Integer getSalesRank() {
         return salesRank;
     }
 
-    public void setSalesRank(int salesRank) {
+    public void setSalesRank(Integer salesRank) {
         this.salesRank = salesRank;
     }
 
@@ -82,49 +85,38 @@ public abstract class Product {
         this.detailURL = detailURL;
     }
 
-    public float getAvgRating() {
+    public Float getAvgRating() {
         return avgRating;
     }
 
-    public void setAvgRating(float avgRating) {
+    public void setAvgRating(Float avgRating) {
         this.avgRating = avgRating;
     }
 
-    public int getNumReviews() {
+    public Integer getNumReviews() {
         return numReviews;
     }
 
-    public void setNumReviews(int numReviews) {
+    public void setNumReviews(Integer numReviews) {
         this.numReviews = numReviews;
     }
 
-    public List<Product> getSimilarProducts() {
-        return similarProducts;
+    public String getAsin() {
+        return asin;
     }
 
-    public void setSimilarProducts(List<Product> similarProducts) {
-        this.similarProducts = similarProducts;
-    }
-
-    public void addSimilarProduct(Product product) {
-        this.similarProducts.add(product);
+    public void setAsin(String asin) {
+        this.asin = asin;
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Product product)) return false;
-        return salesRank == product.salesRank &&
-                Float.compare(avgRating, product.avgRating) == 0 &&
-                numReviews == product.numReviews &&
-                Objects.equals(title, product.title) &&
-                Objects.equals(imageURL, product.imageURL) &&
-                Objects.equals(ean, product.ean) &&
-                Objects.equals(detailURL, product.detailURL) &&
-                Objects.equals(similarProducts, product.similarProducts);
+        return Objects.equals(asin, product.asin) && Objects.equals(title, product.title) && Objects.equals(salesRank, product.salesRank) && Objects.equals(imageURL, product.imageURL) && Objects.equals(ean, product.ean) && Objects.equals(detailURL, product.detailURL) && Objects.equals(avgRating, product.avgRating) && Objects.equals(numReviews, product.numReviews);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, salesRank, imageURL, ean, detailURL, avgRating, numReviews, similarProducts);
+        return Objects.hash(asin, title, salesRank, imageURL, ean, detailURL, avgRating, numReviews);
     }
 }

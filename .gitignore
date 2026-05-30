@@ -31,3 +31,6 @@ build/
 
 #Config 
 .vscode
+
+# Erzeugte Fehlerdatei bei Läufen
+fehler.txt

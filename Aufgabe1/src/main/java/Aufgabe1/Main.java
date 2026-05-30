@@ -2,6 +2,9 @@ package Aufgabe1;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,6 +23,7 @@ import Aufgabe1.models.Publisher;
 import Aufgabe1.models.Review;
 import Aufgabe1.models.Store;
 import Aufgabe1.models.Studio;
+import Aufgabe1.utility.Database;
 import Aufgabe1.utility.HydrationErrorHolder;
 import categories.Categories;
 import dresden.ShopType;
@@ -67,10 +71,6 @@ public class Main {
                 new Store("Dresden", shopDresden.getStreet(), shopDresden.getZip())
             };
 
-            // muss gestzt auf ID des Stores gesetzt werden bevor Offers hydriert werden
-            int leipzigShopID = 0;
-            int dresdenShopID = 0;
-
             HashSet<Studio> studios = new HashSet<>();
             HashSet<Publisher> publishers = new HashSet<>();
             HashSet<Person> persons = new HashSet<>();
@@ -89,6 +89,12 @@ public class Main {
 
             HydrationErrorHolder hydrationErrors = new HydrationErrorHolder();
 
+            Database database = Database.fromFile(Path.of("db", "db.properties"));
+            int storesInserted = 0;
+            try (Connection conn = database.getConnection()) {
+                conn.setAutoCommit(false);
+                DataLoader.truncateStores(conn);
+
             studios = LeipzigHydrator.hydrateToStudios(shopLeipzig, studios, studioProductIndex, hydrationErrors);
             publishers = LeipzigHydrator.hydrateToPublishers(shopLeipzig, publishers, publisherProductIndex, hydrationErrors);
             persons = LeipzigHydrator.hydrateToPersons(shopLeipzig, persons, personProductIndex, hydrationErrors);
@@ -96,7 +102,9 @@ public class Main {
             listmaniaLists = LeipzigHydrator.hydrateToListmania(shopLeipzig, listmaniaLists, listmaniaProductIndex, hydrationErrors);
             dvdLanguages = LeipzigHydrator.hydrateToDVDLanguages(shopLeipzig, dvdLanguages, dvdlanguageProductIndex, hydrationErrors);
             products = LeipzigHydrator.hydrateToProducts(shopLeipzig, products, hydrationErrors);
-            // TODO: Leipzig Store muss inserted werden bevor die Offers hydriert werden, sonst ist Offer FK auf Store leer
+            DataLoader.insertStore(conn, stores[0]);
+            storesInserted++;
+            int leipzigShopID = stores[0].getId();
             offers = LeipzigHydrator.hydrateToOffers(shopLeipzig, leipzigShopID, offers, products, hydrationErrors);
 
             // Dresden in DIESELBEN Instanzen hydrieren -> Vereinigung der Komponenten je ASIN,
@@ -108,7 +116,9 @@ public class Main {
             listmaniaLists = DresdenHydrator.hydrateToListmania(shopDresden, listmaniaLists, listmaniaProductIndex, hydrationErrors);
             dvdLanguages = DresdenHydrator.hydrateToDVDLanguages(shopDresden, dvdLanguages, dvdlanguageProductIndex, hydrationErrors);
             products = DresdenHydrator.hydrateToProducts(shopDresden, products, hydrationErrors);
-            // TODO: Dresden Store muss inserted werden bevor die Offers hydriert werden, sonst ist Offer FK auf Store leer
+            DataLoader.insertStore(conn, stores[1]);
+            storesInserted++;
+            int dresdenShopID = stores[1].getId();
             offers = DresdenHydrator.hydrateToOffers(shopDresden, dresdenShopID, offers, products, hydrationErrors);
 
             // Kategorienbaum
@@ -127,8 +137,8 @@ public class Main {
                 System.out.println("Fehler beim Lesen der reviews.csv: " + e.getMessage());
             }
 
-            System.out.print(String.format(
-            "Hydrated:\nStudios: %d\nPublishers: %d\nPersons: %d\nLabels: %d\nListmania: %d\nDVDLanguage: %d\nProducts: %d\nCategories: %d\nCustomers: %d\nReviews: %d (Fehler: %d)\nOffers: %d",
+            System.out.printf(
+            "Hydrated:%nStudios: %d%nPublishers: %d%nPersons: %d%nLabels: %d%nListmania: %d%nDVDLanguage: %d%nProducts: %d%nCategories: %d%nCustomers: %d%nReviews: %d (Fehler: %d)%nOffers: %d%n",
             studios.size(),
             publishers.size(),
             persons.size(),
@@ -141,12 +151,49 @@ public class Main {
             reviews.size(),
             reviewErrors.size(),
             offers.size()
-             ));
+            );
 
-            hydrationErrors.prettyPrintToFile("test.txt");
-            
+            hydrationErrors.prettyPrintToFile("fehler.txt");
+
+            /*
+             * ===================================================
+             * Inserting into DB
+             * ===================================================
+            */
+
+            DataLoader.LoadStats stats = DataLoader.load(
+                    conn,
+                    storesInserted,
+                    persons,
+                    publishers,
+                    labels,
+                    studios,
+                    listmaniaLists,
+                    customers,
+                    categoryList,
+                    products,
+                    personProductIndex,
+                    publisherProductIndex,
+                    labelProductIndex,
+                    studioProductIndex,
+                    listmaniaProductIndex,
+                    dvdlanguageProductIndex,
+                    offers,
+                    reviews
+            );
+            DataLoader.writeLoadErrors(conn, hydrationErrors, reviewErrors);
+            conn.commit();
+
+            System.out.println(stats);
+            } catch (SQLException e) {
+                DataLoader.logSqlException(e);
+                System.exit(1);
+            }
         } catch (JAXBException e) {
             System.out.print(e.getMessage());
+            System.exit(1);
+        } catch (IOException e) {
+            System.out.println("Fehler beim Lesen der Konfiguration: " + e.getMessage());
             System.exit(1);
         }
 

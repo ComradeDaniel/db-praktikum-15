@@ -40,20 +40,6 @@ public class DresdenHydrator {
             }
         }
 
-        // Datenqualitaets-Hinweis: ASINs mit mehreren (gemergten/Varianten-)Studios, einmal je ASIN
-        Map<String, Set<String>> studiosByAsin = new HashMap<>();
-        for (Map.Entry<Studio, HashSet<String>> e : studioProductIndex.entrySet()) {
-            for (String asin : e.getValue()) {
-                studiosByAsin.computeIfAbsent(asin, k -> new TreeSet<>()).add(e.getKey().getName());
-            }
-        }
-        for (Map.Entry<String, Set<String>> e : studiosByAsin.entrySet()) {
-            if (e.getValue().size() > 1) {
-                hydrationErrors.add(e.getKey(), String.format(
-                        "Mehrere Studios für diese ASIN: %s", String.join(", ", e.getValue())));
-            }
-        }
-
         return out;
     }
 

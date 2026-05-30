@@ -108,8 +108,8 @@ LoadError(error_id, ts, entity, attribute, value, reason, source_file, source_li
   PK: error_id
 
 # Zusaetzliche Integritaetsbedingungen (Auszug)
-# - Wertebereiche: rating/score 1..5, region_code 0..8, Preise/Mengen >= 0, page_count/runtime/num_discs/track_no > 0
-# - product_type in (Book, DVD, MusicCD); DVDPerson.role in (Actor, Creator, Director)
-# - release_date/review_date <= heute (keine Zukunftsdaten)
-# - parent_id != category_id; product_id != similar_product_id; Book.isbn UNIQUE
-# - ON DELETE CASCADE fuer Subtypen/Track/Zuordnungstabellen; Review.username ON DELETE SET NULL
+- Wertebereiche: rating/score 1..5, region_code 0..8, Preise/Mengen >= 0, page_count/runtime/num_discs/track_no > 0
+- product_type in (Book, DVD, MusicCD); DVDPerson.role in (Actor, Creator, Director)
+- release_date/review_date <= heute (keine Zukunftsdaten)
+- parent_id != category_id; product_id != similar_product_id; Book.isbn UNIQUE
+- ON DELETE CASCADE fuer Subtypen/Track/Zuordnungstabellen; Review.username ON DELETE SET NULL

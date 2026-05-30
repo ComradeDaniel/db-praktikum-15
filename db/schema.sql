@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS ProductCategory  CASCADE;
 DROP TABLE IF EXISTS ProductListmania CASCADE;
 DROP TABLE IF EXISTS DVDLanguage      CASCADE;
 DROP TABLE IF EXISTS DVDStudio        CASCADE;
+DROP TABLE IF EXISTS CDLabel          CASCADE;
 DROP TABLE IF EXISTS CDArtist         CASCADE;
 DROP TABLE IF EXISTS DVDPerson        CASCADE;
 DROP TABLE IF EXISTS BookAuthor       CASCADE;
@@ -52,23 +53,19 @@ CREATE TABLE Store (
 );
 
 CREATE TABLE Person (
-    person_id   SERIAL      PRIMARY KEY,
-    name        TEXT        NOT NULL UNIQUE
+    name        TEXT        PRIMARY KEY
 );
 
 CREATE TABLE Publisher (
-    publisher_id SERIAL     PRIMARY KEY,
-    name         TEXT       NOT NULL UNIQUE
+    name         TEXT       PRIMARY KEY
 );
 
 CREATE TABLE Label (
-    label_id    SERIAL      PRIMARY KEY,
-    name        TEXT        NOT NULL UNIQUE
+    name        TEXT        PRIMARY KEY
 );
 
 CREATE TABLE Studio (
-    studio_id   SERIAL      PRIMARY KEY,
-    name        TEXT        NOT NULL UNIQUE
+    name        TEXT        PRIMARY KEY
 );
 
 CREATE TABLE Customer (
@@ -78,8 +75,7 @@ CREATE TABLE Customer (
 );
 
 CREATE TABLE ListmaniaList (
-    list_id     SERIAL      PRIMARY KEY,
-    name        TEXT        NOT NULL UNIQUE
+    name        TEXT        PRIMARY KEY
 );
 
 
@@ -124,7 +120,7 @@ CREATE TABLE Book (
     package_weight INT,
     package_height INT,
     package_length INT,
-    publisher_id   INT      REFERENCES Publisher(publisher_id),
+    publisher      TEXT     REFERENCES Publisher(name),
     CONSTRAINT chk_book_pages         CHECK (page_count     IS NULL OR page_count     > 0),
     CONSTRAINT chk_book_release_date  CHECK (release_date   IS NULL OR release_date  <= CURRENT_DATE),
     CONSTRAINT chk_book_pkg_weight    CHECK (package_weight IS NULL OR package_weight >= 0),
@@ -154,7 +150,6 @@ CREATE TABLE MusicCD (
     format       TEXT,
     num_discs    INT,
     upc          TEXT,
-    label_id     INT        REFERENCES Label(label_id),
     CONSTRAINT chk_cd_release_date CHECK (release_date IS NULL OR release_date <= CURRENT_DATE),
     CONSTRAINT chk_cd_num_discs    CHECK (num_discs    IS NULL OR num_discs > 0)
 );
@@ -178,35 +173,35 @@ CREATE TABLE Track (
 -- =====================================================================
 
 CREATE TABLE BookAuthor (
-    product_id  TEXT        NOT NULL REFERENCES Book(product_id)    ON DELETE CASCADE,
-    person_id   INT         NOT NULL REFERENCES Person(person_id)   ON DELETE CASCADE,
-    PRIMARY KEY (product_id, person_id)
+    product_id  TEXT        NOT NULL REFERENCES Book(product_id)  ON DELETE CASCADE,
+    person      TEXT        NOT NULL REFERENCES Person(name)      ON DELETE CASCADE,
+    PRIMARY KEY (product_id, person)
 );
 
 CREATE TABLE DVDPerson (
-    product_id  TEXT        NOT NULL REFERENCES DVD(product_id)     ON DELETE CASCADE,
-    person_id   INT         NOT NULL REFERENCES Person(person_id)   ON DELETE CASCADE,
+    product_id  TEXT        NOT NULL REFERENCES DVD(product_id)   ON DELETE CASCADE,
+    person      TEXT        NOT NULL REFERENCES Person(name)      ON DELETE CASCADE,
     role        TEXT        NOT NULL,
-    PRIMARY KEY (product_id, person_id, role),
+    PRIMARY KEY (product_id, person, role),
     CONSTRAINT chk_dvdperson_role CHECK (role IN ('Actor','Creator','Director'))
 );
 
 CREATE TABLE CDArtist (
     product_id  TEXT        NOT NULL REFERENCES MusicCD(product_id) ON DELETE CASCADE,
-    person_id   INT         NOT NULL REFERENCES Person(person_id)   ON DELETE CASCADE,
-    PRIMARY KEY (product_id, person_id)
+    person      TEXT        NOT NULL REFERENCES Person(name)        ON DELETE CASCADE,
+    PRIMARY KEY (product_id, person)
 );
 
 CREATE TABLE CDLabel (
     product_id  TEXT        NOT NULL REFERENCES MusicCD(product_id) ON DELETE CASCADE,
-    label_id    TEXT        NOT NULL REFERENCES Label(label_id) ON DELETE CASCADE,
-    PRIMARY KEY (product_id, label_id)
+    label       TEXT        NOT NULL REFERENCES Label(name)         ON DELETE CASCADE,
+    PRIMARY KEY (product_id, label)
 );
 
 CREATE TABLE DVDStudio (
-    product_id  TEXT        NOT NULL REFERENCES DVD(product_id)   ON DELETE CASCADE,
-    studio_id   INT         NOT NULL REFERENCES Studio(studio_id) ON DELETE CASCADE,
-    PRIMARY KEY (product_id, studio_id)
+    product_id  TEXT        NOT NULL REFERENCES DVD(product_id) ON DELETE CASCADE,
+    studio      TEXT        NOT NULL REFERENCES Studio(name)    ON DELETE CASCADE,
+    PRIMARY KEY (product_id, studio)
 );
 
 CREATE TABLE DVDLanguage (
@@ -217,9 +212,9 @@ CREATE TABLE DVDLanguage (
 );
 
 CREATE TABLE ProductListmania (
-    product_id  TEXT        NOT NULL REFERENCES Product(product_id)    ON DELETE CASCADE,
-    list_id     INT         NOT NULL REFERENCES ListmaniaList(list_id) ON DELETE CASCADE,
-    PRIMARY KEY (product_id, list_id)
+    product_id  TEXT        NOT NULL REFERENCES Product(product_id)  ON DELETE CASCADE,
+    list        TEXT        NOT NULL REFERENCES ListmaniaList(name)  ON DELETE CASCADE,
+    PRIMARY KEY (product_id, list)
 );
 
 CREATE TABLE ProductCategory (

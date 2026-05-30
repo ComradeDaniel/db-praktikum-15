@@ -332,7 +332,9 @@ public class LeipzigHydrator {
                         if (type == null || language == null) {
                             continue;
                         }
-                        DVD.DVDLanguage newLanguage = new DVD.DVDLanguage(type, language);
+                        // DVDLanguage(String language, String languageType): language = gesprochene
+                        // Sprache (value), languageType = Art (type, z.B. "Original Language").
+                        DVD.DVDLanguage newLanguage = new DVD.DVDLanguage(language, type);
                         out.add(newLanguage);
                         dvdlanguageProductIndex.compute(newLanguage, (k, l) -> {
                             if (l == null) {
@@ -692,15 +694,30 @@ public class LeipzigHydrator {
             upc = dvdspec.getUpc().getVal();
         }
 
+        Integer theatricalRelease = HydrationUtils.parseInt(dvdspec.getTheatrRelease(), 10).orElse(null);
+
+        String audioFormat = null;
+        if (dvdspec.getAudio() != null && !dvdspec.getAudio().isEmpty()) {
+            List<String> fmts = new ArrayList<>();
+            for (String f : dvdspec.getAudio()) {
+                if (f != null && !f.isBlank()) {
+                    fmts.add(f.trim());
+                }
+            }
+            if (!fmts.isEmpty()) {
+                audioFormat = String.join(", ", fmts);
+            }
+        }
+
         dvd = new DVD(
             product,
             dvdspec.getFormat().isBlank() ? null : dvdspec.getFormat(),
             runtime,
             regionCode,
             releaseDate,
-            HydrationUtils.parseInt(dvdspec.getRegioncode(), 10).orElse(null),
+            theatricalRelease,
             dvdspec.getAspectratio().isBlank() ? null : dvdspec.getAspectratio(),
-            dvdspec.getFormat().isBlank() ? null : dvdspec.getFormat(),
+            audioFormat,
             upc
         );
 

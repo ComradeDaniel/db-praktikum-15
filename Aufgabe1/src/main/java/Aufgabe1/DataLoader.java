@@ -3,6 +3,8 @@ package Aufgabe1;
 import Aufgabe1.models.*;
 import Aufgabe1.utility.HydrationErrorHolder;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -749,6 +751,33 @@ public class DataLoader {
             throw e;
         } finally {
             conn.setAutoCommit(previousAutoCommit);
+        }
+        writeErrorSummary(conn);
+    }
+
+    // Zaehlt die Fehler nach Art (Entity + Grund-Praefix) und schreibt sie auf Konsole + in eine Datei
+    private static void writeErrorSummary(Connection conn) throws SQLException {
+        String norm = "trim(regexp_replace(regexp_replace("
+                + "split_part(split_part(reason, '(', 1), ':', 1), 'asin [A-Za-z0-9]{6,}', 'asin X', 'g'),"
+                + " '[0-9]+', 'N', 'g'))";
+        String sql = "SELECT entity, " + norm + " AS art, count(*) AS anzahl "
+                + "FROM LoadError GROUP BY entity, " + norm + " ORDER BY anzahl DESC";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Fehler nach Art (Entity | Art | Anzahl):").append(System.lineSeparator());
+        int total = 0;
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                sb.append(String.format("  %-9s | %-45s | %d%n",
+                        rs.getString("entity"), rs.getString("art"), rs.getInt("anzahl")));
+                total += rs.getInt("anzahl");
+            }
+        }
+        sb.append("  Gesamt: ").append(total).append(System.lineSeparator());
+        System.out.print(sb);
+        try (PrintWriter w = new PrintWriter("loaderror-summary.txt")) {
+            w.print(sb);
+        } catch (IOException e) {
+            System.err.println("Konnte loaderror-summary.txt nicht schreiben: " + e.getMessage());
         }
     }
 

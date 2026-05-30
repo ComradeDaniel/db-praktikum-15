@@ -68,6 +68,70 @@ public class Book extends Product {
         super();
     }
 
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public Integer getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(Integer pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public String getBinding() {
+        return binding;
+    }
+
+    public void setBinding(String binding) {
+        this.binding = binding;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
+    public Integer getPackageWeight() {
+        return packageWeight;
+    }
+
+    public void setPackageWeight(Integer packageWeight) {
+        this.packageWeight = packageWeight;
+    }
+
+    public Integer getPackageHeight() {
+        return packageHeight;
+    }
+
+    public void setPackageHeight(Integer packageHeight) {
+        this.packageHeight = packageHeight;
+    }
+
+    public Integer getPackageLength() {
+        return packageLength;
+    }
+
+    public void setPackageLength(Integer packageLength) {
+        this.packageLength = packageLength;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Book book)) return false;

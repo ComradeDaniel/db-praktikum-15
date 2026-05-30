@@ -68,6 +68,70 @@ public class DVD extends Product {
         this.upc = upc;
     }
 
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
+
+    public Integer getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(Integer regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Integer getTheatricalRelease() {
+        return theatricalRelease;
+    }
+
+    public void setTheatricalRelease(Integer theatricalRelease) {
+        this.theatricalRelease = theatricalRelease;
+    }
+
+    public String getAspectRatio() {
+        return aspectRatio;
+    }
+
+    public void setAspectRatio(String aspectRatio) {
+        this.aspectRatio = aspectRatio;
+    }
+
+    public String getAudioFormat() {
+        return audioFormat;
+    }
+
+    public void setAudioFormat(String audioFormat) {
+        this.audioFormat = audioFormat;
+    }
+
+    public String getUpc() {
+        return upc;
+    }
+
+    public void setUpc(String upc) {
+        this.upc = upc;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof DVD dvd)) return false;
@@ -85,6 +149,14 @@ public class DVD extends Product {
 
         public DVDPerson(String name, String role) {
             super(name);
+            this.role = role;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
             this.role = role;
         }
 

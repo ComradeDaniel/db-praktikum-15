@@ -3,20 +3,20 @@ package Aufgabe1.models;
 public class Offer {
     private int id;
     private String productId;
-    private Store store;
-    private Integer priceCents;
+    private int storeID;
+    private Integer priceCents; // null = nicht verfuegbar
     private String currency;
     private String condition;
 
     public Offer(
             String productId,
-            Store store,
+            int storeID,
             Integer priceCents,
             String currency,
             String condition
     ) {
         this.productId = productId;
-        this.store = store;
+        this.storeID = storeID;
         this.priceCents = priceCents;
         this.currency = currency;
         this.condition = condition;
@@ -38,12 +38,12 @@ public class Offer {
         this.productId = productId;
     }
 
-    public Store getStore() {
-        return store;
+    public int getStoreID() {
+        return storeID;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
+    public void setStoreID(int storeID) {
+        this.storeID = storeID;
     }
 
     public Integer getPriceCents() {

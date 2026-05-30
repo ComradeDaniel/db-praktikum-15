@@ -13,10 +13,12 @@ import Aufgabe1.models.Customer;
 import Aufgabe1.models.DVD;
 import Aufgabe1.models.Label;
 import Aufgabe1.models.ListmaniaList;
+import Aufgabe1.models.Offer;
 import Aufgabe1.models.Person;
 import Aufgabe1.models.Product;
 import Aufgabe1.models.Publisher;
 import Aufgabe1.models.Review;
+import Aufgabe1.models.Store;
 import Aufgabe1.models.Studio;
 import Aufgabe1.utility.HydrationErrorHolder;
 import categories.Categories;
@@ -60,6 +62,15 @@ public class Main {
              * ===================================================
             */
 
+            Store[] stores = {
+                new Store("Leipzig", shopLeipzig.getStreet(), shopLeipzig.getZip()),
+                new Store("Dresden", shopDresden.getStreet(), shopDresden.getZip())
+            };
+
+            // muss gestzt auf ID des Stores gesetzt werden bevor Offers hydriert werden
+            int leipzigShopID = 0;
+            int dresdenShopID = 0;
+
             HashSet<Studio> studios = new HashSet<>();
             HashSet<Publisher> publishers = new HashSet<>();
             HashSet<Person> persons = new HashSet<>();
@@ -67,6 +78,7 @@ public class Main {
             HashSet<ListmaniaList> listmaniaLists = new HashSet<>();
             HashSet<DVD.DVDLanguage> dvdLanguages = new HashSet<>();
             HashMap<String, Product> products = new HashMap<>();
+            List<Offer> offers = new ArrayList<>();
 
             HashMap<Studio, HashSet<String>> studioProductIndex = new HashMap<>();
             HashMap<Publisher, HashSet<String>> publisherProductIndex = new HashMap<>();
@@ -84,6 +96,8 @@ public class Main {
             listmaniaLists = LeipzigHydrator.hydrateToListmania(shopLeipzig, listmaniaLists, listmaniaProductIndex, hydrationErrors);
             dvdLanguages = LeipzigHydrator.hydrateToDVDLanguages(shopLeipzig, dvdLanguages, dvdlanguageProductIndex, hydrationErrors);
             products = LeipzigHydrator.hydrateToProducts(shopLeipzig, products, hydrationErrors);
+            // TODO: Leipzig Store muss inserted werden bevor die Offers hydriert werden, sonst ist Offer FK auf Store leer
+            offers = LeipzigHydrator.hydrateToOffers(shopLeipzig, leipzigShopID, offers, products, hydrationErrors);
 
             // Dresden in DIESELBEN Instanzen hydrieren -> Vereinigung der Komponenten je ASIN,
             // Produkt-Basisattribute bleiben first-write-wins (putProduct loggt Konflikte).
@@ -94,6 +108,8 @@ public class Main {
             listmaniaLists = DresdenHydrator.hydrateToListmania(shopDresden, listmaniaLists, listmaniaProductIndex, hydrationErrors);
             dvdLanguages = DresdenHydrator.hydrateToDVDLanguages(shopDresden, dvdLanguages, dvdlanguageProductIndex, hydrationErrors);
             products = DresdenHydrator.hydrateToProducts(shopDresden, products, hydrationErrors);
+            // TODO: Dresden Store muss inserted werden bevor die Offers hydriert werden, sonst ist Offer FK auf Store leer
+            offers = DresdenHydrator.hydrateToOffers(shopDresden, dresdenShopID, offers, products, hydrationErrors);
 
             // Kategorienbaum
             List<Category> categoryList = CategoryHydrator.hydrateToCategories(categories, new ArrayList<>(), hydrationErrors);
@@ -112,7 +128,7 @@ public class Main {
             }
 
             System.out.print(String.format(
-            "Hydrated:\nStudios: %d\nPublishers: %d\nPersons: %d\nLabels: %d\nListmania: %d\nDVDLanguage: %d\nProducts: %d\nCategories: %d\nCustomers: %d\nReviews: %d (Fehler: %d)\n",
+            "Hydrated:\nStudios: %d\nPublishers: %d\nPersons: %d\nLabels: %d\nListmania: %d\nDVDLanguage: %d\nProducts: %d\nCategories: %d\nCustomers: %d\nReviews: %d (Fehler: %d)\nOffers: %d",
             studios.size(),
             publishers.size(),
             persons.size(),
@@ -123,7 +139,8 @@ public class Main {
             categoryList.size(),
             customers.size(),
             reviews.size(),
-            reviewErrors.size()
+            reviewErrors.size(),
+            offers.size()
              ));
 
             hydrationErrors.prettyPrintToFile("test.txt");

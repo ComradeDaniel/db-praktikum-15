@@ -494,6 +494,56 @@ public class LeipzigHydrator {
         return out;
     } 
 
+    public static List<Offer> hydrateToOffers(
+        Shop shop,
+        int storeID,
+        List<Offer> out,
+        HashMap<String, Product> products,
+        HydrationErrorHolder hydrationErrors
+    ) {
+        for (int i = 0; i < shop.getItem().size(); i++) {
+            Shop.Item product = shop.getItem().get(i);
+            String asin = product.getAsin();
+            if (!products.containsKey(asin)) {
+                continue;
+            }
+
+            Shop.Item.Price price = product.getPrice();
+            if (price == null) {
+                continue;
+            }
+
+            Integer priceCents = null;
+            String rawPrice = price.getValue();
+            if (rawPrice != null && !rawPrice.isBlank()) {
+                Optional<Integer> parsed = HydrationUtils.parseInt(rawPrice.trim(), 10);
+                if (parsed.isEmpty()) {
+                    hydrationErrors.add(asin, String.format("Invalid price: \"%s\"", rawPrice));
+                    continue;
+                }
+                priceCents = parsed.get();
+                if (priceCents <= 0) {
+                    hydrationErrors.add(asin, String.format("Price is zero or negative: %d", priceCents));
+                    continue;
+                }
+            }
+
+            String currency = price.getCurrency();
+            if (currency != null && currency.isBlank()) {
+                currency = null;
+            }
+
+            String condition = price.getState();
+            if (condition != null && condition.isBlank()) {
+                condition = null;
+            }
+
+            out.add(new Offer(asin, storeID, priceCents, currency, condition));
+        }
+
+        return out;
+    }
+
     private static Product hydrateProduct(
         Shop.Item item,
         Product product,

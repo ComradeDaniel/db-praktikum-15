@@ -1,14 +1,12 @@
 package Aufgabe1.models;
 
-import java.util.List;
-
 public class Store {
     private int id;
     private String name;
     private String street;
     private String zip;
 
-    public Store(String name, String street, String zip, List<Product> items) {
+    public Store(String name, String street, String zip) {
         this.name = name;
         this.street = street;
         this.zip = zip;

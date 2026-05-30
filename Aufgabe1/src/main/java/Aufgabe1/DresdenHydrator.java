@@ -263,6 +263,51 @@ public class DresdenHydrator {
         return out;
     }
 
+    public static List<Offer> hydrateToOffers(
+        ShopType shop,
+        int storeID,
+        List<Offer> out,
+        HashMap<String, Product> products,
+        HydrationErrorHolder hydrationErrors
+    ) {
+        for (ItemType product : shop.getItem()) {
+            String asin = product.getAsin();
+            if (!products.containsKey(asin)) {
+                continue;
+            }
+
+            PriceType price = product.getPrice();
+            if (price == null) {
+                continue;
+            }
+
+            Integer priceCents = null;
+            String rawPrice = price.getValue();
+            if (rawPrice != null && !rawPrice.isBlank()) {
+                Optional<Integer> parsed = HydrationUtils.parseInt(rawPrice.trim(), 10);
+                if (parsed.isEmpty()) {
+                    hydrationErrors.add(asin, String.format("Invalid price: \"%s\"", rawPrice));
+                    continue;
+                }
+                priceCents = parsed.get();
+                if (priceCents <= 0) {
+                    hydrationErrors.add(asin, String.format("Price is zero or negative: %d", priceCents));
+                    continue;
+                }
+            }
+
+            out.add(new Offer(
+                    asin,
+                    storeID,
+                    priceCents,
+                    blankToNull(price.getCurrency()),
+                    blankToNull(price.getState())
+            ));
+        }
+
+        return out;
+    }
+
     private static Product hydrateProduct(ItemType item, Product product, HydrationErrorHolder hydrationErrors) {
         String asin = item.getAsin();
         if (asin == null || asin.isEmpty()) {

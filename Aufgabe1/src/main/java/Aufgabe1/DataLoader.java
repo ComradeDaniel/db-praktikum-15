@@ -1,6 +1,7 @@
 package Aufgabe1;
 
 import Aufgabe1.models.*;
+import Aufgabe1.utility.HydrationErrorHolder;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -68,6 +69,7 @@ public class DataLoader {
             insertProductCategory(conn, categories, products);
 
             insertReviews(conn, reviews, products);
+            updateProductRatings(conn);
 
             conn.commit();
         } catch (SQLException e) {
@@ -403,6 +405,87 @@ public class DataLoader {
                 ps.addBatch();
             }
             ps.executeBatch();
+        }
+    }
+
+    public static void writeLoadErrors(Connection conn, HydrationErrorHolder hydrationErrors,
+                                       List<String> reviewErrors) throws SQLException {
+        boolean previousAutoCommit = conn.getAutoCommit();
+        conn.setAutoCommit(false);
+        try {
+            try (Statement st = conn.createStatement()) {
+                st.execute("TRUNCATE TABLE LoadError RESTART IDENTITY");
+            }
+            String sql = "INSERT INTO LoadError (entity, attribute, value, reason, source_file, source_line) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                for (Map.Entry<String, List<String>> e : hydrationErrors.entrySet()) {
+                    String key = e.getKey();
+                    String entity = (key != null && key.startsWith("Category#")) ? "Category" : "Product";
+                    for (String msg : e.getValue()) {
+                        ps.setString(1, entity);
+                        ps.setNull(2, Types.VARCHAR);
+                        ps.setString(3, key);
+                        ps.setString(4, msg);
+                        ps.setNull(5, Types.VARCHAR);
+                        ps.setNull(6, Types.INTEGER);
+                        ps.addBatch();
+                    }
+                }
+                for (String err : reviewErrors) {
+                    String entity = "Review";
+                    String attribute = null;
+                    String reason = err;
+                    Integer line = null;
+                    String s = err.startsWith("ERROR: ") ? err.substring(7) : err;
+                    int idx = s.lastIndexOf("(Zeile ");
+                    if (idx >= 0 && s.endsWith(")")) {
+                        String num = s.substring(idx + 7, s.length() - 1).trim();
+                        try {
+                            line = Integer.parseInt(num);
+                        } catch (NumberFormatException ignore) {
+                        }
+                        s = s.substring(0, idx).trim();
+                    }
+                    String[] parts = s.split(", ", 3);
+                    if (parts.length == 3) {
+                        entity = parts[0];
+                        attribute = parts[1];
+                        reason = parts[2];
+                    }
+                    ps.setString(1, entity);
+                    if (attribute == null) {
+                        ps.setNull(2, Types.VARCHAR);
+                    } else {
+                        ps.setString(2, attribute);
+                    }
+                    ps.setNull(3, Types.VARCHAR);
+                    ps.setString(4, reason);
+                    ps.setString(5, "reviews.csv");
+                    if (line == null) {
+                        ps.setNull(6, Types.INTEGER);
+                    } else {
+                        ps.setInt(6, line);
+                    }
+                    ps.addBatch();
+                }
+                ps.executeBatch();
+            }
+            conn.commit();
+        } catch (SQLException e) {
+            conn.rollback();
+            throw e;
+        } finally {
+            conn.setAutoCommit(previousAutoCommit);
+        }
+    }
+
+    private static void updateProductRatings(Connection conn) throws SQLException {
+        String sql = "UPDATE Product p SET num_reviews = r.cnt, avg_rating = r.avg FROM ("
+                + "SELECT product_id, COUNT(*) AS cnt, ROUND(AVG(score)::numeric, 2) AS avg "
+                + "FROM Review GROUP BY product_id) r WHERE p.product_id = r.product_id";
+        try (Statement st = conn.createStatement()) {
+            st.executeUpdate(sql);
         }
     }
 

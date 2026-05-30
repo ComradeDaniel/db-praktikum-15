@@ -7,26 +7,6 @@ import Aufgabe1.models.Category;
 import Aufgabe1.utility.HydrationErrorHolder;
 import jakarta.xml.bind.JAXBElement;
 
-/**
- * Wandelt die verschachtelte categories.xml in eine flache Liste von Category-Domainobjekten.
- *
- * Die JAXB-Struktur ist "mixed content": jede categories.Category enthält in content eine
- * gemischte Liste aus
- *   - categories.Category  (Unterkategorien),
- *   - JAXBElement<String>  (die <item>-Elemente mit der ASIN als Wert) und
- *   - String               (Kategoriename + Whitespace zwischen den Elementen).
- *
- * Da Kategorienamen NICHT eindeutig sind (z.B. "Country" unter mehreren Oberkategorien,
- * siehe Offene-Fragen.md), kann der Name kein Schlüssel sein. Wir vergeben deshalb beim
- * Tree-Walk fortlaufende eigene IDs (ab 1) und setzen darüber die parent-Beziehung.
- * parentId == 0 markiert eine Hauptkategorie (ohne Oberkategorie) -> beim Insert NULL.
- *
- * Der Name einer Kategorie ist der zusammengefügte Text VOR dem ersten Kind-Element
- * (robust gegen mehrere String-Fragmente, falls der Parser Entities aufsplittet).
- *
- * Hinweis: Der Parametertyp ist categories.Categories, voll qualifiziert, damit der
- * Paketname "categories" nicht mit einem gleichnamigen Bezeichner kollidiert.
- */
 public class CategoryHydrator {
 
     public static List<Category> hydrateToCategories(
@@ -67,8 +47,6 @@ public class CategoryHydrator {
                     }
                 }
             } else if (o instanceof String text) {
-                // Nur Text vor dem ersten Kind-Element gehört zum Namen,
-                // alles danach ist Whitespace zwischen den Elementen.
                 if (!firstChildSeen) {
                     nameBuf.append(text);
                 }

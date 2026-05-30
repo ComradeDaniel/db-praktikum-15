@@ -2,11 +2,11 @@ package Aufgabe1.models;
 
 public class Offer {
     private int id;
-    private String productId;   // ASIN = FK auf Product
-    private Store store;        // FK auf Store (store_id wird nach Insert gesetzt)
+    private String productId;
+    private Store store;
     private Integer priceCents;
     private String currency;
-    private String condition;   // z.B. "new", "used"
+    private String condition;
 
     public Offer(
             String productId,

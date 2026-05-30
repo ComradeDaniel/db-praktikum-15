@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Review {
     private int id;
-    private String productId;   // ASIN = FK auf Product
-    private Customer customer;  // null erlaubt (Schema: customer_id nullable)
-    private int score;          // 1..5, NOT NULL
+    private String productId;
+    private Customer customer;
+    private int score;
     private int helpful;
     private Date reviewDate;
     private String summary;

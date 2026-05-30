@@ -10,23 +10,6 @@ import java.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-/**
- * Mapping der dresden.xml (JAXB ShopType/ItemType) auf die Domain-Modelle.
- *
- * Aufbau analog zu {@link LeipzigHydrator} (gleiche 7 hydrateTo*-Methoden, gleiche
- * Index-Map-Konvention), damit beide Quellen in Main identisch eingehängt werden können.
- *
- * Unterschiede der Dresden-Struktur gegenüber Leipzig:
- *  - Listentypen liefern direkt List<String> (z.B. StudiosType.getStudio()), keine
- *    Wrapper-Objekte mit getName().
- *  - Bild/URL stecken in DetailsType (getImg() = Bild, getValue() = Detail-URL),
- *    nicht in flachen Feldern picture/detailpage.
- *  - DVD-Sprachen kommen als AudiotextType.getLanguage() -> List<LanguageType>
- *    (getType()/getValue()), nicht als interleaved Liste.
- *  - dvdspec hat ein echtes getTheatrRelease() (Jahr) und getUpc().
- *  - pgroup enthält neben Book/DVD/Music vereinzelt degenerierte Werte (Buch, Musical)
- *    -> werden als "Unknown product pgroup" geloggt.
- */
 public class DresdenHydrator {
 
     public static HashSet<Studio> hydrateToStudios(
@@ -55,10 +38,6 @@ public class DresdenHydrator {
             }
         }
 
-        // Merge-/Datenqualitäts-Hinweis: ASINs, denen am Ende mehrere (verschiedene)
-        // Studio-Namen zugeordnet sind. Erfasst sowohl die Quellen-Vereinigung
-        // (Leipzig + Dresden) als auch Mehrfach-/Varianten-Studios innerhalb einer Quelle.
-        // Einmal pro ASIN, da über den fertig gemergten Index gebildet.
         Map<String, Set<String>> studiosByAsin = new HashMap<>();
         for (Map.Entry<Studio, HashSet<String>> e : studioProductIndex.entrySet()) {
             for (String asin : e.getValue()) {
@@ -228,9 +207,6 @@ public class DresdenHydrator {
                     hydrationErrors.add(asin, "Empty audiotext language");
                     continue;
                 }
-                // DVDLanguage(String language, String languageType): language = gesprochene Sprache,
-                // languageType = Art (z.B. "Original Language"). (Hinweis: LeipzigHydrator vertauscht
-                // diese beiden Argumente -- dort sollte es ebenfalls (value, type) heissen.)
                 DVD.DVDLanguage newLanguage = new DVD.DVDLanguage(value, type);
                 out.add(newLanguage);
                 indexAdd(dvdlanguageProductIndex, newLanguage, asin);
@@ -286,10 +262,6 @@ public class DresdenHydrator {
         }
         return out;
     }
-
-    // ---------------------------------------------------------------------
-    // private Helfer
-    // ---------------------------------------------------------------------
 
     private static Product hydrateProduct(ItemType item, Product product, HydrationErrorHolder hydrationErrors) {
         String asin = item.getAsin();
@@ -466,7 +438,6 @@ public class DresdenHydrator {
         );
     }
 
-    /** Fügt das hydrierte Produkt ein, mit Duplikat-/Typkonflikt-Prüfung (analog Leipzig). */
     private static <T extends Product> void putProduct(
             HashMap<String, Product> out, String asin, Product candidate,
             Class<T> expectedType, HydrationErrorHolder hydrationErrors

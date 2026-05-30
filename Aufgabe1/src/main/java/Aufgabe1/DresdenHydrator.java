@@ -10,6 +10,8 @@ import java.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+// Mapping der dresden.xml (ShopType/ItemType) auf die Domain-Modelle, analog LeipzigHydrator
+// Dresden-Eigenheiten: Listen sind List<String>, Bild/URL in DetailsType, Sprachen als LanguageType
 public class DresdenHydrator {
 
     public static HashSet<Studio> hydrateToStudios(
@@ -38,6 +40,7 @@ public class DresdenHydrator {
             }
         }
 
+        // Datenqualitaets-Hinweis: ASINs mit mehreren (gemergten/Varianten-)Studios, einmal je ASIN
         Map<String, Set<String>> studiosByAsin = new HashMap<>();
         for (Map.Entry<Studio, HashSet<String>> e : studioProductIndex.entrySet()) {
             for (String asin : e.getValue()) {
@@ -207,6 +210,7 @@ public class DresdenHydrator {
                     hydrationErrors.add(asin, "Empty audiotext language");
                     continue;
                 }
+                // DVDLanguage(language, languageType): value = Sprache, type = Art
                 DVD.DVDLanguage newLanguage = new DVD.DVDLanguage(value, type);
                 out.add(newLanguage);
                 indexAdd(dvdlanguageProductIndex, newLanguage, asin);

@@ -2,10 +2,11 @@ package Aufgabe1.models;
 
 import java.util.Date;
 
+// Rezension zu einem Produkt (aus reviews.csv)
 public class Review {
     private int id;
-    private String productId;
-    private Customer customer;
+    private String productId;   // ASIN -> Product
+    private Customer customer;   // null moeglich (anonym)
     private int score;
     private int helpful;
     private Date reviewDate;

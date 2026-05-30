@@ -17,8 +17,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// Schreibt die hydrierten Domain-Objekte per JDBC in die DB: eine Transaktion, FK-Reihenfolge
 public class DataLoader {
 
+    // Reihenfolge fuer TRUNCATE: umgekehrt zur Abhaengigkeit (Kinder vor Eltern)
     private static final String[] MANAGED_TABLES = {
             "Review", "Offer", "ProductCategory", "ProductListmania", "DVDLanguage",
             "DVDStudio", "CDLabel", "CDArtist", "DVDPerson", "BookAuthor", "Track",
@@ -47,7 +49,7 @@ public class DataLoader {
         boolean previousAutoCommit = conn.getAutoCommit();
         conn.setAutoCommit(false);
         try {
-            truncateAll(conn);
+            truncateAll(conn); // erst leeren -> Re-Run ist idempotent
 
             insertNamedDimension(conn, "Person", persons.stream().map(Person::getName).toList());
             insertNamedDimension(conn, "Publisher", publishers.stream().map(Publisher::getName).toList());
@@ -61,6 +63,7 @@ public class DataLoader {
             Map<String, String> asinToPublisher = buildAsinToPublisher(publisherProductIndex);
             insertProducts(conn, products, asinToPublisher);
 
+            // m:n-Tabellen; product_ids werden gegen geladene Produkte gefiltert (FK)
             insertPersonLinks(conn, personProductIndex, products);
             insertDvdStudio(conn, studioProductIndex, products);
             insertCdLabel(conn, labelProductIndex, products);
@@ -69,7 +72,7 @@ public class DataLoader {
             insertProductCategory(conn, categories, products);
 
             insertReviews(conn, reviews, products);
-            updateProductRatings(conn);
+            updateProductRatings(conn); // avg_rating/num_reviews aus geladenen Reviews nachziehen
 
             conn.commit();
         } catch (SQLException e) {
@@ -87,6 +90,7 @@ public class DataLoader {
         }
     }
 
+    // name ist PK; nach Namen dedupliziert, da DVDPerson denselben Namen mehrfach (versch. Rolle) liefert
     private static void insertNamedDimension(Connection conn, String table, List<String> names) throws SQLException {
         String sql = "INSERT INTO " + table + " (name) VALUES (?)";
         Set<String> seen = new HashSet<>();
@@ -115,6 +119,7 @@ public class DataLoader {
         }
     }
 
+    // nach id sortiert einfuegen -> Eltern stehen vor Kindern (FK parent_id)
     private static void insertCategories(Connection conn, List<Category> categories) throws SQLException {
         String sql = "INSERT INTO Category (category_id, name, parent_id) VALUES (?, ?, ?)";
         List<Category> sorted = categories.stream()
@@ -135,6 +140,7 @@ public class DataLoader {
         }
     }
 
+    // Schema erlaubt nur einen Verlag je Buch; bei mehreren deterministisch den alphabetisch ersten
     private static Map<String, String> buildAsinToPublisher(Map<Publisher, HashSet<String>> publisherProductIndex) {
         Map<String, String> asinToPublisher = new HashMap<>();
         publisherProductIndex.entrySet().stream()
@@ -257,6 +263,7 @@ public class DataLoader {
         }
     }
 
+    // Routing nach Typ/Rolle: DVDPerson->DVDPerson(role), Person an Buch->BookAuthor, an CD->CDArtist
     private static void insertPersonLinks(Connection conn,
                                           Map<Person, HashSet<String>> personProductIndex,
                                           Map<String, Product> products) throws SQLException {
@@ -408,6 +415,7 @@ public class DataLoader {
         }
     }
 
+    // Schreibt die gesammelten Fehler (Hydration + CSV) in die LoadError-Tabelle
     public static void writeLoadErrors(Connection conn, HydrationErrorHolder hydrationErrors,
                                        List<String> reviewErrors) throws SQLException {
         boolean previousAutoCommit = conn.getAutoCommit();
@@ -432,6 +440,7 @@ public class DataLoader {
                         ps.addBatch();
                     }
                 }
+                // vorformatierte CSV-Fehler "ERROR: entity, attribut, grund (Zeile N)" zerlegen
                 for (String err : reviewErrors) {
                     String entity = "Review";
                     String attribute = null;

@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+// JDBC-Verbindung aus einer Property-Datei (kein Hardcoding von Treiber/URL/Login)
 public class Database {
 
     private final Properties props;

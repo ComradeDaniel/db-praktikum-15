@@ -7,6 +7,8 @@ import Aufgabe1.models.Category;
 import Aufgabe1.utility.HydrationErrorHolder;
 import jakarta.xml.bind.JAXBElement;
 
+// Wandelt die verschachtelte categories.xml in eine flache Category-Liste
+// Eigene fortlaufende IDs (Namen sind nicht eindeutig), parentId 0 = Hauptkategorie
 public class CategoryHydrator {
 
     public static List<Category> hydrateToCategories(
@@ -47,6 +49,7 @@ public class CategoryHydrator {
                     }
                 }
             } else if (o instanceof String text) {
+                // Name = Text VOR dem ersten Kind-Element; danach nur Whitespace
                 if (!firstChildSeen) {
                     nameBuf.append(text);
                 }

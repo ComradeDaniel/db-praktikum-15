@@ -1,8 +1,9 @@
 package Aufgabe1.models;
 
+// Angebot eines Produkts in einem Store (aus dem <price>-Element)
 public class Offer {
     private int id;
-    private String productId;
+    private String productId;   // ASIN -> Product
     private int storeID;
     private Integer priceCents; // null = nicht verfuegbar
     private String currency;

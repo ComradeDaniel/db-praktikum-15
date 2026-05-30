@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// Liest reviews.csv -> Review-/Customer-Objekte. Cleanup: trim/NULL, guest-Synthese, Dedup,
+// Future-Date-Ablehnung, HTML-Entity-Decoding. CSV: UTF-8, ein Record pro Zeile, "-gequotet
 public class ReviewCsvReader {
 
     public static class Result {
@@ -61,6 +63,7 @@ public class ReviewCsvReader {
                 String summary    = decodeEntities(trimToNull(f[5]));
                 String content    = decodeEntities(trimToNull(f[6]));
 
+                // Duplikat-Erkennung ueber Originalwerte (vor guest-Synthese),  als Trenner
                 String dupKey = productId + "" + userRaw + "" + dateRaw + "" + content;
                 if (!seenReviewKeys.add(dupKey)) {
                     errors.add(error("Review", "*", "Duplikat (product=" + productId + ", user=" + userRaw + ")", lineNo));
@@ -107,6 +110,7 @@ public class ReviewCsvReader {
                     }
                 }
 
+                // "guest" -> eigener synthetischer Username; echte User nach Name dedupliziert
                 Customer customer;
                 if (userRaw == null || userRaw.equalsIgnoreCase("guest")) {
                     guestCounter++;
@@ -128,6 +132,7 @@ public class ReviewCsvReader {
         return new Result(reviews, customersByName.values());
     }
 
+    // &amp; zuletzt ersetzen, damit "&amp;lt;" -> "&lt;" (Literal) und nicht "<" wird
     private static String decodeEntities(String s) {
         if (s == null) return null;
         return s.replace("&lt;", "<")

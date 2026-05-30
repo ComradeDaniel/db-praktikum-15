@@ -1,0 +1,17 @@
+Fehler nach Art (Entity | Art | Anzahl):
+  Product   | dresden                                       | 267
+  Product   | contains ignored fields for product type Book | 36
+  Product   | No label specification found                  | 36
+  Review    | Duplikat                                      | 32
+  Product   | No author specification found                 | 26
+  Product   | Price is zero or negative                     | 24
+  Product   | Empty isbn                                    | 21
+  Product   | No artist or creator specification found      | 13
+  Product   | product not found, skipping mapping to similars | 11
+  Product   | similar product with asin X not found         | 5
+  Product   | No publisher specification found              | 4
+  Product   | Title is empty                                | 2
+  Product   | No asin found                                 | 2
+  Product   | Unknown product pgroup                        | 2
+  Review    | Wert N außerhalb N..N                         | 1
+  Gesamt: 482

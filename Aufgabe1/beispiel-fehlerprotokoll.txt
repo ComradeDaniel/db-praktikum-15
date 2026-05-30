@@ -1,0 +1,1261 @@
+ASIN: null
+  - No asin found
+  - No asin found
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: 3800028034
+  - No author specification found
+----------------------------------------
+ASIN: B000803PHW
+  - dresden: duplicate product with different hash -615757036 already present
+----------------------------------------
+ASIN: B000003W0C
+  - dresden: duplicate product with different hash -1449137942 already present
+----------------------------------------
+ASIN: B0009W4M3U
+  - dresden: duplicate product with different hash 2050099703 already present
+----------------------------------------
+ASIN: 3866040156
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B00079RNHW
+  - dresden: duplicate product with different hash 1355504966 already present
+----------------------------------------
+ASIN: B000027Y29
+  - No label specification found
+----------------------------------------
+ASIN: B00004TBX9
+  - No artist or creator specification found
+----------------------------------------
+ASIN: B00002MZ1W
+  - dresden: duplicate product with different hash 803208652 already present
+----------------------------------------
+ASIN: B0009W4M4E
+  - dresden: duplicate product with different hash 1314186112 already present
+----------------------------------------
+ASIN: B0006B96BW
+  - dresden: duplicate product with different hash 487294558 already present
+----------------------------------------
+ASIN: B00004CWTY
+  - dresden: duplicate product with different hash 473622964 already present
+----------------------------------------
+ASIN: B0002IVNWE
+  - dresden: duplicate product with different hash 766908259 already present
+----------------------------------------
+ASIN: B00000I9W2
+  - dresden: duplicate product with different hash 2031221841 already present
+----------------------------------------
+ASIN: B00006K06W
+  - dresden: duplicate product with different hash 1329332295 already present
+----------------------------------------
+ASIN: B000BRBH90
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B00004W55E
+  - dresden: duplicate product with different hash -1393340448 already present
+----------------------------------------
+ASIN: B000BFHW1E
+  - dresden: duplicate product with different hash -1498429991 already present
+----------------------------------------
+ASIN: B0007QS1VW
+  - dresden: duplicate product with different hash 1973056785 already present
+----------------------------------------
+ASIN: B00004WGZG
+  - dresden: duplicate product with different hash 1746237903 already present
+----------------------------------------
+ASIN: B000000UWU
+  - dresden: duplicate product with different hash -502609 already present
+----------------------------------------
+ASIN: B000BFHW1O
+  - dresden: duplicate product with different hash -639591350 already present
+----------------------------------------
+ASIN: B000031WBU
+  - dresden: duplicate product with different hash -707293893 already present
+----------------------------------------
+ASIN: B0009NDGRW
+  - dresden: duplicate product with different hash 171261260 already present
+----------------------------------------
+ASIN: B00013MWYI
+  - dresden: duplicate product with different hash -161136992 already present
+----------------------------------------
+ASIN: B000031WBV
+  - dresden: duplicate product with different hash -1301499159 already present
+----------------------------------------
+ASIN: B00000142W
+  - dresden: duplicate product with different hash 1103031835 already present
+----------------------------------------
+ASIN: B000025ENW
+  - dresden: duplicate product with different hash -1699523187 already present
+----------------------------------------
+ASIN: 3866040059
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B000850GXI
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+----------------------------------------
+ASIN: B000050X3W
+  - dresden: duplicate product with different hash 1432994603 already present
+----------------------------------------
+ASIN: B00008IDM1
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B00005QZWN
+  - dresden: duplicate product with different hash -752003452 already present
+----------------------------------------
+ASIN: 3491911575
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B00008IDM9
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B0007VV7MW
+  - dresden: duplicate product with different hash -1851470250 already present
+----------------------------------------
+ASIN: B000002W2L
+  - dresden: duplicate product with different hash -1110548940 already present
+----------------------------------------
+ASIN: 3551065020
+  - Unknown product pgroup: Buch
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: B000001WVC
+  - dresden: duplicate product with different hash 320170283 already present
+----------------------------------------
+ASIN: 3570016943
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B00009MDDW
+  - dresden: duplicate product with different hash 2059240965 already present
+----------------------------------------
+ASIN: B000005YNW
+  - dresden: duplicate product with different hash 197439819 already present
+----------------------------------------
+ASIN: 3898303039
+  - contains ignored fields for product type Book: Creators, Tracks
+----------------------------------------
+ASIN: B000BW9BZW
+  - Price is zero or negative: 0
+  - dresden: duplicate product with different hash -530726582 already present
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B00004U8EB
+  - No artist or creator specification found
+----------------------------------------
+ASIN: 378573087X
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: 3866040113
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B000006YGW
+  - dresden: duplicate product with different hash -831255414 already present
+----------------------------------------
+ASIN: B00063IWUG
+  - dresden: duplicate product with different hash -1743175270 already present
+----------------------------------------
+ASIN: B0002CWXQU
+  - dresden: duplicate product with different hash -357427477 already present
+----------------------------------------
+ASIN: B0001IW2Q6
+  - dresden: duplicate product with different hash 416370091 already present
+----------------------------------------
+ASIN: B000000WW4
+  - dresden: duplicate product with different hash 632476784 already present
+----------------------------------------
+ASIN: B00005QW37
+  - dresden: duplicate product with different hash -130416606 already present
+----------------------------------------
+ASIN: B000BJ7CHO
+  - No label specification found
+----------------------------------------
+ASIN: B0002WRVUS
+  - dresden: duplicate product with different hash 1558389038 already present
+----------------------------------------
+ASIN: B000C8VDH4
+  - No label specification found
+----------------------------------------
+ASIN: 3898304590
+  - contains ignored fields for product type Book: Creators, Tracks
+----------------------------------------
+ASIN: B00004W59Y
+  - dresden: duplicate product with different hash -848071810 already present
+----------------------------------------
+ASIN: B00005YEWO
+  - dresden: duplicate product with different hash 2006721912 already present
+----------------------------------------
+ASIN: B0002WS3M8
+  - dresden: duplicate product with different hash -461235188 already present
+----------------------------------------
+ASIN: B000CNF4YC
+  - No label specification found
+----------------------------------------
+ASIN: B0007YMS2W
+  - dresden: duplicate product with different hash 877597576 already present
+----------------------------------------
+ASIN: 347355068X
+  - No author specification found
+----------------------------------------
+ASIN: B00017YYFE
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+----------------------------------------
+ASIN: B000BOIV4W
+  - dresden: duplicate product with different hash 1442055845 already present
+----------------------------------------
+ASIN: B0009K2U2W
+  - dresden: duplicate product with different hash -2146761143 already present
+----------------------------------------
+ASIN: B0009W4M62
+  - dresden: duplicate product with different hash 181609414 already present
+----------------------------------------
+ASIN: B00007DXEC
+  - Title is empty
+----------------------------------------
+ASIN: B000063WRR
+  - dresden: duplicate product with different hash -1172292769 already present
+----------------------------------------
+ASIN: B00009KV0W
+  - dresden: duplicate product with different hash -1255433627 already present
+----------------------------------------
+ASIN: B0002WYS6S
+  - dresden: duplicate product with different hash 2136614898 already present
+----------------------------------------
+ASIN: B00005NYAW
+  - dresden: duplicate product with different hash 1622063238 already present
+----------------------------------------
+ASIN: B00005UMTW
+  - dresden: duplicate product with different hash 1848153875 already present
+----------------------------------------
+ASIN: B000003LW1
+  - No label specification found
+  - No label specification found
+  - dresden: duplicate product with different hash 1522305218 already present
+----------------------------------------
+ASIN: 3451280000
+  - No author specification found
+----------------------------------------
+ASIN: B000050F57
+  - No artist or creator specification found
+----------------------------------------
+ASIN: B000005WCA
+  - dresden: duplicate product with different hash -304414021 already present
+----------------------------------------
+ASIN: 9626348011
+  - Empty isbn
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: B000025LW0
+  - dresden: duplicate product with different hash 1196025575 already present
+----------------------------------------
+ASIN: B00006OA4U
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B0000CBBWK
+  - dresden: duplicate product with different hash -929730396 already present
+----------------------------------------
+ASIN: 3551556008
+  - No author specification found
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B000001LZK
+  - No label specification found
+----------------------------------------
+ASIN: B0007W22M0
+  - dresden: duplicate product with different hash -1129690937 already present
+----------------------------------------
+ASIN: B0007WD8BY
+  - dresden: duplicate product with different hash -929193917 already present
+----------------------------------------
+ASIN: B000B9PW6M
+  - dresden: duplicate product with different hash 781528445 already present
+----------------------------------------
+ASIN: B000CEZW6Q
+  - dresden: duplicate product with different hash 1591645863 already present
+----------------------------------------
+ASIN: 3774266743
+  - No publisher specification found
+----------------------------------------
+ASIN: 3577151331
+  - No author specification found
+----------------------------------------
+ASIN: B0007N4MRW
+  - dresden: duplicate product with different hash 541923903 already present
+----------------------------------------
+ASIN: B00078JZ9W
+  - dresden: duplicate product with different hash -425181587 already present
+----------------------------------------
+ASIN: 3491888077
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B0001BGV4M
+  - No label specification found
+----------------------------------------
+ASIN: 3558720814
+  - No author specification found
+----------------------------------------
+ASIN: B000C1OYU4
+  - No label specification found
+----------------------------------------
+ASIN: B0002W36F2
+  - dresden: duplicate product with different hash 1562071573 already present
+----------------------------------------
+ASIN: B000024KWC
+  - dresden: duplicate product with different hash -800937190 already present
+----------------------------------------
+ASIN: B0000EWQ12
+  - No label specification found
+  - No label specification found
+  - dresden: duplicate product with different hash 1464265555 already present
+----------------------------------------
+ASIN: B0004FRW0C
+  - dresden: duplicate product with different hash 148072563 already present
+----------------------------------------
+ASIN: B00005AWFB
+  - dresden: duplicate product with different hash 1382001669 already present
+----------------------------------------
+ASIN: B00006GEWN
+  - dresden: duplicate product with different hash 590744421 already present
+----------------------------------------
+ASIN: B000001WM9
+  - dresden: duplicate product with different hash 1994474844 already present
+----------------------------------------
+ASIN: B0002ZCJM0
+  - No label specification found
+----------------------------------------
+ASIN: B00006AWLW
+  - dresden: duplicate product with different hash -351219621 already present
+----------------------------------------
+ASIN: B000023ZW0
+  - dresden: duplicate product with different hash 595516012 already present
+----------------------------------------
+ASIN: B00004Z55W
+  - dresden: duplicate product with different hash 328506585 already present
+----------------------------------------
+ASIN: 9626342803
+  - Empty isbn
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: B0000CAWBE
+  - dresden: duplicate product with different hash 921895410 already present
+----------------------------------------
+ASIN: B0000CAWBD
+  - dresden: duplicate product with different hash -233597629 already present
+----------------------------------------
+ASIN: B0009SQ6YW
+  - dresden: duplicate product with different hash -1118372552 already present
+----------------------------------------
+ASIN: B000AYQDW0
+  - dresden: duplicate product with different hash 1548940284 already present
+----------------------------------------
+ASIN: B000026OW3
+  - dresden: duplicate product with different hash 879883159 already present
+----------------------------------------
+ASIN: B0000CC4WU
+  - dresden: duplicate product with different hash 1988850890 already present
+----------------------------------------
+ASIN: B000031W8G
+  - dresden: duplicate product with different hash -1533505262 already present
+----------------------------------------
+ASIN: B00035W0AK
+  - dresden: duplicate product with different hash -1417584986 already present
+----------------------------------------
+ASIN: B00004W0W3
+  - dresden: duplicate product with different hash 704034483 already present
+----------------------------------------
+ASIN: B0001N9ZKW
+  - dresden: duplicate product with different hash 686995238 already present
+----------------------------------------
+ASIN: B00005Q673
+  - Price is zero or negative: -1037
+----------------------------------------
+ASIN: B000BEPLWM
+  - dresden: duplicate product with different hash -1172888507 already present
+----------------------------------------
+ASIN: B000031WYN
+  - dresden: duplicate product with different hash 108091899 already present
+----------------------------------------
+ASIN: B000031WYO
+  - dresden: duplicate product with different hash -911661654 already present
+----------------------------------------
+ASIN: B0007SMEQ8
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B0008GIXDW
+  - dresden: duplicate product with different hash 2134755887 already present
+----------------------------------------
+ASIN: B000B6VUAW
+  - dresden: duplicate product with different hash -512828053 already present
+----------------------------------------
+ASIN: B000069KNL
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+----------------------------------------
+ASIN: B0002Z9ZCW
+  - dresden: duplicate product with different hash -371094758 already present
+----------------------------------------
+ASIN: B000031W7Q
+  - dresden: duplicate product with different hash 271508792 already present
+----------------------------------------
+ASIN: B0002YLAVW
+  - dresden: duplicate product with different hash 924769906 already present
+----------------------------------------
+ASIN: B0002W182K
+  - dresden: duplicate product with different hash -404751725 already present
+----------------------------------------
+ASIN: B00004WIID
+  - dresden: duplicate product with different hash 2061265538 already present
+----------------------------------------
+ASIN: B00016W8A8
+  - dresden: duplicate product with different hash -1613717445 already present
+----------------------------------------
+ASIN: B0009ENFW2
+  - dresden: duplicate product with different hash 711636224 already present
+----------------------------------------
+ASIN: B0000282WF
+  - dresden: duplicate product with different hash 796885960 already present
+----------------------------------------
+ASIN: 3411002166
+  - No author specification found
+----------------------------------------
+ASIN: B0002W19UG
+  - dresden: duplicate product with different hash 1227861796 already present
+----------------------------------------
+ASIN: B000001DEW
+  - dresden: duplicate product with different hash -504008443 already present
+----------------------------------------
+ASIN: B0009W5JH8
+  - dresden: duplicate product with different hash -170652674 already present
+----------------------------------------
+ASIN: 3570130193
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B00026ACAA
+  - Empty isbn
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: B000766Y02
+  - No author specification found
+  - Empty isbn
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: B000024VGW
+  - dresden: duplicate product with different hash 1688832161 already present
+----------------------------------------
+ASIN: B0007WCDXI
+  - dresden: duplicate product with different hash -1419643209 already present
+----------------------------------------
+ASIN: B000025OWS
+  - dresden: duplicate product with different hash -151910001 already present
+----------------------------------------
+ASIN: B000031W6F
+  - dresden: duplicate product with different hash -308054542 already present
+----------------------------------------
+ASIN: B000ANPWYG
+  - dresden: duplicate product with different hash 1391124281 already present
+----------------------------------------
+ASIN: B0009WPCJS
+  - dresden: duplicate product with different hash 854278313 already present
+----------------------------------------
+ASIN: B00006WL5N
+  - dresden: duplicate product with different hash -1824903645 already present
+----------------------------------------
+ASIN: B0000DIMWX
+  - dresden: duplicate product with different hash -1338083077 already present
+----------------------------------------
+ASIN: B000059QW8
+  - dresden: duplicate product with different hash -1330998250 already present
+----------------------------------------
+ASIN: B00008VDUA
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B000075AIV
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B000031W6H
+  - dresden: duplicate product with different hash 2013403917 already present
+----------------------------------------
+ASIN: 377424801X
+  - No publisher specification found
+----------------------------------------
+ASIN: B0007NB9DW
+  - dresden: duplicate product with different hash -306608365 already present
+----------------------------------------
+ASIN: B0007WQHVC
+  - dresden: duplicate product with different hash -927264665 already present
+----------------------------------------
+ASIN: B00005RD3W
+  - dresden: duplicate product with different hash -216434010 already present
+----------------------------------------
+ASIN: B000070WFQ
+  - dresden: duplicate product with different hash 1585136484 already present
+----------------------------------------
+ASIN: B000AMF7XI
+  - No author specification found
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+----------------------------------------
+ASIN: B0002UJKCW
+  - dresden: duplicate product with different hash 208620643 already present
+----------------------------------------
+ASIN: B0009WFEIW
+  - dresden: duplicate product with different hash -1896550116 already present
+----------------------------------------
+ASIN: 3491911818
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B000CFWGFK
+  - dresden: duplicate product with different hash 1014310516 already present
+----------------------------------------
+ASIN: B000AMF7X8
+  - No author specification found
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+----------------------------------------
+ASIN: B00027LEJW
+  - dresden: duplicate product with different hash 683087225 already present
+----------------------------------------
+ASIN: B0008ENMW6
+  - dresden: duplicate product with different hash 1144308909 already present
+----------------------------------------
+ASIN: B000028DWE
+  - dresden: duplicate product with different hash 1939675651 already present
+----------------------------------------
+ASIN: 3570130177
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B000001EG2
+  - No artist or creator specification found
+----------------------------------------
+ASIN: 9626341521
+  - Empty isbn
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: B0000036BW
+  - dresden: duplicate product with different hash 38977151 already present
+----------------------------------------
+ASIN: B00008Y4J9
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B0000DKQWR
+  - dresden: duplicate product with different hash -1876108440 already present
+----------------------------------------
+ASIN: 3785714130
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B000B2WK8M
+  - dresden: duplicate product with different hash 1308876854 already present
+----------------------------------------
+ASIN: B00068WJLE
+  - dresden: duplicate product with different hash -723464803 already present
+----------------------------------------
+ASIN: B0000C8WYE
+  - dresden: duplicate product with different hash -967373278 already present
+----------------------------------------
+ASIN: B00007L6R5
+  - No label specification found
+----------------------------------------
+ASIN: B00004R7WK
+  - dresden: duplicate product with different hash -604753406 already present
+----------------------------------------
+ASIN: B000000WMJ
+  - dresden: duplicate product with different hash 682072351 already present
+----------------------------------------
+ASIN: B000AGK83S
+  - No label specification found
+----------------------------------------
+ASIN: B000BAVWA6
+  - dresden: duplicate product with different hash -1187512482 already present
+----------------------------------------
+ASIN: B000B7I3TW
+  - dresden: duplicate product with different hash 2018106039 already present
+----------------------------------------
+ASIN: B0001XLXRU
+  - No label specification found
+----------------------------------------
+ASIN: B00005UJYW
+  - dresden: duplicate product with different hash 67031681 already present
+----------------------------------------
+ASIN: B000031WTO
+  - dresden: duplicate product with different hash -269091410 already present
+----------------------------------------
+ASIN: B0000B0WZA
+  - dresden: duplicate product with different hash -177752919 already present
+----------------------------------------
+ASIN: B0000A0I94
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B000066I6W
+  - dresden: duplicate product with different hash -844554426 already present
+----------------------------------------
+ASIN: B0001722BW
+  - dresden: duplicate product with different hash 1193575378 already present
+----------------------------------------
+ASIN: B000071WEL
+  - dresden: duplicate product with different hash -1619512077 already present
+----------------------------------------
+ASIN: B00006LWQU
+  - dresden: duplicate product with different hash -377183653 already present
+----------------------------------------
+ASIN: B00069KW58
+  - dresden: duplicate product with different hash -692982575 already present
+----------------------------------------
+ASIN: B000679QWK
+  - dresden: duplicate product with different hash -1039059525 already present
+----------------------------------------
+ASIN: B00003G1GW
+  - dresden: duplicate product with different hash -1017702014 already present
+----------------------------------------
+ASIN: B000028DW8
+  - dresden: duplicate product with different hash 490628309 already present
+----------------------------------------
+ASIN: B00006HARW
+  - dresden: duplicate product with different hash 1372686071 already present
+----------------------------------------
+ASIN: B0007DDPWK
+  - dresden: duplicate product with different hash 383408790 already present
+----------------------------------------
+ASIN: B000679QWA
+  - dresden: duplicate product with different hash 1433837455 already present
+----------------------------------------
+ASIN: B0000262WV
+  - dresden: duplicate product with different hash -1398031827 already present
+----------------------------------------
+ASIN: B0001Z64W2
+  - dresden: duplicate product with different hash -1121632179 already present
+----------------------------------------
+ASIN: B00009YW8X
+  - dresden: duplicate product with different hash 19051323 already present
+----------------------------------------
+ASIN: B000621P4W
+  - dresden: duplicate product with different hash -412005093 already present
+----------------------------------------
+ASIN: B00012HOCY
+  - similar product with asin B00017YYFE not found
+----------------------------------------
+ASIN: B00004WSAN
+  - dresden: duplicate product with different hash -1563687975 already present
+----------------------------------------
+ASIN: B00008PZW3
+  - dresden: duplicate product with different hash 2001340771 already present
+----------------------------------------
+ASIN: B0001J3VYW
+  - dresden: duplicate product with different hash -168060371 already present
+----------------------------------------
+ASIN: B00012HODI
+  - similar product with asin B00017YYFE not found
+----------------------------------------
+ASIN: B0000AKOWN
+  - dresden: duplicate product with different hash 966931908 already present
+----------------------------------------
+ASIN: B000BNTAWK
+  - dresden: duplicate product with different hash -675086406 already present
+----------------------------------------
+ASIN: B00002DGW7
+  - dresden: duplicate product with different hash 78799480 already present
+----------------------------------------
+ASIN: 3821228482
+  - similar product with asin B000766Y02 not found
+----------------------------------------
+ASIN: B0001WGDXA
+  - dresden: duplicate product with different hash -1882282688 already present
+----------------------------------------
+ASIN: B000BQV8HW
+  - dresden: duplicate product with different hash -552332742 already present
+----------------------------------------
+ASIN: B00006L746
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+----------------------------------------
+ASIN: B00009CBNW
+  - dresden: duplicate product with different hash 23236493 already present
+----------------------------------------
+ASIN: B00006L748
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+----------------------------------------
+ASIN: B00005UW52
+  - dresden: duplicate product with different hash 1012019272 already present
+----------------------------------------
+ASIN: B00005UW50
+  - dresden: duplicate product with different hash 423704893 already present
+----------------------------------------
+ASIN: B0009Z5TZW
+  - dresden: duplicate product with different hash 491731177 already present
+----------------------------------------
+ASIN: B00005UW4P
+  - dresden: duplicate product with different hash -2089556907 already present
+----------------------------------------
+ASIN: B0000W3N8O
+  - dresden: duplicate product with different hash -150473492 already present
+----------------------------------------
+ASIN: B000BITGHE
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B00013T782
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B0002X4U9W
+  - dresden: duplicate product with different hash 1109308727 already present
+----------------------------------------
+ASIN: B0001WGDX0
+  - dresden: duplicate product with different hash 440644421 already present
+----------------------------------------
+ASIN: B000BNTAW0
+  - dresden: duplicate product with different hash 1590268654 already present
+----------------------------------------
+ASIN: 3522177347
+  - No author specification found
+----------------------------------------
+ASIN: B00007DWOT
+  - dresden: duplicate product with different hash -1772600099 already present
+----------------------------------------
+ASIN: B00005UW4X
+  - dresden: duplicate product with different hash 2102646417 already present
+----------------------------------------
+ASIN: B0000YWHOI
+  - dresden: duplicate product with different hash 1566602304 already present
+----------------------------------------
+ASIN: B00035W08M
+  - dresden: duplicate product with different hash 52066981 already present
+----------------------------------------
+ASIN: B000001NU5
+  - No label specification found
+----------------------------------------
+ASIN: 3570300099
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B000A6UWKW
+  - dresden: duplicate product with different hash 1592209519 already present
+----------------------------------------
+ASIN: B00013YWH8
+  - dresden: duplicate product with different hash 1018800387 already present
+----------------------------------------
+ASIN: B00005LZVP
+  - No artist or creator specification found
+----------------------------------------
+ASIN: B00006L72W
+  - dresden: duplicate product with different hash 1612377112 already present
+----------------------------------------
+ASIN: B0000WKOT0
+  - dresden: duplicate product with different hash -886875675 already present
+----------------------------------------
+ASIN: B000023ZLW
+  - dresden: duplicate product with different hash -1892181449 already present
+----------------------------------------
+ASIN: B000024WD7
+  - dresden: duplicate product with different hash -604847722 already present
+----------------------------------------
+ASIN: B0000W3N8E
+  - dresden: duplicate product with different hash -563055263 already present
+----------------------------------------
+ASIN: 3937864032
+  - No publisher specification found
+----------------------------------------
+ASIN: B00004T8WB
+  - dresden: duplicate product with different hash 2115055377 already present
+----------------------------------------
+ASIN: B000BPN2Q8
+  - No label specification found
+----------------------------------------
+ASIN: B00007B6WD
+  - dresden: duplicate product with different hash 1576527918 already present
+----------------------------------------
+ASIN: B0000A1M9W
+  - dresden: duplicate product with different hash 288189893 already present
+----------------------------------------
+ASIN: B0002PZWQ0
+  - dresden: duplicate product with different hash -1130600223 already present
+----------------------------------------
+ASIN: B00076OMW4
+  - dresden: duplicate product with different hash 225422518 already present
+----------------------------------------
+ASIN: B00097DXZS
+  - No artist or creator specification found
+----------------------------------------
+ASIN: B0006ULVPM
+  - Title is empty
+----------------------------------------
+ASIN: B00069W4J0
+  - dresden: duplicate product with different hash -481498029 already present
+----------------------------------------
+ASIN: B000CAKWNS
+  - dresden: duplicate product with different hash -563406095 already present
+----------------------------------------
+ASIN: B0000DKKWT
+  - dresden: duplicate product with different hash 1031810683 already present
+----------------------------------------
+ASIN: B0002TTWU8
+  - dresden: duplicate product with different hash -807349157 already present
+----------------------------------------
+ASIN: B000B5KEE6
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B0003HFRGW
+  - dresden: duplicate product with different hash -220950699 already present
+----------------------------------------
+ASIN: B00077W5T0
+  - dresden: duplicate product with different hash 1597480136 already present
+----------------------------------------
+ASIN: B000A2FIEQ
+  - Empty isbn
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: B00005UW5C
+  - dresden: duplicate product with different hash -2042106476 already present
+----------------------------------------
+ASIN: B0007UARJW
+  - dresden: duplicate product with different hash -2030833608 already present
+----------------------------------------
+ASIN: B0001U0IWY
+  - dresden: duplicate product with different hash -2083129399 already present
+----------------------------------------
+ASIN: B0001WGERU
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+  - Empty isbn
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: B000001NS4
+  - No label specification found
+----------------------------------------
+ASIN: B0000241WM
+  - dresden: duplicate product with different hash 999253523 already present
+----------------------------------------
+ASIN: B0007Q6PW4
+  - dresden: duplicate product with different hash -1061797 already present
+----------------------------------------
+ASIN: B0000A5BWW
+  - dresden: duplicate product with different hash 243500188 already present
+----------------------------------------
+ASIN: B000AQNK9W
+  - dresden: duplicate product with different hash 1884436643 already present
+----------------------------------------
+ASIN: B0002LGWQ8
+  - dresden: duplicate product with different hash 1776721369 already present
+----------------------------------------
+ASIN: B0009NDARS
+  - No artist or creator specification found
+----------------------------------------
+ASIN: B000BP2VQK
+  - No label specification found
+----------------------------------------
+ASIN: B0000SVWQS
+  - dresden: duplicate product with different hash -1571550494 already present
+----------------------------------------
+ASIN: B0002BXWZW
+  - dresden: duplicate product with different hash -1606958358 already present
+----------------------------------------
+ASIN: B0000B1JWG
+  - dresden: duplicate product with different hash -453896577 already present
+----------------------------------------
+ASIN: B00012HOC4
+  - similar product with asin B00006L748 not found
+  - similar product with asin B00017YYFE not found
+----------------------------------------
+ASIN: 3765323063
+  - No author specification found
+----------------------------------------
+ASIN: B00001WRKN
+  - No label specification found
+  - No label specification found
+  - dresden: duplicate product with different hash -175119519 already present
+----------------------------------------
+ASIN: B00001WRKM
+  - dresden: duplicate product with different hash 167140413 already present
+----------------------------------------
+ASIN: B00008PZW9
+  - dresden: duplicate product with different hash -710340839 already present
+----------------------------------------
+ASIN: B0001ZWJYY
+  - dresden: duplicate product with different hash 1498424469 already present
+----------------------------------------
+ASIN: B000BYMHBA
+  - No label specification found
+----------------------------------------
+ASIN: B0000B1JWE
+  - dresden: duplicate product with different hash 1764487132 already present
+----------------------------------------
+ASIN: B000AQBALW
+  - dresden: duplicate product with different hash 991077207 already present
+----------------------------------------
+ASIN: 3933241855
+  - No author specification found
+----------------------------------------
+ASIN: B0007YP0WC
+  - dresden: duplicate product with different hash 175383904 already present
+----------------------------------------
+ASIN: B000026F9W
+  - dresden: duplicate product with different hash 405371330 already present
+----------------------------------------
+ASIN: 3462034480
+  - No publisher specification found
+----------------------------------------
+ASIN: B0009XFMVU
+  - No artist or creator specification found
+----------------------------------------
+ASIN: 3937406360
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B000002ONW
+  - dresden: duplicate product with different hash -478517397 already present
+----------------------------------------
+ASIN: B0000046WZ
+  - dresden: duplicate product with different hash -1936705813 already present
+----------------------------------------
+ASIN: 3937406107
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B0007WRTAA
+  - dresden: duplicate product with different hash -1219540922 already present
+----------------------------------------
+ASIN: B000005GWE
+  - dresden: duplicate product with different hash 1559798031 already present
+----------------------------------------
+ASIN: B00016OYNW
+  - dresden: duplicate product with different hash -479861501 already present
+----------------------------------------
+ASIN: 3899052544
+  - No author specification found
+----------------------------------------
+ASIN: B000BW9BKC
+  - dresden: duplicate product with different hash 687146543 already present
+----------------------------------------
+ASIN: B0009MWB60
+  - No label specification found
+  - No label specification found
+  - dresden: duplicate product with different hash 314978309 already present
+----------------------------------------
+ASIN: B00005MOA3
+  - No artist or creator specification found
+----------------------------------------
+ASIN: B00005NWMU
+  - dresden: duplicate product with different hash 1225755047 already present
+----------------------------------------
+ASIN: B00005NWMT
+  - dresden: duplicate product with different hash 1883193734 already present
+----------------------------------------
+ASIN: 3788630671
+  - No author specification found
+----------------------------------------
+ASIN: B000024SWP
+  - dresden: duplicate product with different hash 1721403937 already present
+----------------------------------------
+ASIN: 3491886104
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B00070Q5ZW
+  - dresden: duplicate product with different hash -2067296337 already present
+----------------------------------------
+ASIN: B000001NMN
+  - No label specification found
+----------------------------------------
+ASIN: B000024SWO
+  - dresden: duplicate product with different hash 1116835954 already present
+----------------------------------------
+ASIN: B00000JODW
+  - dresden: duplicate product with different hash 698884487 already present
+----------------------------------------
+ASIN: B00000JQHW
+  - dresden: duplicate product with different hash -130536228 already present
+----------------------------------------
+ASIN: B0000676WX
+  - dresden: duplicate product with different hash -1382523509 already present
+----------------------------------------
+ASIN: 3898303446
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B0009WFS2E
+  - dresden: duplicate product with different hash 417261631 already present
+----------------------------------------
+ASIN: 3788630663
+  - No author specification found
+----------------------------------------
+ASIN: B00001SIBF
+  - No label specification found
+----------------------------------------
+ASIN: B00005M1HM
+  - No label specification found
+----------------------------------------
+ASIN: 3570300595
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: 3551184143
+  - No author specification found
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: 389782437X
+  - No author specification found
+----------------------------------------
+ASIN: B0000VAW5M
+  - dresden: duplicate product with different hash -600633225 already present
+----------------------------------------
+ASIN: B00005RWBY
+  - dresden: duplicate product with different hash -159268793 already present
+----------------------------------------
+ASIN: B000065TWQ
+  - dresden: duplicate product with different hash 781383965 already present
+----------------------------------------
+ASIN: B00005OM7W
+  - dresden: duplicate product with different hash 1076357785 already present
+----------------------------------------
+ASIN: B00016B94O
+  - No artist or creator specification found
+----------------------------------------
+ASIN: 389830695X
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B00008RWRI
+  - dresden: duplicate product with different hash -1067656733 already present
+----------------------------------------
+ASIN: B0002MVYWO
+  - dresden: duplicate product with different hash -359180320 already present
+----------------------------------------
+ASIN: B00004WIUY
+  - dresden: duplicate product with different hash -1280639461 already present
+----------------------------------------
+ASIN: B0009VJVJG
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B0001WGER0
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+  - Empty isbn
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: B00008PW4A
+  - dresden: duplicate product with different hash 1166799016 already present
+----------------------------------------
+ASIN: B000BM7U6Y
+  - No label specification found
+----------------------------------------
+ASIN: B00000J97W
+  - dresden: duplicate product with different hash 523502740 already present
+----------------------------------------
+ASIN: B0000C6IW5
+  - dresden: duplicate product with different hash -246606348 already present
+----------------------------------------
+ASIN: 3897365022
+  - No author specification found
+----------------------------------------
+ASIN: B000005IW3
+  - dresden: duplicate product with different hash -667001234 already present
+----------------------------------------
+ASIN: B0000AZSWW
+  - dresden: duplicate product with different hash -764787493 already present
+----------------------------------------
+ASIN: B0007SK9OW
+  - Unknown product pgroup: Musical
+----------------------------------------
+ASIN: B00000583W
+  - dresden: duplicate product with different hash 1351178380 already present
+----------------------------------------
+ASIN: B000ATJYZ8
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B00000JJZ6
+  - No artist or creator specification found
+----------------------------------------
+ASIN: B0006391OW
+  - dresden: duplicate product with different hash -842189474 already present
+----------------------------------------
+ASIN: B0002NY90W
+  - dresden: duplicate product with different hash -1830393147 already present
+----------------------------------------
+ASIN: B00001ZWGG
+  - dresden: duplicate product with different hash 1862604712 already present
+----------------------------------------
+ASIN: B0002HTZKW
+  - dresden: duplicate product with different hash -1361298414 already present
+----------------------------------------
+ASIN: B00000IWWM
+  - dresden: duplicate product with different hash 1227731703 already present
+----------------------------------------
+ASIN: B0002Z81MW
+  - dresden: duplicate product with different hash 189665062 already present
+----------------------------------------
+ASIN: B0000TSW7E
+  - dresden: duplicate product with different hash -1716473054 already present
+----------------------------------------
+ASIN: B000003W8E
+  - dresden: duplicate product with different hash -1625737816 already present
+----------------------------------------
+ASIN: B00004WI74
+  - dresden: duplicate product with different hash -561631852 already present
+----------------------------------------
+ASIN: B00066KWNS
+  - dresden: duplicate product with different hash 1748276709 already present
+----------------------------------------
+ASIN: B000038I7W
+  - dresden: duplicate product with different hash 534394144 already present
+----------------------------------------
+ASIN: 3811222929
+  - No author specification found
+----------------------------------------
+ASIN: 3935036787
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B000850GZQ
+  - contains ignored fields for product type Book: Tracks
+  - Empty isbn
+----------------------------------------
+ASIN: B0009W5K9A
+  - dresden: duplicate product with different hash 1380503313 already present
+----------------------------------------
+ASIN: 3423055960
+  - No author specification found
+----------------------------------------
+ASIN: B000ANRYEM
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: 3473377147
+  - No author specification found
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B000BYVJUA
+  - No label specification found
+----------------------------------------
+ASIN: B0000032M5
+  - No label specification found
+----------------------------------------
+ASIN: B00004W9YQ
+  - dresden: duplicate product with different hash -2067434056 already present
+----------------------------------------
+ASIN: B0000032M6
+  - No label specification found
+----------------------------------------
+ASIN: B000620NB8
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B00005AU53
+  - No label specification found
+----------------------------------------
+ASIN: B00008RWV0
+  - dresden: duplicate product with different hash 1243420717 already present
+----------------------------------------
+ASIN: B00000E7B2
+  - No label specification found
+----------------------------------------
+ASIN: B00009PBWK
+  - dresden: duplicate product with different hash 268140523 already present
+----------------------------------------
+ASIN: B00063IWLK
+  - dresden: duplicate product with different hash 1988438334 already present
+----------------------------------------
+ASIN: B00008WDAI
+  - dresden: duplicate product with different hash 1749436842 already present
+----------------------------------------
+ASIN: B000266WYK
+  - dresden: duplicate product with different hash 167435640 already present
+----------------------------------------
+ASIN: B00006878T
+  - No artist or creator specification found
+----------------------------------------
+ASIN: 3832712445
+  - No author specification found
+----------------------------------------
+ASIN: B00004WER3
+  - dresden: duplicate product with different hash 496956426 already present
+----------------------------------------
+ASIN: B0002OWWSW
+  - dresden: duplicate product with different hash -688725572 already present
+----------------------------------------
+ASIN: B0001KZNYW
+  - dresden: duplicate product with different hash -406681000 already present
+----------------------------------------
+ASIN: B00004WER4
+  - dresden: duplicate product with different hash -871413384 already present
+----------------------------------------
+ASIN: B000001NK2
+  - No label specification found
+----------------------------------------
+ASIN: B0001ZWJSA
+  - dresden: duplicate product with different hash 660622040 already present
+----------------------------------------
+ASIN: B0000038YW
+  - dresden: duplicate product with different hash 2062206366 already present
+----------------------------------------
+ASIN: B00004T3XW
+  - dresden: duplicate product with different hash 1754593855 already present
+----------------------------------------
+ASIN: B00028F85W
+  - dresden: duplicate product with different hash 859507028 already present
+----------------------------------------
+ASIN: B000BBQK20
+  - No label specification found
+----------------------------------------
+ASIN: B000002WVI
+  - dresden: duplicate product with different hash 1057059848 already present
+----------------------------------------
+ASIN: B000007OWQ
+  - dresden: duplicate product with different hash -121342968 already present
+----------------------------------------
+ASIN: B000051MWJ
+  - dresden: duplicate product with different hash 766810992 already present
+----------------------------------------
+ASIN: B000AOWD2O
+  - dresden: duplicate product with different hash 1233805460 already present
+----------------------------------------
+ASIN: 3935036590
+  - contains ignored fields for product type Book: Tracks
+----------------------------------------
+ASIN: B0002XNLWE
+  - dresden: duplicate product with different hash -654312759 already present
+----------------------------------------
+ASIN: 3473377120
+  - No author specification found
+----------------------------------------
+ASIN: B0002SLP2W
+  - dresden: duplicate product with different hash -1557624846 already present
+----------------------------------------
+ASIN: B00000AWIP
+  - dresden: duplicate product with different hash 1697464574 already present
+----------------------------------------
+ASIN: B0000033LO
+  - No label specification found
+----------------------------------------
+ASIN: 3789133051
+  - contains ignored fields for product type Book: Creators
+----------------------------------------
+ASIN: B0007DDPWU
+  - Price is zero or negative: 0
+  - dresden: duplicate product with different hash -6654651 already present
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: 3938276037
+  - No author specification found
+----------------------------------------
+ASIN: B00006RJSG
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B000A1IE5C
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B000068RQ5
+  - Price is zero or negative: 0
+----------------------------------------
+ASIN: B0006IQLMW
+  - dresden: duplicate product with different hash -1672972364 already present
+----------------------------------------
+ASIN: B0006OL5E0
+  - Empty isbn
+----------------------------------------
+ASIN: B0006OL5DQ
+  - Empty isbn
+----------------------------------------
+ASIN: B0002GCX20
+  - No artist or creator specification found
+----------------------------------------
+ASIN: B000A6C23W
+  - dresden: duplicate product with different hash 1127021759 already present
+----------------------------------------
+ASIN: B00026AD4K
+  - Empty isbn
+  - product not found, skipping mapping to similars
+----------------------------------------
+ASIN: 3577103884
+  - No author specification found
+----------------------------------------
+ASIN: B00000IOBW
+  - dresden: duplicate product with different hash 216932215 already present
+----------------------------------------

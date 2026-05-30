@@ -253,6 +253,44 @@ public class DresdenHydrator {
         return out;
     }
 
+    public static List<SimilarProduct> hydrateToSimilarProducts(
+            ShopType shop,
+            List<SimilarProduct> out,
+            HashMap<String, Product> products,
+            HydrationErrorHolder hydrationErrors
+    ) {
+        for (ItemType product : shop.getItem()) {
+            String asin = product.getAsin();
+            if (!products.containsKey(asin)) {
+                hydrationErrors.add(asin, String.format("product not found, skipping mapping to similars"));
+                continue;
+            }
+
+            SimilarsType similars = product.getSimilars();
+            if (similars == null || similars.getItem() == null || similars.getItem().isEmpty()) {
+                continue;
+            }
+
+            for (SimilarItemType similarItem : similars.getItem()) {
+                String similarAsin = similarItem.getAsin();
+                if (similarAsin == null || similarAsin.isBlank()) {
+                    hydrationErrors.add(asin, "Empty similar product asin");
+                    continue;
+                }
+                if (asin.equals(similarAsin)) {
+                    continue;
+                }
+                if (!products.containsKey(similarAsin)) {
+                    hydrationErrors.add(asin, String.format("similar product with asin %s not found", similarAsin));
+                    continue;
+                }
+                out.add(new SimilarProduct(asin, similarAsin));
+            }
+        }
+
+        return out;
+    }
+
     public static List<Offer> hydrateToOffers(
         ShopType shop,
         int storeID,
@@ -341,9 +379,8 @@ public class DresdenHydrator {
         }
 
         Optional<Integer> pages = HydrationUtils.parseInt(bookspec.getPages(), 10);
-        if (pages.isEmpty() || pages.get() < 1) {
+        if (!bookspec.getPages().isBlank() && (pages.isEmpty() || pages.get() < 1)) {
             hydrationErrors.add(product.getAsin(), String.format("Invalid page number: \"%s\"", bookspec.getPages()));
-            hasErrors = true;
         }
 
         LocalDate releaseDate = null;
@@ -371,7 +408,7 @@ public class DresdenHydrator {
         return new Book(
                 product,
                 bookspec.getIsbn().getVal(),
-                pages.get(),
+                pages.orElse(null),
                 releaseDate,
                 blankToNull(bookspec.getBinding()),
                 edition,

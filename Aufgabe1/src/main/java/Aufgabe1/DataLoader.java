@@ -43,6 +43,7 @@ public class DataLoader {
         public int dvdLanguages;
         public int productListmania;
         public int productCategories;
+        public int similarProducts;
         public int offers;
         public int reviews;
 
@@ -50,7 +51,7 @@ public class DataLoader {
             return stores + persons + publishers + labels + studios + listmaniaLists
                     + customers + categories + products + books + dvds + musicCds + tracks
                     + bookAuthors + cdArtists + dvdPersons + dvdStudios + cdLabels + dvdLanguages
-                    + productListmania + productCategories + offers + reviews;
+                    + productListmania + productCategories + similarProducts + offers + reviews;
         }
 
         @Override
@@ -78,20 +79,21 @@ public class DataLoader {
                             + "  DVDLanguage: %d%n"
                             + "  ProductListmania: %d%n"
                             + "  ProductCategory: %d%n"
+                            + "  SimilarProduct: %d%n"
                             + "  Offer: %d%n"
                             + "  Review: %d%n"
                             + "  Total: %d",
                     stores, persons, publishers, labels, studios, listmaniaLists,
                     customers, categories, products, books, dvds, musicCds, tracks,
                     bookAuthors, cdArtists, dvdPersons, dvdStudios, cdLabels, dvdLanguages,
-                    productListmania, productCategories, offers, reviews,
+                    productListmania, productCategories, similarProducts, offers, reviews,
                     total());
         }
     }
 
     // Reihenfolge fuer TRUNCATE: umgekehrt zur Abhaengigkeit (Kinder vor Eltern); Store separat
     private static final String[] MANAGED_TABLES = {
-            "Review", "Offer", "ProductCategory", "ProductListmania", "DVDLanguage",
+            "Review", "Offer", "SimilarProduct", "ProductCategory", "ProductListmania", "DVDLanguage",
             "DVDStudio", "CDLabel", "CDArtist", "DVDPerson", "BookAuthor", "Track",
             "MusicCD", "DVD", "Book", "Product", "Category", "ListmaniaList",
             "Customer", "Studio", "Label", "Publisher", "Person"
@@ -145,7 +147,8 @@ public class DataLoader {
             Map<ListmaniaList, HashSet<String>> listmaniaProductIndex,
             Map<DVD.DVDLanguage, HashSet<String>> dvdLanguageProductIndex,
             List<Offer> offers,
-            List<Review> reviews
+            List<Review> reviews,
+            List<SimilarProduct> similarProducts
     ) throws SQLException {
         LoadStats stats = new LoadStats();
         stats.stores = storesAlreadyInserted;
@@ -180,6 +183,7 @@ public class DataLoader {
             stats.dvdLanguages = insertDvdLanguage(conn, dvdLanguageProductIndex, products);
             stats.productListmania = insertProductListmania(conn, listmaniaProductIndex, products);
             stats.productCategories = insertProductCategory(conn, categories, products);
+            stats.similarProducts = insertSimilarProducts(conn, similarProducts, products);
 
             stats.offers = insertOffers(conn, offers, products);
             stats.reviews = insertReviews(conn, reviews, products);
@@ -586,6 +590,32 @@ public class DataLoader {
                         count++;
                     }
                 }
+            }
+            if (count > 0) {
+                ps.executeBatch();
+            }
+        }
+        return count;
+    }
+
+    private static int insertSimilarProducts(Connection conn, List<SimilarProduct> similarProducts,
+                                              Map<String, Product> products) throws SQLException {
+        String sql = "INSERT INTO SimilarProduct (product_id, similar_product_id) VALUES (?, ?)";
+        int count = 0;
+        Set<SimilarProduct> seen = new HashSet<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (SimilarProduct sp : similarProducts) {
+                if (!seen.add(sp)) {
+                    continue;
+                }
+                if (!products.containsKey(sp.getProductId())
+                        || !products.containsKey(sp.getSimilarProductId())) {
+                    continue;
+                }
+                ps.setString(1, sp.getProductId());
+                ps.setString(2, sp.getSimilarProductId());
+                ps.addBatch();
+                count++;
             }
             if (count > 0) {
                 ps.executeBatch();

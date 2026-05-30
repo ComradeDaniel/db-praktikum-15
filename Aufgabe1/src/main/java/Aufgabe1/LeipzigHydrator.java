@@ -492,7 +492,44 @@ public class LeipzigHydrator {
         }
 
         return out;
-    } 
+    }
+
+    public static List<SimilarProduct> hydrateToSimilarProducts(
+            Shop shop,
+            List<SimilarProduct> out,
+            HashMap<String, Product> products,
+            HydrationErrorHolder hydrationErrors
+    ) {
+        for (int i = 0; i < shop.getItem().size(); i++) {
+            Shop.Item product = shop.getItem().get(i);
+            String asin = product.getAsin();
+            if (!products.containsKey(asin)) {
+                continue;
+            }
+
+            Shop.Item.Similars similars = product.getSimilars();
+            if (similars == null || similars.getSimProduct().isEmpty()) {
+                continue;
+            }
+
+            for (Shop.Item.Similars.SimProduct simProduct : similars.getSimProduct()) {
+                String similarAsin = simProduct.getAsin();
+                if (similarAsin == null || similarAsin.isBlank()) {
+                    hydrationErrors.add(asin, "Empty similar product asin");
+                    continue;
+                }
+                if (asin.equals(similarAsin)) {
+                    continue;
+                }
+                if (!products.containsKey(similarAsin)) {
+                    continue;
+                }
+                out.add(new SimilarProduct(asin, similarAsin));
+            }
+        }
+
+        return out;
+    }
 
     public static List<Offer> hydrateToOffers(
         Shop shop,
@@ -593,9 +630,8 @@ public class LeipzigHydrator {
         }
 
         Optional<Integer> pages = HydrationUtils.parseInt(bookspec.getPages(), 10);
-        if (pages.isEmpty() || pages.get() < 1) {
+        if (!bookspec.getPages().isBlank() && (pages.isEmpty() || pages.get() < 1)) {
             hydrationErrors.add(product.getAsin(), String.format("Invalid page number: \"%s\"", bookspec.getPages()));
-            hasErrors = true;
         }
 
         Shop.Item.Bookspec.Publication publication = bookspec.getPublication();
@@ -632,7 +668,7 @@ public class LeipzigHydrator {
             book = new Book(
                 product,
                 bookspec.getIsbn().getVal(),
-                pages.get(),
+                pages.orElse(null),
                 releaseDate,
                 bookspec.getBinding().isBlank() ? null : bookspec.getBinding(),
                 edition,

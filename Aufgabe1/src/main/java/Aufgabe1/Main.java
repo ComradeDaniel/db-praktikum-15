@@ -21,6 +21,7 @@ import Aufgabe1.models.Person;
 import Aufgabe1.models.Product;
 import Aufgabe1.models.Publisher;
 import Aufgabe1.models.Review;
+import Aufgabe1.models.SimilarProduct;
 import Aufgabe1.models.Store;
 import Aufgabe1.models.Studio;
 import Aufgabe1.utility.Database;
@@ -79,6 +80,7 @@ public class Main {
             HashSet<DVD.DVDLanguage> dvdLanguages = new HashSet<>();
             HashMap<String, Product> products = new HashMap<>();
             List<Offer> offers = new ArrayList<>();
+            List<SimilarProduct> similarProducts = new ArrayList<>();
 
             HashMap<Studio, HashSet<String>> studioProductIndex = new HashMap<>();
             HashMap<Publisher, HashSet<String>> publisherProductIndex = new HashMap<>();
@@ -121,6 +123,9 @@ public class Main {
             int dresdenShopID = stores[1].getId();
             offers = DresdenHydrator.hydrateToOffers(shopDresden, dresdenShopID, offers, products, hydrationErrors);
 
+            similarProducts = LeipzigHydrator.hydrateToSimilarProducts(shopLeipzig, similarProducts, products, hydrationErrors);
+            similarProducts = DresdenHydrator.hydrateToSimilarProducts(shopDresden, similarProducts, products, hydrationErrors);
+
             // Kategorienbaum
             List<Category> categoryList = CategoryHydrator.hydrateToCategories(categories, new ArrayList<>(), hydrationErrors);
 
@@ -138,7 +143,7 @@ public class Main {
             }
 
             System.out.printf(
-            "Hydrated:%nStudios: %d%nPublishers: %d%nPersons: %d%nLabels: %d%nListmania: %d%nDVDLanguage: %d%nProducts: %d%nCategories: %d%nCustomers: %d%nReviews: %d (Fehler: %d)%nOffers: %d%n",
+            "Hydrated:%nStudios: %d%nPublishers: %d%nPersons: %d%nLabels: %d%nListmania: %d%nDVDLanguage: %d%nProducts: %d%nCategories: %d%nCustomers: %d%nReviews: %d (Fehler: %d)%nOffers: %d%nSimilarProducts: %d%n",
             studios.size(),
             publishers.size(),
             persons.size(),
@@ -150,7 +155,8 @@ public class Main {
             customers.size(),
             reviews.size(),
             reviewErrors.size(),
-            offers.size()
+            offers.size(),
+            similarProducts.size()
             );
 
             hydrationErrors.prettyPrintToFile("fehler.txt");
@@ -179,7 +185,8 @@ public class Main {
                     listmaniaProductIndex,
                     dvdlanguageProductIndex,
                     offers,
-                    reviews
+                    reviews,
+                    similarProducts
             );
             DataLoader.writeLoadErrors(conn, hydrationErrors, reviewErrors);
             conn.commit();

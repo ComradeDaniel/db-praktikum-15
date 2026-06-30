@@ -291,10 +291,10 @@ public class DresdenHydrator {
         return out;
     }
 
-    public static List<Offer> hydrateToOffers(
+    public static HashSet<Offer> hydrateToOffers(
         ShopType shop,
         int storeID,
-        List<Offer> out,
+        HashSet<Offer> out,
         HashMap<String, Product> products,
         HydrationErrorHolder hydrationErrors
     ) {
@@ -304,33 +304,36 @@ public class DresdenHydrator {
                 continue;
             }
 
-            PriceType price = product.getPrice();
-            if (price == null) {
+            List<PriceType> prices = product.getPrice();
+            if (prices == null || prices.size() == 0) {
                 continue;
             }
 
-            Integer priceCents = null;
-            String rawPrice = price.getValue();
-            if (rawPrice != null && !rawPrice.isBlank()) {
-                Optional<Integer> parsed = HydrationUtils.parseInt(rawPrice.trim(), 10);
-                if (parsed.isEmpty()) {
-                    hydrationErrors.add(asin, String.format("Invalid price: \"%s\"", rawPrice));
-                    continue;
+            for (PriceType price : prices) {
+                Integer priceCents = null;
+                String rawPrice = price.getValue();
+                if (rawPrice != null && !rawPrice.isBlank()) {
+                    Optional<Integer> parsed = HydrationUtils.parseInt(rawPrice.trim(), 10);
+                    if (parsed.isEmpty()) {
+                        hydrationErrors.add(asin, String.format("Invalid price: \"%s\"", rawPrice));
+                        continue;
+                    }
+                    priceCents = parsed.get();
+                    if (priceCents <= 0) {
+                        hydrationErrors.add(asin, String.format("Price is zero or negative: %d", priceCents));
+                        continue;
+                    }
                 }
-                priceCents = parsed.get();
-                if (priceCents <= 0) {
-                    hydrationErrors.add(asin, String.format("Price is zero or negative: %d", priceCents));
-                    continue;
-                }
-            }
 
-            out.add(new Offer(
-                    asin,
-                    storeID,
-                    priceCents,
-                    blankToNull(price.getCurrency()),
-                    blankToNull(price.getState())
-            ));
+                out.add(new Offer(
+                        asin,
+                        storeID,
+                        priceCents,
+                        priceCents != null,
+                        blankToNull(price.getCurrency()),
+                        blankToNull(price.getState())
+                ));
+            }
         }
 
         return out;

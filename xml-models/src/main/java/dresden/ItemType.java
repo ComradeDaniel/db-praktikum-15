@@ -7,6 +7,8 @@
 
 package dresden;
 
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -25,7 +27,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       <sequence>
  *         <element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         <element name="price" type="{}PriceType"/>
+ *         <element name="price" type="{}PriceType" maxOccurs="unbounded"/>
  *         <element name="ean" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         <element name="details" type="{}DetailsType"/>
  *         <element name="listmania" type="{}ListmaniaType"/>
@@ -81,7 +83,7 @@ public class ItemType {
     @XmlElement(required = true)
     protected String title;
     @XmlElement(required = true)
-    protected PriceType price;
+    protected List<PriceType> price;
     protected String ean;
     @XmlElement(required = true)
     protected DetailsType details;
@@ -147,27 +149,35 @@ public class ItemType {
     }
 
     /**
-     * Ruft den Wert der price-Eigenschaft ab.
+     * Gets the value of the price property.
+     * 
+     * <p>This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the price property.</p>
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * </p>
+     * <pre>
+     * getPrice().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link PriceType }
+     * </p>
+     * 
      * 
      * @return
-     *     possible object is
-     *     {@link PriceType }
-     *     
+     *     The value of the price property.
      */
-    public PriceType getPrice() {
-        return price;
-    }
-
-    /**
-     * Legt den Wert der price-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PriceType }
-     *     
-     */
-    public void setPrice(PriceType value) {
-        this.price = value;
+    public List<PriceType> getPrice() {
+        if (price == null) {
+            price = new ArrayList<>();
+        }
+        return this.price;
     }
 
     /**

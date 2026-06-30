@@ -245,7 +245,8 @@ CREATE TABLE Offer (
     offer_id    SERIAL      PRIMARY KEY,
     store_id    INT         NOT NULL REFERENCES Store(store_id),
     product_id  TEXT        NOT NULL REFERENCES Product(product_id) ON DELETE CASCADE,
-    price_cents INT,                    -- NULL = nicht verfügbar
+    price_cents INT,
+    available   BOOLEAN,
     currency    TEXT,
     condition   TEXT,                   -- z.B. 'new', 'used'
     CONSTRAINT chk_offer_price CHECK (price_cents IS NULL OR price_cents >= 0)

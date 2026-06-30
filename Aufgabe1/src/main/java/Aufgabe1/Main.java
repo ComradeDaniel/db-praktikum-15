@@ -74,7 +74,7 @@ public class Main {
             HashSet<ListmaniaList> listmaniaLists = new HashSet<>();
             HashSet<DVD.DVDLanguage> dvdLanguages = new HashSet<>();
             HashMap<String, Product> products = new HashMap<>();
-            List<Offer> offers = new ArrayList<>();
+            HashSet<Offer> offers = new HashSet<>();
             List<SimilarProduct> similarProducts = new ArrayList<>();
 
             HashMap<Studio, HashSet<String>> studioProductIndex = new HashMap<>();

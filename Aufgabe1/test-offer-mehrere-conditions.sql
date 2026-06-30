@@ -1,0 +1,1 @@
+select product_id, count(distinct condition) from offer group by product_id having count(distinct condition) > 1;

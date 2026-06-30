@@ -142,5 +142,16 @@ public class MusicCD extends Product {
         public void setTrackName(String trackName) {
             this.trackName = trackName;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof Track track)) return false;
+            return Objects.equals(trackNumber, track.trackNumber) && Objects.equals(trackName, track.trackName);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(trackNumber, trackName);
+        }
     }
 }

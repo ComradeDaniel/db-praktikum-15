@@ -149,7 +149,7 @@ public class DataLoader {
             Map<Studio, HashSet<String>> studioProductIndex,
             Map<ListmaniaList, HashSet<String>> listmaniaProductIndex,
             Map<DVD.DVDLanguage, HashSet<String>> dvdLanguageProductIndex,
-            List<Offer> offers,
+            HashSet<Offer> offers,
             List<Review> reviews,
             List<SimilarProduct> similarProducts
     ) throws SQLException {
@@ -440,9 +440,9 @@ public class DataLoader {
         return count;
     }
 
-    private static int insertOffers(Connection conn, List<Offer> offers, Map<String, Product> products)
+    private static int insertOffers(Connection conn, HashSet<Offer> offers, Map<String, Product> products)
             throws SQLException {
-        String sql = "INSERT INTO Offer (store_id, product_id, price_cents, currency, condition) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Offer (store_id, product_id, price_cents, available, currency, condition) VALUES (?, ?, ?, ?, ?, ?)";
         int count = 0;
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             for (Offer o : offers) {
@@ -456,8 +456,9 @@ public class DataLoader {
                 } else {
                     ps.setInt(3, o.getPriceCents());
                 }
-                ps.setString(4, o.getCurrency());
-                ps.setString(5, o.getCondition());
+                ps.setBoolean(4, o.isAvailable());
+                ps.setString(5, o.getCurrency());
+                ps.setString(6, o.getCondition());
                 ps.addBatch();
                 count++;
             }

@@ -531,10 +531,10 @@ public class LeipzigHydrator {
         return out;
     }
 
-    public static List<Offer> hydrateToOffers(
+    public static HashSet<Offer> hydrateToOffers(
         Shop shop,
         int storeID,
-        List<Offer> out,
+        HashSet<Offer> out,
         HashMap<String, Product> products,
         HydrationErrorHolder hydrationErrors
     ) {
@@ -575,7 +575,7 @@ public class LeipzigHydrator {
                 condition = null;
             }
 
-            out.add(new Offer(asin, storeID, priceCents, currency, condition));
+            out.add(new Offer(asin, storeID, priceCents, priceCents != null, currency, condition));
         }
 
         return out;

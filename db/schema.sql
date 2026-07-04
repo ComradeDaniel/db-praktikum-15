@@ -12,6 +12,8 @@
 -- ---------------------------------------------------------------------
 -- DROP-Phase (umgekehrte Abhängigkeitsreihenfolge)
 -- ---------------------------------------------------------------------
+DROP FUNCTION IF EXISTS update_product_review_stats() CASCADE;
+
 DROP TABLE IF EXISTS LoadError        CASCADE;
 DROP TABLE IF EXISTS BasketItem       CASCADE;
 DROP TABLE IF EXISTS Basket           CASCADE;
@@ -265,6 +267,52 @@ CREATE TABLE Review (
     CONSTRAINT chk_review_helpful CHECK (helpful IS NULL OR helpful >= 0),
     CONSTRAINT chk_review_date    CHECK (review_date IS NULL OR review_date <= CURRENT_DATE)
 );
+
+-- https://www.postgresql.org/docs/current/sql-createtrigger.html
+CREATE OR REPLACE FUNCTION update_product_review_stats()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF TG_OP IN ('INSERT', 'UPDATE') THEN
+        UPDATE Product p
+        SET
+            num_reviews = stats.cnt,
+            avg_rating  = stats.avg
+        FROM (
+            SELECT
+                COUNT(*)::INT                       AS cnt,
+                ROUND(AVG(r.score)::numeric, 2)    AS avg
+            FROM Review r
+            WHERE r.product_id = NEW.product_id
+        ) stats
+        WHERE p.product_id = NEW.product_id;
+    END IF;
+
+    IF TG_OP = 'DELETE'
+       OR (TG_OP = 'UPDATE' AND OLD.product_id IS DISTINCT FROM NEW.product_id) THEN
+        UPDATE Product p
+        SET
+            num_reviews = stats.cnt,
+            avg_rating  = stats.avg
+        FROM (
+            SELECT
+                COUNT(*)::INT                       AS cnt,
+                ROUND(AVG(r.score)::numeric, 2)    AS avg
+            FROM Review r
+            WHERE r.product_id = OLD.product_id
+        ) stats
+        WHERE p.product_id = OLD.product_id;
+    END IF;
+
+    RETURN COALESCE(NEW, OLD);
+END;
+$$;
+
+CREATE TRIGGER trg_update_products
+    AFTER INSERT OR UPDATE OF score OR DELETE ON Review
+    FOR EACH ROW
+    EXECUTE FUNCTION update_product_review_stats();
 
 -- Basket / BasketItem: Schema-only — keine Daten im aktuellen Dump.
 CREATE TABLE Basket (

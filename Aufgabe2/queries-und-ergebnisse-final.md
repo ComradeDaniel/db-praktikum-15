@@ -355,3 +355,56 @@ SELECT (SELECT COUNT(DISTINCT o.product_id)
 | 18.81   |
 
 (1 Zeile — ca. 18,81%)
+
+---
+
+# Aufgabe 2b:
+## Trigger für Änderungen in der Review Tabelle
+
+```sql
+-- https://www.postgresql.org/docs/current/sql-createtrigger.html
+CREATE OR REPLACE FUNCTION update_product_review_stats()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF TG_OP IN ('INSERT', 'UPDATE') THEN
+        UPDATE Product p
+        SET
+            num_reviews = stats.cnt,
+            avg_rating  = stats.avg
+        FROM (
+            SELECT
+                COUNT(*)::INT                      AS cnt,
+                ROUND(AVG(r.score)::numeric, 2)    AS avg
+            FROM Review r
+            WHERE r.product_id = NEW.product_id
+        ) stats
+        WHERE p.product_id = NEW.product_id;
+    END IF;
+
+    IF TG_OP = 'DELETE'
+       OR (TG_OP = 'UPDATE' AND OLD.product_id IS DISTINCT FROM NEW.product_id) THEN
+        UPDATE Product p
+        SET
+            num_reviews = stats.cnt,
+            avg_rating  = stats.avg
+        FROM (
+            SELECT
+                COUNT(*)::INT                      AS cnt,
+                ROUND(AVG(r.score)::numeric, 2)    AS avg
+            FROM Review r
+            WHERE r.product_id = OLD.product_id
+        ) stats
+        WHERE p.product_id = OLD.product_id;
+    END IF;
+
+    RETURN COALESCE(NEW, OLD);
+END;
+$$;
+
+CREATE TRIGGER trg_update_products
+    AFTER INSERT OR UPDATE OF score OR DELETE ON Review
+    FOR EACH ROW
+    EXECUTE FUNCTION update_product_review_stats();
+```

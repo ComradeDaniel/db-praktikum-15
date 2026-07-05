@@ -1,6 +1,6 @@
 -- Media Store — Teil 2a: SQL-Anfragen
 -- PostgreSQL
--- Gruppe 18
+-- Gruppe 15
 
 
 -- Q1: Wieviele Produkte jeden Typs (Buch, Musik-CD, DVD) sind in der Datenbank erfasst? Hinweis: Geben Sie das Ergebnis in einer 3-spaltigen Relation aus.

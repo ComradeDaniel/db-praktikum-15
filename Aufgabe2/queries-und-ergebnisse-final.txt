@@ -1,5 +1,5 @@
  Media Store - Teil 2a: SQL-Anfragen und Ergebnisse
- Gruppe 18
+ Gruppe 15
  Live-Lauf gegen die geladene DB (Product=3324, Offer=3609, Review=6276, Store=2).
 
 

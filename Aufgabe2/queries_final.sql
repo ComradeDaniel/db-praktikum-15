@@ -66,11 +66,11 @@ HAVING COUNT(*) FILTER (WHERE score = 1) >= 1 AND
 
 
 -- Q6: Für wieviele Produkte gibt es gar keine Rezension?
-SELECT p.product_id 
-FROM Product AS p 
+SELECT COUNT(p.product_id) AS produkte_ohne_rezension
+FROM Product AS p
 WHERE NOT EXISTS (
-    SELECT product_id 
-    FROM review 
+    SELECT product_id
+    FROM review
     WHERE p.product_id = product_id
 );
 

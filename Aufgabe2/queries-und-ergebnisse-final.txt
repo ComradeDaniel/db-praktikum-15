@@ -256,14 +256,13 @@ B000C4JTT2
 Q6: Fuer wieviele Produkte gibt es gar keine Rezension?
 
 SQL:
-SELECT p.product_id FROM Product p WHERE NOT EXISTS (SELECT product_id FROM review WHERE p.product_id=product_id);
+SELECT COUNT(p.product_id) AS produkte_ohne_rezension FROM Product p WHERE NOT EXISTS (SELECT product_id FROM review WHERE p.product_id=product_id);
 
 Ergebnis:
 produkte_ohne_rezension
 1220
 
 (1 Zeile(n))
-HINWEIS: queries.sql listet die product_id (1220 Zeilen). Anzahl = 1220.
 
 
 Q7: Rezensenten mit mindestens 10 Rezensionen.

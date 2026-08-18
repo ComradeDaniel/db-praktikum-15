@@ -15,3 +15,12 @@ Windows:
 Unix-ähnliches Systeme:
 - `./gradlew Aufgabe1:run`
 
+## Starten der Aufgabe-3-Anwendung (Kotlin / Spring Boot / Hibernate):
+Datenbank muss laufen (siehe oben). Aus der Projekt-Root:
+
+- `./gradlew :Aufgabe3:bootRun`
+
+Danach: http://localhost:8080 (statische Seite) und http://localhost:8080/api/health
+
+Verbindungsparameter und Implementierungsklasse stehen in `db/db.properties`
+

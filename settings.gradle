@@ -1,3 +1,10 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
 rootProject.name = 'db-praktikum-15'
 include 'Aufgabe1'
 include 'Aufgabe2'

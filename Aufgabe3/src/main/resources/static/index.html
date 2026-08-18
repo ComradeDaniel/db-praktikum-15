@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Media Store — Aufgabe 3</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 52rem; margin: 2rem auto; padding: 0 1rem; }
+        code { background: #f3f3f3; padding: 0.1rem 0.35rem; }
+        li { margin: 0.35rem 0; }
+    </style>
+</head>
+<body>
+<h1>Media Store</h1>
+<p>
+    Spring Boot servt diese Seite aus <code>classpath:/static</code>.
+    Das React-Frontend kommt später an dieselbe Stelle.
+    Die Mittelschicht ist angebunden; die HQL-Methoden liefern noch HTTP 501.
+</p>
+<ul>
+    <li><a href="/api/health"><code>GET /api/health</code></a></li>
+    <li><code>GET /api/products?pattern=</code></li>
+    <li><code>GET /api/products/{id}</code></li>
+    <li><code>GET /api/categories/tree</code></li>
+    <li><code>GET /api/categories/products?path=A/B</code></li>
+    <li><code>GET /api/top-products?k=5</code></li>
+    <li><code>GET /api/products/{id}/similar-cheaper</code></li>
+    <li><code>POST /api/reviews</code></li>
+    <li><code>GET /api/trolls?maxAverageRating=2</code></li>
+    <li><code>GET /api/products/{id}/offers</code></li>
+</ul>
+</body>
+</html>

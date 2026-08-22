@@ -17,6 +17,10 @@ import aufgabe3.hibernate.entity.Offer
 import aufgabe3.hibernate.entity.Product
 import aufgabe3.hibernate.entity.Review
 import aufgabe3.hibernate.entity.Store
+import aufgabe3.hibernate.entity.Studio
+import aufgabe3.hibernate.entity.Person
+import aufgabe3.hibernate.entity.Publisher
+import aufgabe3.hibernate.entity.Label
 import org.hibernate.SessionFactory
 import org.hibernate.boot.MetadataSources
 import org.hibernate.boot.registry.StandardServiceRegistry
@@ -68,6 +72,10 @@ class HibernateMediaStore : MediaStoreApi {
                     Store::class.java,
                     Offer::class.java,
                     Review::class.java,
+                    Person::class.java,
+                    Publisher::class.java,
+                    Label::class.java,
+                    Studio::class.java,
                 )
                 .buildMetadata()
                 .buildSessionFactory()

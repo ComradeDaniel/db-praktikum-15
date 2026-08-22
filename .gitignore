@@ -29,6 +29,9 @@ replay_pid*
 .gradle/
 build/
 
+# Build-Ausgabe der Eclipse-/VS-Code-Tools
+bin/
+
 #Config 
 .vscode
 

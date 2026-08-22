@@ -1,9 +1,11 @@
 package aufgabe3.hibernate.entity
 
+import jakarta.persistence.CollectionTable
 import jakarta.persistence.Column
 import jakarta.persistence.DiscriminatorColumn
 import jakarta.persistence.DiscriminatorType
 import jakarta.persistence.DiscriminatorValue
+import jakarta.persistence.ElementCollection
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
@@ -12,6 +14,7 @@ import jakarta.persistence.InheritanceType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.JoinTable
 import jakarta.persistence.ManyToMany
+import jakarta.persistence.OrderBy
 import jakarta.persistence.Table
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -85,6 +88,22 @@ class Book : Product() {
 
     @Column(name = "package_length")
     var packageLength: Int? = null
+     
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "bookauthor",
+        joinColumns = [JoinColumn(name = "product_id")],
+        inverseJoinColumns = [JoinColumn(name = "person")],
+    )
+    var authors: MutableSet<Person> = mutableSetOf()
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "bookpublisher",
+        joinColumns = [JoinColumn(name = "product_id")],
+        inverseJoinColumns = [JoinColumn(name = "publisher")],
+    )
+    var publishers: MutableSet<Publisher> = mutableSetOf()
 }
 
 @Entity
@@ -110,6 +129,28 @@ class Dvd : Product() {
     var audioFormat: String? = null
 
     var upc: String? = null
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "dvdstudio",
+        joinColumns = [JoinColumn(name = "product_id")],
+        inverseJoinColumns = [JoinColumn(name = "studio")],
+    )
+    var studios: MutableSet<Studio> = mutableSetOf()
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+        name = "dvdlanguage",
+        joinColumns = [JoinColumn(name = "product_id")],
+    )
+    var languages: MutableSet<DvdLanguage> = mutableSetOf()
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+        name = "dvdperson",
+        joinColumns = [JoinColumn(name = "product_id")],
+    )
+    var persons: MutableSet<DvdPerson> = mutableSetOf()
 }
 
 @Entity
@@ -126,4 +167,28 @@ class MusicCd : Product() {
     var numDiscs: Int? = null
 
     var upc: String? = null
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "cdartist",
+        joinColumns = [JoinColumn(name = "product_id")],
+        inverseJoinColumns = [JoinColumn(name = "person")],
+    )
+    var artists: MutableSet<Person> = mutableSetOf()
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "cdlabel",
+        joinColumns = [JoinColumn(name = "product_id")],
+        inverseJoinColumns = [JoinColumn(name = "label")],
+    )
+    var labels: MutableSet<Label> = mutableSetOf()
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+        name = "track",
+        joinColumns = [JoinColumn(name = "product_id")],
+    )
+    @OrderBy("trackNo")
+    var tracks: MutableList<Track> = mutableListOf()
 }

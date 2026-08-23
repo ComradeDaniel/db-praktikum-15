@@ -23,10 +23,11 @@ data class ProductDetails(
     val detailUrl: String?,
     val avgRating: BigDecimal?,
     val numReviews: Int,
+    val categories: List<String>,
     val book: BookDetails? = null,
     val dvd: DvdDetails? = null,
     val musicCd: MusicCdDetails? = null,
-    val categories: List<String>,
+    
 )
 
 data class BookDetails(

@@ -9,6 +9,8 @@ data class ProductSummary(
     val productType: String,
     val avgRating: BigDecimal?,
     val salesRank: Int?,
+    val minPriceCents: Int?,  
+    val numReviews: Int,
 )
 
 data class ProductDetails(
@@ -21,9 +23,11 @@ data class ProductDetails(
     val detailUrl: String?,
     val avgRating: BigDecimal?,
     val numReviews: Int,
+    val categories: List<String>,
     val book: BookDetails? = null,
     val dvd: DvdDetails? = null,
     val musicCd: MusicCdDetails? = null,
+    
 )
 
 data class BookDetails(
@@ -32,6 +36,8 @@ data class BookDetails(
     val releaseDate: LocalDate?,
     val binding: String?,
     val edition: String?,
+    val authors: List<String>,
+    val publishers: List<String>,
 )
 
 data class DvdDetails(
@@ -41,6 +47,13 @@ data class DvdDetails(
     val releaseDate: LocalDate?,
     val aspectRatio: String?,
     val upc: String?,
+    val audioFormat: String?,
+    val theatricalRelease: Short?, 
+    val studios: List<String>,
+    val directors: List<String>,         
+    val actors: List<String>,
+    val creators: List<String>,
+    val languages: List<LanguageInfo>,
 )
 
 data class MusicCdDetails(
@@ -49,6 +62,19 @@ data class MusicCdDetails(
     val format: String?,
     val numDiscs: Int?,
     val upc: String?,
+    val artists: List<String>,
+    val labels: List<String>,
+    val tracks: List<TrackInfo>,
+)
+
+data class TrackInfo(
+    val trackNo: Int,
+    val name:String,
+)
+
+data class LanguageInfo(
+    val language: String,
+    val type: String,
 )
 
 data class CategoryNode(

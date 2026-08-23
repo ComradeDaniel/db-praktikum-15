@@ -16,11 +16,20 @@ Unix-ähnliches Systeme:
 - `./gradlew Aufgabe1:run`
 
 ## Starten der Aufgabe-3-Anwendung (Kotlin / Spring Boot / Hibernate):
-Datenbank muss laufen (siehe oben). Aus der Projekt-Root:
+Datenbank muss laufen (siehe oben). Node.js/npm wird für das Frontend benötigt.
+
+Zuerst das Frontend bauen
+
+- `./gradlew :Aufgabe3:buildFrontend`
+- oder `cd Aufgabe3/frontend && npm install && npm run build`
+
+Danach aus der Projekt-Root:
 
 - `./gradlew :Aufgabe3:bootRun`
 
-Danach: http://localhost:8080 (statische Seite) und http://localhost:8080/api/health
+Dann: http://localhost:8080 (React-Frontend) und http://localhost:8080/api/health
+
+Entwicklung mit Hot-Reload: Backend auf Port 8080 starten, danach `npm run dev` in `Aufgabe3/frontend` (Proxy nach `/api`).
 
 Verbindungsparameter und Implementierungsklasse stehen in `db/db.properties`
 

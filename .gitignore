@@ -37,3 +37,8 @@ bin/
 
 # Erzeugte Fehlerdatei bei Läufen
 fehler.txt
+
+# Node (Aufgabe-3-Frontend)
+node_modules/
+Aufgabe3/src/main/resources/static/assets/*.js
+Aufgabe3/src/main/resources/static/assets/*.css

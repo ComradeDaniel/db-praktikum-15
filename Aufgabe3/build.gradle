@@ -52,3 +52,32 @@ tasks.named('bootRun') {
 tasks.named('run') {
     workingDir = rootProject.projectDir
 }
+
+def frontendDir = file('frontend')
+def npmCmd = System.getProperty('os.name').toLowerCase().contains('windows') ? 'npm.cmd' : 'npm'
+
+tasks.register('npmInstallFrontend', Exec) {
+    group = 'build'
+    description = 'Installiert npm-Abhängigkeiten des React-Frontends'
+    workingDir = frontendDir
+    commandLine npmCmd, 'ci'
+    inputs.files("$frontendDir/package.json", "$frontendDir/package-lock.json")
+    outputs.dir("$frontendDir/node_modules")
+}
+
+tasks.register('buildFrontend', Exec) {
+    group = 'build'
+    description = 'Baut das React-Frontend nach src/main/resources/static'
+    dependsOn 'npmInstallFrontend'
+    workingDir = frontendDir
+    commandLine npmCmd, 'run', 'build'
+    inputs.dir("$frontendDir/src")
+    inputs.files(
+        "$frontendDir/index.html",
+        "$frontendDir/package.json",
+        "$frontendDir/vite.config.ts",
+        "$frontendDir/tsconfig.json",
+        "$frontendDir/tsconfig.app.json",
+    )
+    outputs.dir('src/main/resources/static')
+}

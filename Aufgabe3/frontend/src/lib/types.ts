@@ -4,6 +4,18 @@ export type ProductSummary = {
   productType: string
   avgRating: number | string | null
   salesRank: number | null
+  minPriceCents: number | null
+  numReviews: number
+}
+
+export type TrackInfo = {
+  trackNo: number
+  name: string
+}
+
+export type LanguageInfo = {
+  language: string
+  type: string
 }
 
 export type BookDetails = {
@@ -12,6 +24,8 @@ export type BookDetails = {
   releaseDate: string | null
   binding: string | null
   edition: string | null
+  authors: string[]
+  publishers: string[]
 }
 
 export type DvdDetails = {
@@ -21,6 +35,13 @@ export type DvdDetails = {
   releaseDate: string | null
   aspectRatio: string | null
   upc: string | null
+  audioFormat: string | null
+  theatricalRelease: number | null
+  studios: string[]
+  directors: string[]
+  actors: string[]
+  creators: string[]
+  languages: LanguageInfo[]
 }
 
 export type MusicCdDetails = {
@@ -29,6 +50,9 @@ export type MusicCdDetails = {
   format: string | null
   numDiscs: number | null
   upc: string | null
+  artists: string[]
+  labels: string[]
+  tracks: TrackInfo[]
 }
 
 export type ProductDetails = {
@@ -41,6 +65,7 @@ export type ProductDetails = {
   detailUrl: string | null
   avgRating: number | string | null
   numReviews: number
+  categories: string[]
   book?: BookDetails | null
   dvd?: DvdDetails | null
   musicCd?: MusicCdDetails | null

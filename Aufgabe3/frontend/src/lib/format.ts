@@ -47,6 +47,18 @@ export function formatPrice(cents: number | null, currency: string | null): stri
   }
 }
 
+export function formatList(values: string[] | null | undefined): string {
+  if (!values || values.length === 0) return '—'
+  return values.join(', ')
+}
+
+export function formatLanguages(
+  languages: { language: string; type: string }[] | null | undefined,
+): string {
+  if (!languages || languages.length === 0) return '—'
+  return languages.map((item) => (item.type ? `${item.language} (${item.type})` : item.language)).join(', ')
+}
+
 export function formatDate(iso: string | null | undefined): string {
   if (!iso) return '—'
   const d = new Date(iso)

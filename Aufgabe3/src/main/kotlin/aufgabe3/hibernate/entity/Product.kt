@@ -42,10 +42,10 @@ abstract class Product {
     @Column(name = "detail_url")
     var detailUrl: String? = null
 
-    @Column(name = "avg_rating")
+    @Column(name = "avg_rating", insertable=false, updatable=false)
     var avgRating: BigDecimal? = null
 
-    @Column(name = "num_reviews", nullable = false)
+    @Column(name = "num_reviews", nullable = false, insertable = false, updatable = false)
     var numReviews: Int = 0
 
     @ManyToMany(fetch = FetchType.LAZY)

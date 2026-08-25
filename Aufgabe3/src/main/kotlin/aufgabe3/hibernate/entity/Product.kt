@@ -14,6 +14,7 @@ import jakarta.persistence.InheritanceType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.JoinTable
 import jakarta.persistence.ManyToMany
+import jakarta.persistence.OneToMany
 import jakarta.persistence.OrderBy
 import jakarta.persistence.Table
 import java.math.BigDecimal
@@ -63,6 +64,9 @@ abstract class Product {
         inverseJoinColumns = [JoinColumn(name = "similar_product_id")],
     )
     var similarProducts: MutableSet<Product> = mutableSetOf()
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    var reviews: MutableSet<Review> = mutableSetOf()
 }
 
 @Entity

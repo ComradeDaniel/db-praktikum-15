@@ -12,6 +12,7 @@ import aufgabe3.api.NotYetImplementedException
 import aufgabe3.api.OfferInfo
 import aufgabe3.api.ProductDetails
 import aufgabe3.api.ProductSummary
+import aufgabe3.api.ReviewInfo
 import aufgabe3.api.TrollUser
 import aufgabe3.hibernate.entity.Book
 import aufgabe3.hibernate.entity.Category
@@ -401,8 +402,21 @@ class HibernateMediaStore : MediaStoreApi {
             book = book,
             dvd = dvd,
             musicCd = musicCd,
+            reviews = reviews
+                .map { review -> review.toReviewInfo() }
+                .sortedByDescending { info -> info.reviewDate },
         )
     }
+
+    private fun Review.toReviewInfo(): ReviewInfo = ReviewInfo(
+        reviewId = reviewId,
+        username = customer?.username,
+        score = score.toInt(),
+        reviewDate = reviewDate,
+        summary = summary,
+        content = content,
+        helpful = helpful,
+    )
 
     private fun Book.toBookDetails(): BookDetails = BookDetails(
         isbn = isbn,

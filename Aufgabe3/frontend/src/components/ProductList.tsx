@@ -8,7 +8,7 @@ import {
   productTypeClass,
   productTypeLabel,
 } from '../lib/format'
-import type { ProductDetails, ProductSummary, TrackInfo } from '../lib/types'
+import type { ProductDetails, ProductSummary, ReviewInfo, TrackInfo } from '../lib/types'
 import { DetailGrid, ExpandableRow } from './ExpandableRow'
 
 function TypeBadge({ type }: { type: string }) {
@@ -190,10 +190,37 @@ export function ProductDetailsList({ product }: { product: ProductDetails | null
                 <TrackList tracks={product.musicCd.tracks} />
               </section>
             )}
+            <ReviewList reviews={product.reviews} />
           </div>
         </div>
       </ExpandableRow>
     </ul>
+  )
+}
+
+function ReviewList({ reviews }: { reviews: ReviewInfo[] | null | undefined }) {
+  if (!reviews || reviews.length === 0) return null
+  return (
+    <section>
+      <h3 className="mb-2 text-xs font-semibold tracking-wide text-ink-muted uppercase">
+        Rezensionen ({reviews.length})
+      </h3>
+      <ul className="space-y-2 text-sm">
+        {reviews.map((review) => (
+          <li key={review.reviewId} className="rounded-md border border-line bg-paper-2 px-3 py-2">
+            <div className="flex flex-wrap items-baseline gap-x-2">
+              <span className="tabular-nums">★ {review.score}</span>
+              <span className="font-medium">{dash(review.summary)}</span>
+              <span className="text-xs text-ink-muted">
+                {review.username ?? 'anonym'} · {formatDate(review.reviewDate)}
+                {review.helpful != null && ` · ${review.helpful}× hilfreich`}
+              </span>
+            </div>
+            {review.content && <p className="mt-1 whitespace-pre-line text-ink-muted">{review.content}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }
 

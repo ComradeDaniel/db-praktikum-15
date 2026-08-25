@@ -55,6 +55,16 @@ export type MusicCdDetails = {
   tracks: TrackInfo[]
 }
 
+export type ReviewInfo = {
+  reviewId: number
+  username: string | null
+  score: number
+  reviewDate: string | null
+  summary: string | null
+  content: string | null
+  helpful: number | null
+}
+
 export type ProductDetails = {
   productId: string
   title: string
@@ -69,6 +79,7 @@ export type ProductDetails = {
   book?: BookDetails | null
   dvd?: DvdDetails | null
   musicCd?: MusicCdDetails | null
+  reviews?: ReviewInfo[] | null
 }
 
 export type CategoryNode = {

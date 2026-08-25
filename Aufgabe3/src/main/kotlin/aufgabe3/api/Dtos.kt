@@ -27,7 +27,7 @@ data class ProductDetails(
     val book: BookDetails? = null,
     val dvd: DvdDetails? = null,
     val musicCd: MusicCdDetails? = null,
-    
+    val reviews: List<ReviewInfo> = emptyList(),
 )
 
 data class BookDetails(
@@ -75,6 +75,16 @@ data class TrackInfo(
 data class LanguageInfo(
     val language: String,
     val type: String,
+)
+
+data class ReviewInfo(
+    val reviewId: Int,
+    val username: String?,
+    val score: Int,
+    val reviewDate: LocalDate?,
+    val summary: String?,
+    val content: String?,
+    val helpful: Int?,
 )
 
 data class CategoryNode(

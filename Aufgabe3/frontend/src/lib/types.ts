@@ -81,7 +81,6 @@ export type NewReview = {
   productId: string
   username: string | null
   score: number
-  helpful: number | null
   reviewDate: string | null
   summary: string | null
   content: string | null
@@ -131,7 +130,6 @@ export type FormState = {
   maxAverageRating: string
   username: string
   score: string
-  helpful: string
   reviewDate: string
   summary: string
   content: string
@@ -145,7 +143,6 @@ export const initialForm: FormState = {
   maxAverageRating: '2',
   username: '',
   score: '5',
-  helpful: '',
   reviewDate: '',
   summary: '',
   content: '',

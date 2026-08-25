@@ -162,16 +162,6 @@ function ReviewFields({ form, onChange }: { form: FormState; onChange: (patch: P
           ))}
         </select>
       </Field>
-      <Field label="Hilfreich" hint="Optional, ganze Zahl">
-        <input
-          className={inputClass}
-          type="number"
-          min={0}
-          step={1}
-          value={form.helpful}
-          onChange={(e) => onChange({ helpful: e.target.value })}
-        />
-      </Field>
       <Field label="Datum" hint="Optional">
         <input
           className={inputClass}

@@ -263,7 +263,6 @@ class HibernateMediaStore : MediaStoreApi {
     override fun addNewReview(review: NewReview) {
         require(review.productId.isNotBlank()) { "productId darf nicht leer sein" }
         require(review.score in 1..5) { "score muss zwischen 1 und 5 liegen" }
-        require(review.helpful == null || review.helpful >= 0) { "helpful darf nicht negativ sein" }
 
         val reviewDate = if (review.reviewDate == null) LocalDate.now() else review.reviewDate
         require(!reviewDate.isAfter(LocalDate.now())) { "reviewDate darf nicht in der Zukunft liegen" }
@@ -286,7 +285,7 @@ class HibernateMediaStore : MediaStoreApi {
             entity.product = product
             entity.customer = customer
             entity.score = review.score.toShort()
-            entity.helpful = review.helpful
+            entity.helpful = 0
             entity.reviewDate = reviewDate
             entity.summary = review.summary
             entity.content = review.content

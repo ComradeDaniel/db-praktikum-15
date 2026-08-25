@@ -1,4 +1,4 @@
-import { emptyToInt, emptyToNull, parseNumber, parsePositiveInt, required } from './format'
+import { emptyToNull, parseNumber, parsePositiveInt, required } from './format'
 import type {
   CategoryNode,
   FormState,
@@ -122,7 +122,6 @@ export async function execute(method: MethodId, form: FormState): Promise<QueryR
         productId: required(form.productId, 'Produkt-ID'),
         username: emptyToNull(form.username),
         score,
-        helpful: emptyToInt(form.helpful, 'Hilfreich'),
         reviewDate: emptyToNull(form.reviewDate),
         summary: emptyToNull(form.summary),
         content: emptyToNull(form.content),

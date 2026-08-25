@@ -87,7 +87,6 @@ data class NewReview(
     val productId: String,
     val username: String?,
     val score: Int,
-    val helpful: Int? = null,
     val reviewDate: LocalDate? = null,
     val summary: String? = null,
     val content: String? = null,

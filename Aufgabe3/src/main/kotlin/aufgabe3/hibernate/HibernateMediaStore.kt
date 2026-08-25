@@ -104,7 +104,9 @@ class HibernateMediaStore : MediaStoreApi {
 
     override fun getProduct(productId: String): ProductDetails? = withSession { session ->
         val product = session.find(Product::class.java, productId)
-            ?: throw NotFoundException("Produkt nicht gefunden: $productId")
+        if (product == null) {
+            throw NotFoundException("Produkt nicht gefunden: $productId")
+        }
 
         product.toProductDetails()
     }
@@ -263,17 +265,21 @@ class HibernateMediaStore : MediaStoreApi {
         require(review.score in 1..5) { "score muss zwischen 1 und 5 liegen" }
         require(review.helpful == null || review.helpful >= 0) { "helpful darf nicht negativ sein" }
 
-        val reviewDate = review.reviewDate ?: LocalDate.now()
+        val reviewDate = if (review.reviewDate == null) LocalDate.now() else review.reviewDate
         require(!reviewDate.isAfter(LocalDate.now())) { "reviewDate darf nicht in der Zukunft liegen" }
 
         withTransaction { session ->
             val product = session.find(Product::class.java, review.productId)
-                ?: throw NotFoundException("Produkt nicht gefunden: ${review.productId}")
+            if (product == null) {
+                throw NotFoundException("Produkt nicht gefunden: ${review.productId}")
+            }
 
             var customer: Customer? = null
             if (review.username != null) {
                 customer = session.find(Customer::class.java, review.username)
-                    ?: throw NotFoundException("Kunde nicht gefunden: ${review.username}")
+                if (customer == null) {
+                    throw NotFoundException("Kunde nicht gefunden: ${review.username}")
+                }
             }
 
             val entity = Review()

@@ -1,6 +1,11 @@
 package aufgabe3.hibernate
 
 import aufgabe3.api.CategoryNode
+import aufgabe3.api.BookDetails
+import aufgabe3.api.DvdDetails
+import aufgabe3.api.LanguageInfo
+import aufgabe3.api.MusicCdDetails
+import aufgabe3.api.TrackInfo
 import aufgabe3.api.MediaStoreApi
 import aufgabe3.api.NewReview
 import aufgabe3.api.NotYetImplementedException
@@ -28,6 +33,7 @@ import org.hibernate.SessionFactory
 import org.hibernate.boot.MetadataSources
 import org.hibernate.boot.registry.StandardServiceRegistry
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder
+import java.time.LocalDate
 import java.util.Properties
 
 class HibernateMediaStore : MediaStoreApi {
@@ -96,9 +102,35 @@ class HibernateMediaStore : MediaStoreApi {
         registry = null
     }
 
-    override fun getProduct(productId: String): ProductDetails? = notYet("getProduct")
+    override fun getProduct(productId: String): ProductDetails? = withSession { session ->
+        val product = session.find(Product::class.java, productId)
+            ?: throw NotFoundException("Produkt nicht gefunden: $productId")
 
-    override fun getProducts(pattern: String?): List<ProductSummary> = notYet("getProducts")
+        product.toProductDetails()
+    }
+
+    override fun getProducts(pattern: String?): List<ProductSummary> = withSession { session ->
+        val filter = if (pattern == null) "" else "where p.title like :pattern"
+
+        val query = session.createSelectionQuery(
+            """
+            select p,
+                   (select min(o.priceCents)
+                    from Offer o
+                    where o.product = p and o.priceCents is not null)
+            from Product p
+            $filter
+            order by p.title
+            """.trimIndent(),
+            Tuple::class.java,
+        )
+
+        if (pattern != null) {
+            query.setParameter("pattern", pattern)
+        }
+
+        query.resultList.map { row -> row.toProductSummary() }
+    }
 
     override fun getCategoryTree(): CategoryNode = withSession { session ->
         val all = session
@@ -172,7 +204,28 @@ class HibernateMediaStore : MediaStoreApi {
         }
     }
 
-    override fun getTopProducts(k: Int): List<ProductSummary> = notYet("getTopProducts")
+    override fun getTopProducts(k: Int): List<ProductSummary> {
+        require(k > 0) { "k muss größer als 0 sein" }
+
+        return withSession { session ->
+            session
+                .createSelectionQuery(
+                    """
+                    select p,
+                           (select min(o.priceCents)
+                            from Offer o
+                            where o.product = p and o.priceCents is not null)
+                    from Product p
+                    where p.avgRating is not null
+                    order by p.avgRating desc, p.numReviews desc, p.productId asc
+                    """.trimIndent(),
+                    Tuple::class.java,
+                )
+                .setMaxResults(k)
+                .resultList
+                .map { row -> row.toProductSummary() }
+        }
+    }
 
     override fun getSimilarCheaperProduct(productId: String): List<ProductSummary> =
         withSession { session ->
@@ -205,7 +258,36 @@ class HibernateMediaStore : MediaStoreApi {
                 .map { it.toProductSummary() }
         }
 
-    override fun addNewReview(review: NewReview): Unit = notYet("addNewReview")
+    override fun addNewReview(review: NewReview) {
+        require(review.productId.isNotBlank()) { "productId darf nicht leer sein" }
+        require(review.score in 1..5) { "score muss zwischen 1 und 5 liegen" }
+        require(review.helpful == null || review.helpful >= 0) { "helpful darf nicht negativ sein" }
+
+        val reviewDate = review.reviewDate ?: LocalDate.now()
+        require(!reviewDate.isAfter(LocalDate.now())) { "reviewDate darf nicht in der Zukunft liegen" }
+
+        withTransaction { session ->
+            val product = session.find(Product::class.java, review.productId)
+                ?: throw NotFoundException("Produkt nicht gefunden: ${review.productId}")
+
+            var customer: Customer? = null
+            if (review.username != null) {
+                customer = session.find(Customer::class.java, review.username)
+                    ?: throw NotFoundException("Kunde nicht gefunden: ${review.username}")
+            }
+
+            val entity = Review()
+            entity.product = product
+            entity.customer = customer
+            entity.score = review.score.toShort()
+            entity.helpful = review.helpful
+            entity.reviewDate = reviewDate
+            entity.summary = review.summary
+            entity.content = review.content
+
+            session.persist(entity)
+        }
+    }
 
     override fun getTrolls(maxAverageRating: Double): List<TrollUser> = withSession { session ->
         session
@@ -231,11 +313,39 @@ class HibernateMediaStore : MediaStoreApi {
             }
     }
 
-    override fun getOffers(productId: String): List<OfferInfo> = notYet("getOffers")
+    override fun getOffers(productId: String): List<OfferInfo> = withSession { session ->
+        session
+            .createSelectionQuery(
+                """
+                select o from Offer o
+                join fetch o.store
+                where o.product.productId = :productId
+                order by o.priceCents asc nulls last
+                """.trimIndent(),
+                Offer::class.java,
+            )
+            .setParameter("productId", productId)
+            .resultList
+            .map { offer -> offer.toOfferInfo() }
+    }
 
     private fun <T> withSession(block: (Session) -> T): T {
         val factory = sessionFactory ?: error("init() wurde nicht aufgerufen")
         return factory.openSession().use(block)
+    }
+
+    private fun <T> withTransaction(block: (Session) -> T): T = withSession { session ->
+        val transaction = session.beginTransaction()
+        try {
+            val result = block(session)
+            transaction.commit()
+            result
+        } catch (e: Exception) {
+            if (transaction.isActive) {
+                transaction.rollback()
+            }
+            throw e
+        }
     }
 
     private fun Tuple.toProductSummary(): ProductSummary {
@@ -251,6 +361,85 @@ class HibernateMediaStore : MediaStoreApi {
             numReviews = product.numReviews,
         )
     }
+
+    private fun Offer.toOfferInfo(): OfferInfo {
+        val s = checkNotNull(store)
+        val p = checkNotNull(product)
+        return OfferInfo(
+            offerId = offerId,
+            storeId = s.storeId,
+            storeName = s.name,
+            productId = p.productId,
+            priceCents = priceCents,
+            available = available,
+            currency = currency,
+            condition = condition,
+        )
+    }
+
+    private fun Product.toProductDetails(): ProductDetails {
+        val book = if (this is Book) this.toBookDetails() else null
+        val dvd = if (this is Dvd) this.toDvdDetails() else null
+        val musicCd = if (this is MusicCd) this.toMusicCdDetails() else null
+
+        return ProductDetails(
+            productId = productId,
+            title = title,
+            productType = productTypeOf(this),
+            salesRank = salesRank,
+            imageUrl = imageUrl,
+            ean = ean,
+            detailUrl = detailUrl,
+            avgRating = avgRating,
+            numReviews = numReviews,
+            categories = categories.map { category -> category.name }.sorted(),
+            book = book,
+            dvd = dvd,
+            musicCd = musicCd,
+        )
+    }
+
+    private fun Book.toBookDetails(): BookDetails = BookDetails(
+        isbn = isbn,
+        pageCount = pageCount,
+        releaseDate = releaseDate,
+        binding = binding,
+        edition = edition,
+        authors = authors.map { person -> person.name }.sorted(),
+        publishers = publishers.map { publisher -> publisher.name }.sorted(),
+    )
+
+    private fun Dvd.toDvdDetails(): DvdDetails = DvdDetails(
+        format = format,
+        runtime = runtime,
+        regionCode = regionCode,
+        releaseDate = releaseDate,
+        aspectRatio = aspectRatio,
+        upc = upc,
+        audioFormat = audioFormat,
+        theatricalRelease = theatricalRelease,
+        studios = studios.map { studio -> studio.name }.sorted(),
+        directors = personsWithRole("Director"),
+        actors = personsWithRole("Actor"),
+        creators = personsWithRole("Creator"),
+        languages = languages.map { entry -> LanguageInfo(entry.language, entry.languageType) },
+    )
+
+    private fun Dvd.personsWithRole(role: String): List<String> = persons
+        .filter { entry -> entry.role == role }
+        .map { entry -> checkNotNull(entry.person).name }
+        .sorted()
+
+    private fun MusicCd.toMusicCdDetails(): MusicCdDetails = MusicCdDetails(
+        releaseDate = releaseDate,
+        binding = binding,
+        format = format,
+        numDiscs = numDiscs,
+        upc = upc,
+        artists = artists.map { person -> person.name }.sorted(),
+        labels = labels.map { label -> label.name }.sorted(),
+        tracks = tracks.map { track -> TrackInfo(track.trackNo, track.name) },
+    )
 
     private fun productTypeOf(product: Product): String = when (product) {
         is Book -> "Book"
